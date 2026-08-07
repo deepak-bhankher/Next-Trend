@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FiArrowRight, FiTruck, FiRefreshCw, FiShield } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import api from "../utils/api";
+import ShoeCard from "../components/ShoeCard";
 
 const features = [
   { icon: <FiTruck size={26} />, title: "Free Shipping", desc: "On all orders above ₹999" },
@@ -9,6 +12,19 @@ const features = [
 ];
 
 const Home = () => {
+  const [featured, setFeatured] = useState([]);
+
+useEffect(() => {
+  const fetchFeatured = async () => {
+    try {
+      const { data } = await api.get("/products");
+      setFeatured(data.filter((p) => p.isFeatured).slice(0, 4));
+    } catch (error) {
+      console.error("Error fetching featured products:", error);
+    }
+  };
+  fetchFeatured();
+}, []);
   return (
     <div className="bg-dark text-white">
       {/* Hero Section */}
@@ -101,9 +117,19 @@ const Home = () => {
           <h2 className="text-4xl font-bold">Featured Sneakers</h2>
         </motion.div>
 
-        <div className="text-center text-white/40">
-          Featured products will load here from the backend (next step)
-        </div>
+       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+  {featured.map((product, i) => (
+    <motion.div
+      key={product._id}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: i * 0.1 }}
+    >
+      <ShoeCard product={product} />
+    </motion.div>
+  ))}
+</div>
       </section>
     </div>
   );

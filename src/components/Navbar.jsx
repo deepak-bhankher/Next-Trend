@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiShoppingCart, FiMenu, FiX, FiUser, FiSearch } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -15,6 +16,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { cartCount } = useCart();
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -71,12 +73,15 @@ const Navbar = () => {
               <FiSearch size={20} />
             </button>
             <Link
-              to="/login"
+              to={user ? "/orders" : "/login"}
               className="text-white/80 hover:text-white transition-colors hidden sm:block"
             >
               <FiUser size={20} />
             </Link>
-            <Link to="/cart" className="relative text-white/80 hover:text-white transition-colors">
+            <Link
+              to="/cart"
+              className="relative text-white/80 hover:text-white transition-colors"
+            >
               <FiShoppingCart size={20} />
               {cartCount > 0 && (
                 <motion.span
