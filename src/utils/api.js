@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://next-trend-backend.onrender.com/",
   withCredentials: true, // cookies (login token) bhejne ke liye zaroori
 });
 
-export default api;
+export default api; 
