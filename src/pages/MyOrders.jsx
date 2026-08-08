@@ -3,10 +3,23 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiPackage, FiChevronRight } from "react-icons/fi";
 import api from "../utils/api";
+import { FiLogOut } from "react-icons/fi";
+import { toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { logout } = useAuth();
+const navigate = useNavigate();
+
+
+const handleLogout = async () => {
+  await logout();
+  toast.success("Logged out successfully");
+  navigate("/");
+};
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -33,7 +46,15 @@ const MyOrders = () => {
   return (
     <div className="bg-dark text-white min-h-screen pt-32 pb-20">
       <div className="max-w-4xl mx-auto px-6">
-        <h1 className="text-4xl font-bold mb-10">My Orders</h1>
+       <div className="flex items-center justify-between mb-10">
+  <h1 className="text-4xl font-bold">My Orders</h1>
+  <button
+    onClick={handleLogout}
+    className="flex items-center gap-2 bg-white/5 border border-white/10 hover:border-white/30 text-white/70 hover:text-white px-5 py-2.5 rounded-full text-sm font-medium transition-colors"
+  >
+    <FiLogOut size={16} /> Logout
+  </button>
+</div>
 
         {orders.length === 0 ? (
           <div className="text-center py-20">
