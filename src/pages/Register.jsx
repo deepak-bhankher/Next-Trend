@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
@@ -6,11 +6,36 @@ import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-ico
 import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
-  const { register } = useAuth();
+ const { register, googleLogin } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const googleBtnRef = useRef(null);
+
+useEffect(() => {
+  if (window.google && googleBtnRef.current) {
+    window.google.accounts.id.initialize({
+      client_id: "585398841342-iqn8m6gu2hm42radqce7bbjn7u61hpov.apps.googleusercontent.com",
+      callback: async (response) => {
+        try {
+          await googleLogin(response.credential);
+          toast.success("Account created!");
+          navigate("/");
+        } catch (error) {
+          toast.error("Google sign up failed");
+        }
+      },
+    });
+    window.google.accounts.id.renderButton(googleBtnRef.current, {
+      theme: "filled_black",
+      size: "large",
+      width: 400,
+      shape: "pill",
+      text: "signup_with",
+    });
+  }
+}, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -127,6 +152,13 @@ const Register = () => {
               )}
             </button>
           </form>
+          <div className="flex items-center gap-3 my-6">
+  <div className="flex-1 h-px bg-white/10" />
+  <span className="text-white/30 text-xs uppercase tracking-wide">or</span>
+  <div className="flex-1 h-px bg-white/10" />
+</div>
+
+<div ref={googleBtnRef} className="flex justify-center" />
 
           <p className="text-center text-white/50 text-sm mt-8">
             Already have an account?{" "}
