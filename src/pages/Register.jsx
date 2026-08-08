@@ -2,42 +2,50 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
+import {
+  FiUser,
+  FiMail,
+  FiLock,
+  FiEye,
+  FiEyeOff,
+  FiArrowRight,
+} from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
- const { register, googleLogin } = useAuth();
+  const { register, googleLogin } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const googleBtnRef = useRef(null);
 
-useEffect(() => {
-  if (window.google && googleBtnRef.current) {
-    window.google.accounts.id.initialize({
-      client_id: "585398841342-iqn8m6gu2hm42radqce7bbjn7u61hpov.apps.googleusercontent.com",
-      callback: async (response) => {
-        try {
-          await googleLogin(response.credential);
-          toast.success("Account created!");
-          navigate("/");
-        } catch (error) {
-          toast.error("Google sign up failed");
-        }
-      },
-    });
-    window.google.accounts.id.renderButton(googleBtnRef.current, {
-      theme: "filled_black",
-      size: "large",
-      width: 400,
-      shape: "pill",
-      text: "signup_with",
-    });
-  }
-}, []);
+  useEffect(() => {
+    if (window.google && googleBtnRef.current) {
+      window.google.accounts.id.initialize({
+        client_id:
+          "585398841342-iqn8m6gu2hm42radqce7bbjn7u61hpov.apps.googleusercontent.com",
+        callback: async (response) => {
+          try {
+            await googleLogin(response.credential);
+            toast.success("Account created!");
+            navigate("/");
+          } catch (error) {
+            toast.error("Google sign up failed");
+          }
+        },
+      });
+      window.google.accounts.id.renderButton(googleBtnRef.current, {
+  theme: "outline",
+  size: "large",
+  width: 400,
+  shape: "rectangular",
+});
+    }
+  }, []);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,8 +79,8 @@ useEffect(() => {
             STRIDE<span className="text-white/40">.</span>
           </h2>
           <p className="text-white/50 text-lg max-w-sm mx-auto leading-relaxed">
-            Join thousands who've found their perfect stride. Premium
-            sneakers, delivered to you.
+            Join thousands who've found their perfect stride. Premium sneakers,
+            delivered to you.
           </p>
         </motion.div>
       </div>
@@ -95,7 +103,10 @@ useEffect(() => {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="relative">
-              <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
+              <FiUser
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30"
+                size={18}
+              />
               <input
                 type="text"
                 name="name"
@@ -108,7 +119,10 @@ useEffect(() => {
             </div>
 
             <div className="relative">
-              <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
+              <FiMail
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30"
+                size={18}
+              />
               <input
                 type="email"
                 name="email"
@@ -121,7 +135,10 @@ useEffect(() => {
             </div>
 
             <div className="relative">
-              <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
+              <FiLock
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30"
+                size={18}
+              />
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -143,27 +160,39 @@ useEffect(() => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-white text-black py-3.5 rounded-xl font-semibold hover:scale-[1.02] transition-transform disabled:opacity-40 disabled:hover:scale-100 mt-2"
+              className="w-full flex items-center cursor-pointer  justify-center gap-2 bg-white text-black py-3.5 rounded-xl font-semibold hover:scale-[1.02] transition-transform disabled:opacity-40 disabled:hover:scale-100 mt-2"
             >
-              {loading ? "Creating account..." : (
+              {loading ? (
+                "Creating account..."
+              ) : (
                 <>
                   Create Account <FiArrowRight size={18} />
                 </>
               )}
             </button>
           </form>
-          <div className="flex items-center gap-3 my-6">
-  <div className="flex-1 h-px bg-white/10" />
-  <span className="text-white/30 text-xs uppercase tracking-wide">or</span>
-  <div className="flex-1 h-px bg-white/10" />
-</div>
+          <div className="flex items-center gap-4 my-8">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/15 to-white/15" />
+            <span className="text-white/40 text-xs uppercase tracking-[0.2em] font-medium">
+              Or continue with
+            </span>
+            <div className="flex-1 h-px bg-gradient-to-l from-transparent via-white/15 to-white/15" />
+          </div>
 
-<div ref={googleBtnRef} className="flex justify-center" />
-
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="flex justify-center hover:scale-105 transition-all duration-300 cursor-pointer"
+          >
+            <div ref={googleBtnRef} />
+          </motion.div>
           <p className="text-center text-white/50 text-sm mt-8">
             Already have an account?{" "}
-            <Link to="/login" className="text-white font-medium hover:underline">
-              Sign in
+            <Link
+              to="/login"
+              className="text-white font-medium hover:underline"
+            >
+              Login in
             </Link>
           </p>
         </motion.div>

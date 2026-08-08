@@ -29,10 +29,10 @@ const Login = () => {
         },
       });
       window.google.accounts.id.renderButton(googleBtnRef.current, {
-        theme: "filled_black",
+        theme: "outline",
         size: "large",
-        width: 400,
-        shape: "pill",
+        width: 380,
+        shape: "rectangular",
       });
     }
   }, []);
@@ -88,7 +88,7 @@ const Login = () => {
           <p className="uppercase tracking-[0.3em] text-white/40 text-xs mb-3">
             Welcome Back
           </p>
-          <h1 className="text-4xl font-bold mb-2">Sign In</h1>
+          <h1 className="text-4xl font-bold mb-2">Login </h1>
           <p className="text-white/50 mb-10">
             Enter your details to continue shopping
           </p>
@@ -136,34 +136,39 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-white text-black py-3.5 rounded-xl font-semibold hover:scale-[1.02] transition-transform disabled:opacity-40 disabled:hover:scale-100 mt-2"
+              className="w-full flex cursor-pointer items-center justify-center gap-2 bg-white text-black py-3.5 rounded-xl font-semibold hover:scale-[1.02] transition-transform disabled:opacity-40 disabled:hover:scale-100 mt-2"
             >
               {loading ? (
-                "Signing in..."
+                "Logging in..."
               ) : (
                 <>
-                  Sign In <FiArrowRight size={18} />
+                  Login <FiArrowRight size={18} />
                 </>
               )}
             </button>
           </form>
-          <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-white/10" />
-            <span className="text-white/30 text-xs uppercase tracking-wide">
-              or
+          <div className="flex items-center gap-4 my-8">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/15 to-white/15" />
+            <span className="text-white/40 text-xs uppercase tracking-[0.2em] font-medium">
+              Or continue with
             </span>
-            <div className="flex-1 h-px bg-white/10" />
+            <div className="flex-1 h-px bg-gradient-to-l from-transparent via-white/15 to-white/15" />
           </div>
 
-          <div ref={googleBtnRef} className="flex justify-center" />
-
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="flex justify-center hover:scale-105 transition-all duration-300 cursor-pointer"
+          >
+            <div ref={googleBtnRef} />
+          </motion.div>
           <p className="text-center text-white/50 text-sm mt-8">
             Don't have an account?{" "}
             <Link
               to="/register"
               className="text-white font-medium hover:underline"
             >
-              Create one
+              Register
             </Link>
           </p>
         </motion.div>
