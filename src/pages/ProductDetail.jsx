@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiShoppingBag, FiCheck } from "react-icons/fi";
 import { toast } from "react-toastify";
 import api from "../utils/api";
 import { useCart } from "../context/CartContext";
+import ShoeCard from "../components/ShoeCard";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -14,6 +15,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [related, setRelated] = useState([]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -29,6 +31,19 @@ const ProductDetail = () => {
     };
     fetchProduct();
   }, [id]);
+
+  useEffect(() => {
+    const fetchRelated = async () => {
+      if (!product) return;
+      try {
+        const { data } = await api.get(`/products?category=${product.category}`);
+        setRelated(data.filter((p) => p._id !== product._id).slice(0, 4));
+      } catch (error) {
+        console.error("Error fetching related products:", error);
+      }
+    };
+    fetchRelated();
+  }, [product]);
 
   const handleAddToCart = () => {
     if (!selectedSize) {
@@ -169,6 +184,17 @@ const ProductDetail = () => {
           </button>
         </motion.div>
       </div>
+
+      {related.length > 0 && (
+        <div className="max-w-6xl mx-auto px-6 mt-24">
+          <h2 className="text-2xl font-bold mb-8">You Might Also Like</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {related.map((item) => (
+              <ShoeCard key={item._id} product={item} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
