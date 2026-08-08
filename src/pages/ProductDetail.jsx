@@ -6,10 +6,14 @@ import { toast } from "react-toastify";
 import api from "../utils/api";
 import { useCart } from "../context/CartContext";
 import ShoeCard from "../components/ShoeCard";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; 
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const { user } = useAuth();
+const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -46,20 +50,25 @@ const ProductDetail = () => {
   }, [product]);
 
   const handleAddToCart = () => {
-    if (!selectedSize) {
-      toast.error("Please select a size");
-      return;
-    }
-    addToCart({
-      product: product._id,
-      name: product.name,
-      image: product.images[0],
-      price: product.price,
-      size: selectedSize,
-      qty: 1,
-    });
-    toast.success("Added to cart!");
-  };
+  if (!user) {
+    toast.error("Please login to add items to cart");
+    navigate("/login");
+    return;
+  }
+  if (!selectedSize) {
+    toast.error("Please select a size");
+    return;
+  }
+  addToCart({
+    product: product._id,
+    name: product.name,
+    image: product.images[0],
+    price: product.price,
+    size: selectedSize,
+    qty: 1,
+  });
+  toast.success("Added to cart!");
+};
 
   if (loading) {
     return (
