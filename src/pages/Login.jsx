@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
@@ -6,13 +6,39 @@ import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const googleBtnRef = useRef(null);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  useEffect(() => {
+    if (window.google && googleBtnRef.current) {
+      window.google.accounts.id.initialize({
+        client_id:
+          "585398841342-iqn8m6gu2hm42radqce7bbjn7u61hpov.apps.googleusercontent.com",
+        callback: async (response) => {
+          try {
+            await googleLogin(response.credential);
+            toast.success("Welcome back!");
+            navigate("/");
+          } catch (error) {
+            toast.error("Google login failed");
+          }
+        },
+      });
+      window.google.accounts.id.renderButton(googleBtnRef.current, {
+        theme: "filled_black",
+        size: "large",
+        width: 400,
+        shape: "pill",
+      });
+    }
+  }, []);
+
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,8 +72,7 @@ const Login = () => {
             STRIDE<span className="text-white/40">.</span>
           </h2>
           <p className="text-white/50 text-lg max-w-sm mx-auto leading-relaxed">
-            Step back into your world of premium sneakers, curated just for
-            you.
+            Step back into your world of premium sneakers, curated just for you.
           </p>
         </motion.div>
       </div>
@@ -70,7 +95,10 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="relative">
-              <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
+              <FiMail
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30"
+                size={18}
+              />
               <input
                 type="email"
                 name="email"
@@ -83,7 +111,10 @@ const Login = () => {
             </div>
 
             <div className="relative">
-              <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
+              <FiLock
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30"
+                size={18}
+              />
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -107,17 +138,31 @@ const Login = () => {
               disabled={loading}
               className="w-full flex items-center justify-center gap-2 bg-white text-black py-3.5 rounded-xl font-semibold hover:scale-[1.02] transition-transform disabled:opacity-40 disabled:hover:scale-100 mt-2"
             >
-              {loading ? "Signing in..." : (
+              {loading ? (
+                "Signing in..."
+              ) : (
                 <>
                   Sign In <FiArrowRight size={18} />
                 </>
               )}
             </button>
           </form>
+          <div className="flex items-center gap-3 my-6">
+            <div className="flex-1 h-px bg-white/10" />
+            <span className="text-white/30 text-xs uppercase tracking-wide">
+              or
+            </span>
+            <div className="flex-1 h-px bg-white/10" />
+          </div>
+
+          <div ref={googleBtnRef} className="flex justify-center" />
 
           <p className="text-center text-white/50 text-sm mt-8">
             Don't have an account?{" "}
-            <Link to="/register" className="text-white font-medium hover:underline">
+            <Link
+              to="/register"
+              className="text-white font-medium hover:underline"
+            >
               Create one
             </Link>
           </p>
