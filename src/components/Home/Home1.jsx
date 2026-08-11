@@ -9,12 +9,12 @@ const heroImages = [
 ];
 
 const scrollShoes = [
-  { image: "/shoe-row-1.jpg", name: "", brand: "" },
-  { image: "/shoe-row-2.jpg", name: "", brand: "" },
-  { image: "/shoe-row-3.jpg", name: "", brand: "" },
-  { image: "/shoe-row-4.jpg", name: "", brand: "" },
-  { image: "/shoe-row-5.jpg", name: "", brand: "" },
-  { image: "/shoe-row-6.jpg", name: "", brand: "" },
+  { image: "/adidas%20Duramo%20SL%202_0%20Running%20Shoes%20-%20Black%20_%20Free%20Shipping%20with%20adiClub.jfif", name: "Duramo SL 2.0", brand: "Adidas" },
+  { image: "/PUMA%20Mens%20Seeker%20Speckle%20Lace%20Up%20Sneakers%20Shoes%20Casual%20-%20Black.jfif", name: "Seeker Speckle", brand: "Puma" },
+  { image: "/Speedcat%20OG%20Sneakers%20_%20PUMA.jfif", name: "Speedcat OG", brand: "Puma" },
+  { image: "/Air%20jordan%20shoes.jfif", name: "Air Jordan", brand: "Jordan" },
+  { image: "/Air%20Jordan%20Sneakers%20%F0%9F%94%A5%20Iconic%20Street%20Style%20%26%20Performance.jfif", name: "Jordan Street Style", brand: "Jordan" },
+  { image: "/Buy%20Air%20Jordan%201%20Mid%20Patent%20SE%20'Black%20Gold'%20-%20852542%20007%20_%20GOAT.jfif", name: "Jordan 1 Mid Patent SE", brand: "Jordan" },
 ];
 
 const Home1 = () => {
