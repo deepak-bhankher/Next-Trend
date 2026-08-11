@@ -4,56 +4,42 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import api from "../utils/api";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 const Checkout = () => {
   const { cartItems, clearCart } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
-  const [form, setForm] = useState({
-    address: "",
-    city: "",
-    postalCode: "",
-    country: "",
-    phone: "",
-  });
+  const [form, setForm] = useState({ address: "", city: "", postalCode: "", country: "", phone: "" });
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      toast.error("Please login to place your order");
+      navigate("/login");
+      return;
+    }
+
     setLoading(true);
     try {
-      const orderItems = cartItems.map((item) => ({
-        name: item.name,
-        qty: item.qty,
-        size: item.size,
-        image: item.image,
-        price: item.price,
-        product: item.product,
-      }));
-
-      const { data } = await api.post("/orders", {
-        orderItems,
-        shippingAddress: form,
-        totalPrice: subtotal,
-      });
-
+      const orderItems = cartItems.map((item) => ({ name: item.name, qty: item.qty, size: item.size, image: item.image, price: item.price, product: item.product }));
+      const { data } = await api.post("/orders", { orderItems, shippingAddress: form, totalPrice: subtotal });
       clearCart();
       toast.success("Order placed successfully!");
       navigate(`/orders/${data._id}`);
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Failed to place order. Please login first."
-      );
+      toast.error(error.response?.data?.message || "Failed to place order.");
     } finally {
       setLoading(false);
     }
   };
+
+  const inputClass = "w-full glass-btn rounded-xl px-4 py-3 outline-none focus:border-[#c9a84c]/40 placeholder:text-white/25 text-white transition-colors";
 
   return (
     <div className="bg-dark text-white min-h-screen pt-32 pb-20">
@@ -61,94 +47,38 @@ const Checkout = () => {
         <h1 className="text-4xl font-bold mb-10">Checkout</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            onSubmit={handlePlaceOrder}
-            className="space-y-4"
-          >
-            <h2 className="text-lg font-semibold mb-2">Shipping Address</h2>
-
-            <input
-              name="address"
-              value={form.address}
-              onChange={handleChange}
-              placeholder="Street Address"
-              required
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/40 placeholder:text-white/30"
-            />
+          <motion.form initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} onSubmit={handlePlaceOrder} className="space-y-4">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-[#c9a84c] mb-4">Shipping Address</h2>
+            <input name="address" value={form.address} onChange={handleChange} placeholder="Street Address" required className={inputClass} />
             <div className="grid grid-cols-2 gap-4">
-              <input
-                name="city"
-                value={form.city}
-                onChange={handleChange}
-                placeholder="City"
-                required
-                className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/40 placeholder:text-white/30"
-              />
-              <input
-                name="postalCode"
-                value={form.postalCode}
-                onChange={handleChange}
-                placeholder="Postal Code"
-                required
-                className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/40 placeholder:text-white/30"
-              />
+              <input name="city" value={form.city} onChange={handleChange} placeholder="City" required className="glass-btn rounded-xl px-4 py-3 outline-none focus:border-[#c9a84c]/40 placeholder:text-white/25 text-white transition-colors" />
+              <input name="postalCode" value={form.postalCode} onChange={handleChange} placeholder="Postal Code" required className="glass-btn rounded-xl px-4 py-3 outline-none focus:border-[#c9a84c]/40 placeholder:text-white/25 text-white transition-colors" />
             </div>
-            <input
-              name="country"
-              value={form.country}
-              onChange={handleChange}
-              placeholder="Country"
-              required
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/40 placeholder:text-white/30"
-            />
-            <input
-              name="phone"
-              value={form.phone}
-              onChange={handleChange}
-              placeholder="Phone Number"
-              required
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-white/40 placeholder:text-white/30"
-            />
-
-            <button
-              type="submit"
-              disabled={loading || cartItems.length === 0}
-              className="w-full bg-white text-black py-4 rounded-full font-semibold hover:scale-[1.02] transition-transform disabled:opacity-40 mt-4"
-            >
+            <input name="country" value={form.country} onChange={handleChange} placeholder="Country" required className={inputClass} />
+            <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone Number" required className={inputClass} />
+            <button type="submit" disabled={loading || cartItems.length === 0}
+              className="w-full bg-[#c9a84c] text-black py-4 rounded-full font-bold hover:bg-[#e8c96a] hover:scale-[1.02] transition-all accent-glow disabled:opacity-40 mt-4">
               {loading ? "Placing Order..." : "Place Order"}
             </button>
           </motion.form>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-white/5 border border-white/10 rounded-2xl p-6 h-fit"
-          >
-            <h2 className="text-lg font-semibold mb-5">Order Summary</h2>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-card rounded-2xl p-6 h-fit shadow-xl shadow-black/40">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-[#c9a84c] mb-5">Order Summary</h2>
             <div className="space-y-4 mb-6">
               {cartItems.map((item) => (
                 <div key={`${item.product}-${item.size}`} className="flex gap-3">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-14 h-14 rounded-lg object-cover"
-                  />
+                  <img src={item.image} alt={item.name} className="w-14 h-14 rounded-lg object-cover" />
                   <div className="flex-1">
-                    <p className="text-sm font-medium">{item.name}</p>
-                    <p className="text-white/40 text-xs">
-                      Size {item.size} × {item.qty}
-                    </p>
+                    <p className="text-sm font-medium text-white">{item.name}</p>
+                    <p className="text-white/30 text-xs">Size {item.size} × {item.qty}</p>
                   </div>
-                  <p className="text-sm font-semibold">₹{item.price * item.qty}</p>
+                  <p className="text-sm font-semibold text-white">₹{item.price * item.qty}</p>
                 </div>
               ))}
             </div>
-            <div className="border-t border-white/10 pt-4 flex justify-between font-bold text-lg">
-              <span>Total</span>
-              <span>₹{subtotal}</span>
+            <div className="border-t border-white/5 pt-4 flex justify-between font-bold text-lg">
+              <span className="text-white/60">Total</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#c9a84c] to-[#e8c96a]">₹{subtotal}</span>
             </div>
           </motion.div>
         </div>

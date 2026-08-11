@@ -13,7 +13,6 @@ import Register from "./pages/Register";
 import OrderDetail from "./pages/OrderDetail";
 import MyOrders from "./pages/MyOrders";
 import About from "./pages/About";
-import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -33,7 +32,6 @@ const App = () => {
         <Route path="/orders/:id" element={<OrderDetail />} />
         <Route path="/orders" element={<MyOrders />} />
         <Route path="/about" element={<About />} />
-<Route path="/contact" element={<Contact />} />
 <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

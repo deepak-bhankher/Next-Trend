@@ -1,19 +1,15 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiShoppingBag, FiCheck } from "react-icons/fi";
 import { toast } from "react-toastify";
 import api from "../utils/api";
 import { useCart } from "../context/CartContext";
 import ShoeCard from "../components/ShoeCard";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; 
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
-  const { user } = useAuth();
-const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -50,41 +46,13 @@ const navigate = useNavigate();
   }, [product]);
 
   const handleAddToCart = () => {
-  if (!user) {
-    toast.error("Please login to add items to cart");
-    navigate("/login");
-    return;
-  }
-  if (!selectedSize) {
-    toast.error("Please select a size");
-    return;
-  }
-  addToCart({
-    product: product._id,
-    name: product.name,
-    image: product.images[0],
-    price: product.price,
-    size: selectedSize,
-    qty: 1,
-  });
-  toast.success("Added to cart!");
-};
+    if (!selectedSize) { toast.error("Please select a size"); return; }
+    addToCart({ product: product._id, name: product.name, image: product.images[0], price: product.price, size: selectedSize, qty: 1 });
+    toast.success("Added to cart!");
+  };
 
-  if (loading) {
-    return (
-      <div className="bg-dark text-white min-h-screen flex items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
-
-  if (!product) {
-    return (
-      <div className="bg-dark text-white min-h-screen flex items-center justify-center">
-        Product not found.
-      </div>
-    );
-  }
+  if (loading) return <div className="bg-dark text-white min-h-screen flex items-center justify-center text-white/40">Loading...</div>;
+  if (!product) return <div className="bg-dark text-white min-h-screen flex items-center justify-center text-white/40">Product not found.</div>;
 
   return (
     <div className="bg-dark text-white min-h-screen pt-32 pb-20">
@@ -94,13 +62,9 @@ const navigate = useNavigate();
             key={selectedImage}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="aspect-square bg-white/5 rounded-3xl overflow-hidden border border-white/10 mb-4"
+            className="aspect-square glass-card rounded-3xl overflow-hidden mb-4 shadow-2xl shadow-black/60"
           >
-            <img
-              src={product.images[selectedImage]}
-              alt={product.name}
-              className="w-full h-full object-cover"
-            />
+            <img src={product.images[selectedImage]} alt={product.name} className="w-full h-full object-cover" />
           </motion.div>
           {product.images.length > 1 && (
             <div className="flex gap-3">
@@ -108,8 +72,8 @@ const navigate = useNavigate();
                 <button
                   key={i}
                   onClick={() => setSelectedImage(i)}
-                  className={`w-16 h-16 rounded-xl overflow-hidden border-2 transition-colors ${
-                    selectedImage === i ? "border-white" : "border-white/10"
+                  className={`w-16 h-16 rounded-xl overflow-hidden border-2 transition-all ${
+                    selectedImage === i ? "border-[#83A4D4]" : "border-white/8 hover:border-white/20"
                   }`}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
@@ -119,32 +83,25 @@ const navigate = useNavigate();
           )}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
-          <p className="text-white/40 uppercase tracking-wide text-sm mb-2">
-            {product.brand}
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+          <p className="gradient-text-primary uppercase tracking-widest text-xs mb-2 font-medium">{product.brand}</p>
+          <h1 className="text-4xl font-bold mb-4 text-white">{product.name}</h1>
+          <p className="text-3xl font-black mb-6 gradient-text-secondary">
+            ₹{product.price}
           </p>
-          <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-          <p className="text-2xl font-bold mb-6">₹{product.price}</p>
-          <p className="text-white/60 leading-relaxed mb-8">
-            {product.description}
-          </p>
+          <p className="text-white/50 leading-relaxed mb-8">{product.description}</p>
 
           <div className="mb-8">
-            <h3 className="text-sm font-semibold uppercase tracking-wide mb-3">
-              Select Size
-            </h3>
+            <h3 className="text-xs font-semibold uppercase tracking-widest mb-3 text-white/40">Select Size</h3>
             <div className="flex flex-wrap gap-3">
               {product.sizes.map((size) => (
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
-                  className={`w-12 h-12 rounded-full border font-medium transition-all ${
+                  className={`w-12 h-12 rounded-full font-medium transition-all ${
                     selectedSize === size
-                      ? "bg-white text-black border-white"
-                      : "border-white/20 text-white hover:border-white/50"
+                      ? "gradient-primary text-[#080808] font-bold accent-glow"
+                      : "glass-btn text-white/60 hover:text-white hover:border-[#83A4D4]/30"
                   }`}
                 >
                   {size}
@@ -155,17 +112,10 @@ const navigate = useNavigate();
 
           {product.colors?.length > 0 && (
             <div className="mb-8">
-              <h3 className="text-sm font-semibold uppercase tracking-wide mb-3">
-                Available Colors
-              </h3>
+              <h3 className="text-xs font-semibold uppercase tracking-widest mb-3 text-white/40">Available Colors</h3>
               <div className="flex gap-2 flex-wrap">
                 {product.colors.map((color) => (
-                  <span
-                    key={color}
-                    className="px-4 py-1.5 rounded-full text-sm border border-white/20 text-white/70"
-                  >
-                    {color}
-                  </span>
+                  <span key={color} className="px-4 py-1.5 rounded-full text-sm glass-btn text-white/50">{color}</span>
                 ))}
               </div>
             </div>
@@ -173,21 +123,16 @@ const navigate = useNavigate();
 
           <div className="flex items-center gap-2 mb-8 text-sm">
             {product.countInStock > 0 ? (
-              <>
-                <FiCheck className="text-white" />
-                <span className="text-white/60">
-                  In Stock ({product.countInStock} available)
-                </span>
-              </>
+              <><FiCheck className="text-[#A1FFCE]" /><span className="text-white/50">In Stock ({product.countInStock} available)</span></>
             ) : (
-              <span className="text-white/40">Out of Stock</span>
+              <span className="text-white/30">Out of Stock</span>
             )}
           </div>
 
           <button
             onClick={handleAddToCart}
             disabled={product.countInStock === 0}
-            className="w-full flex items-center justify-center gap-2 bg-white text-black py-4 rounded-full font-semibold hover:scale-[1.02] transition-transform disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 gradient-primary text-[#080808] py-4 rounded-full font-bold hover:scale-[1.02] hover:opacity-90 transition-all accent-glow disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <FiShoppingBag /> Add to Cart
           </button>
@@ -196,11 +141,9 @@ const navigate = useNavigate();
 
       {related.length > 0 && (
         <div className="max-w-6xl mx-auto px-6 mt-24">
-          <h2 className="text-2xl font-bold mb-8">You Might Also Like</h2>
+          <h2 className="text-2xl font-bold mb-8 text-white">You Might Also Like</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {related.map((item) => (
-              <ShoeCard key={item._id} product={item} />
-            ))}
+            {related.map((item) => <ShoeCard key={item._id} product={item} />)}
           </div>
         </div>
       )}

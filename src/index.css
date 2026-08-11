@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-dark: #152331;
+  --color-dark: #080808;
   --color-black: #000000;
   --color-white: #ffffff;
-  --color-accent: #ffffff;
+  --color-g1-from: #83A4D4;
+  --color-g1-to: #B6FBFF;
+  --color-g2-from: #A1FFCE;
+  --color-g2-to: #FAFFD1;
 }
 
 body {
@@ -13,14 +16,70 @@ body {
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .animate-marquee {
   animation: marquee 25s linear infinite;
+}
+
+.glass-btn {
+  background: rgba(131, 164, 212, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(182, 251, 255, 0.12);
+}
+
+.glass-card {
+  background: rgba(131, 164, 212, 0.03);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(182, 251, 255, 0.08);
+}
+
+.accent-glow {
+  box-shadow: 0 0 30px rgba(161, 255, 206, 0.2), 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.accent-text {
+  background: linear-gradient(135deg, #83A4D4, #B6FBFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, #83A4D4, #B6FBFF);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, #A1FFCE, #FAFFD1);
+}
+
+.gradient-text-primary {
+  background: linear-gradient(135deg, #83A4D4, #B6FBFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-secondary {
+  background: linear-gradient(135deg, #A1FFCE, #FAFFD1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes scroll-shoes {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-shoes {
+  animation: scroll-shoes 20s linear infinite;
+}
+
+.animate-scroll-shoes:hover {
+  animation-play-state: paused;
 }

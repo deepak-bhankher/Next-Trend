@@ -3,130 +3,63 @@ import { FiInstagram, FiTwitter, FiFacebook, FiSend } from "react-icons/fi";
 
 const Footer = () => {
   return (
-  <footer className="bg-dark text-white border-t border-white/10">
+    <footer className="bg-[#080808] text-white border-t border-[#83A4D4]/8">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
-        {/* Brand */}
         <div>
           <h2 className="text-2xl font-black mb-3">
-            STRIDE<span className="text-white/50">.</span>
+            <span className="gradient-text-primary">NEXT</span>
+            <span className="text-white"> TREND</span>
+            <span className="gradient-text-secondary">.</span>
           </h2>
-          <p className="text-white/50 text-sm leading-relaxed">
-            Premium sneakers crafted for comfort, built for style. Step into
-            your stride with us.
+          <p className="text-white/40 text-sm leading-relaxed">
+            Premium sneakers crafted for comfort, built for style. Step into your stride with us.
           </p>
-          <div className="flex gap-4 mt-5">
-            <a
-              href="#"
-              className="text-white/60 hover:text-white transition-colors"
-            >
-              <FiInstagram size={18} />
-            </a>
-            <a
-              href="#"
-              className="text-white/60 hover:text-white transition-colors"
-            >
-              <FiTwitter size={18} />
-            </a>
-            <a
-              href="#"
-              className="text-white/60 hover:text-white transition-colors"
-            >
-              <FiFacebook size={18} />
-            </a>
+          <div className="flex gap-3 mt-5">
+            {[FiInstagram, FiTwitter, FiFacebook].map((Icon, i) => (
+              <a key={i} href="#" className="w-9 h-9 glass-btn rounded-full flex items-center justify-center text-white/40 hover:text-[#B6FBFF] hover:border-[#83A4D4]/30 transition-all">
+                <Icon size={15} />
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Shop Links */}
         <div>
-          <h3 className="font-semibold mb-4 uppercase text-sm tracking-wide">
-            Shop
-          </h3>
-          <ul className="space-y-3 text-white/50 text-sm">
-            <li>
-              <Link
-                to="/products"
-                className="hover:text-white transition-colors"
-              >
-                All Shoes
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/products?category=Running"
-                className="hover:text-white transition-colors"
-              >
-                Running
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/products?category=Casual"
-                className="hover:text-white transition-colors"
-              >
-                Casual
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/products?category=Sports"
-                className="hover:text-white transition-colors"
-              >
-                Sports
-              </Link>
-            </li>
+          <h3 className="font-semibold mb-4 uppercase text-xs tracking-widest gradient-text-primary">Shop</h3>
+          <ul className="space-y-3 text-white/40 text-sm">
+            <li><Link to="/home" className="hover:text-white transition-colors">All Shoes</Link></li>
+            <li><Link to="/men" className="hover:text-white transition-colors">Mens</Link></li>
+            <li><Link to="/women" className="hover:text-white transition-colors">Womens</Link></li>
+            <li><Link to="/kids" className="hover:text-white transition-colors">Kids</Link></li>
           </ul>
         </div>
 
-        {/* Company Links */}
         <div>
-          <h3 className="font-semibold mb-4 uppercase text-sm tracking-wide">
-            Company
-          </h3>
-          <ul className="space-y-3 text-white/50 text-sm">
-            <li>
-              <Link to="/about" className="hover:text-white transition-colors">
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact"
-                className="hover:text-white transition-colors"
-              >
-                Contact
-              </Link>
-            </li>
-            <li>
-              <Link to="/orders" className="hover:text-white transition-colors">
-                My Orders
-              </Link>
-            </li>
+          <h3 className="font-semibold mb-4 uppercase text-xs tracking-widest gradient-text-secondary">Company</h3>
+          <ul className="space-y-3 text-white/40 text-sm">
+            <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
+            <li><Link to="/orders" className="hover:text-white transition-colors">My Orders</Link></li>
+            <li><Link to="/sale" className="hover:text-white transition-colors">Sale</Link></li>
           </ul>
         </div>
 
-        {/* Newsletter */}
         <div>
-          <h3 className="font-semibold mb-4 uppercase text-sm tracking-wide">
-            Stay Updated
-          </h3>
-          <p className="text-white/50 text-sm mb-4">
-            Subscribe for new drops & exclusive offers.
-          </p>
-          <div className="flex items-center bg-white/5 border border-white/10 rounded-full overflow-hidden pr-1">
+          <h3 className="font-semibold mb-4 uppercase text-xs tracking-widest gradient-text-primary">Stay Updated</h3>
+          <p className="text-white/40 text-sm mb-4">Subscribe for new drops & exclusive offers.</p>
+          <div className="flex items-center glass-btn rounded-full overflow-hidden pr-1">
             <input
               type="email"
               placeholder="Your email"
-              className="bg-transparent px-4 py-2 text-sm outline-none flex-1 placeholder:text-white/30"
+              className="bg-transparent px-4 py-2 text-sm outline-none flex-1 placeholder:text-white/25 text-white"
             />
-            <button className="bg-white cursor-pointer text-black p-2 rounded-full hover:scale-105 transition-transform">
+            <button className="gradient-primary cursor-pointer text-[#080808] p-2 rounded-full hover:opacity-90 transition-opacity">
               <FiSend size={14} />
             </button>
           </div>
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-6 text-center text-white/40 text-xs">
-        © {new Date().getFullYear()} Stride. All rights reserved.
+      <div className="border-t border-[#83A4D4]/8 py-6 text-center text-white/25 text-xs">
+        © {new Date().getFullYear()} Next Trend. All rights reserved.
       </div>
     </footer>
   );
