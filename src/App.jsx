@@ -18,7 +18,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Men from "./pages/Men";
 import Women from "./pages/Women";
 import Kids from "./pages/Kids";
-import Sales from "./pages/Sales";
+
 
 const App = () => {
   return (
@@ -30,7 +30,6 @@ const App = () => {
         <Route path="/men" element={<Men />} />
         <Route path="/women" element={<Women />} />
         <Route path="/kids" element={<Kids />} />
-        <Route path="/sales" element={<Sales />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />

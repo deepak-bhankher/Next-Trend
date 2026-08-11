@@ -9,7 +9,6 @@ const navLinks = [
   { name: "MEN", path: "/men" },
   { name: "WOMEN", path: "/women" },
   { name: "KIDS", path: "/kids" },
-  { name: "SALE", path: "/sales" },
   { name: "ABOUT US", path: "/about" },
 ];
 
