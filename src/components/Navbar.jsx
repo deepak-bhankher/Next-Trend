@@ -9,9 +9,10 @@ const navLinks = [
   { name: "MEN", path: "/men" },
   { name: "WOMEN", path: "/women" },
   { name: "KIDS", path: "/kids" },
-  { name: "SALE", path: "/sale" },
+  { name: "SALE", path: "/sales" },
   { name: "ABOUT US", path: "/about" },
 ];
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -105,7 +106,7 @@ const Navbar = () => {
               className="text-white/50 hover:text-[#A1FFCE] transition-colors duration-200 hidden sm:block"
             >
               <FiUser size={20} />
-            </Link>
+            </Link> 
 
             {/* Cart */}
             <Link to="/cart" className="relative">

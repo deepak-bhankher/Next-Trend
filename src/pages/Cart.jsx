@@ -20,7 +20,7 @@ const Cart = () => {
       </div>
     );
   }
-
+  
   return (
     <div className="bg-dark text-white min-h-screen pt-32 pb-20">
       <div className="max-w-5xl mx-auto px-6">

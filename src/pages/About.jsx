@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FiTarget, FiHeart, FiAward } from "react-icons/fi";
+import { FiTarget, FiHeart, FiAward, FiMail, FiInstagram, FiTwitter } from "react-icons/fi";
 
 const values = [
   { icon: <FiTarget size={22} />, title: "Our Mission", desc: "To bring premium, comfortable footwear to every step you take, without compromising on style." },
@@ -105,6 +105,32 @@ const About = () => {
             <p className="text-white/30 text-xs uppercase tracking-widest">{stat.label}</p>
           </div>
         ))}
+      </motion.div>
+
+      {/* Newsletter */}
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        className="max-w-5xl mx-auto px-6 mb-20">
+        <div className="glass-card rounded-3xl p-10 text-center border-[#83A4D4]/15 shadow-xl shadow-black/40">
+          <div className="w-12 h-12 glass-card rounded-2xl flex items-center justify-center mx-auto mb-4 border-[#83A4D4]/20">
+            <FiMail size={20} className="gradient-text-primary" />
+          </div>
+          <h2 className="text-3xl font-bold mb-2">Stay in the Loop</h2>
+          <p className="text-white/40 text-sm mb-6">Get exclusive drops, sale alerts, and style tips straight to your inbox.</p>
+          <div className="flex gap-3 max-w-md mx-auto">
+            <input type="email" placeholder="Enter your email" className="flex-1 glass-card rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 outline-none border-white/10 focus:border-[#83A4D4]/40 transition-colors" />
+            <button className="gradient-primary text-[#080808] font-bold px-6 py-3 rounded-xl hover:opacity-80 transition-opacity text-sm whitespace-nowrap">
+              Subscribe
+            </button>
+          </div>
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <a href="#" className="w-9 h-9 glass-card rounded-xl flex items-center justify-center text-white/40 hover:text-[#B6FBFF] hover:border-[#83A4D4]/30 transition-all">
+              <FiInstagram size={16} />
+            </a>
+            <a href="#" className="w-9 h-9 glass-card rounded-xl flex items-center justify-center text-white/40 hover:text-[#B6FBFF] hover:border-[#83A4D4]/30 transition-all">
+              <FiTwitter size={16} />
+            </a>
+          </div>
+        </div>
       </motion.div>
     </div>
   );

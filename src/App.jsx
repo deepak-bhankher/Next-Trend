@@ -15,6 +15,10 @@ import MyOrders from "./pages/MyOrders";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import Men from "./pages/Men";
+import Women from "./pages/Women";
+import Kids from "./pages/Kids";
+import Sales from "./pages/Sales";
 
 const App = () => {
   return (
@@ -23,6 +27,10 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/men" element={<Men />} />
+        <Route path="/women" element={<Women />} />
+        <Route path="/kids" element={<Kids />} />
+        <Route path="/sales" element={<Sales />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
@@ -32,7 +40,7 @@ const App = () => {
         <Route path="/orders/:id" element={<OrderDetail />} />
         <Route path="/orders" element={<MyOrders />} />
         <Route path="/about" element={<About />} />
-<Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
       <ToastContainer theme="dark" position="bottom-right" />
