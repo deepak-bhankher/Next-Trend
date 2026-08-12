@@ -1,0 +1,32 @@
+export const menProducts = [
+  { id: 1, name: "Air Max 270", brand: "Nike", price: 7999, originalPrice: 10999, rating: 4.5, reviews: 128, badge: "Bestseller", sizes: [6, 7, 8, 9, 10, 11], image: "/shoes1.png", description: "Lightweight and breathable with Max Air cushioning for all-day comfort." },
+  { id: 2, name: "Duramo SL 2.0", brand: "Adidas", price: 4499, originalPrice: 6499, rating: 4.3, reviews: 95, badge: "New", sizes: [6, 7, 8, 9, 10], image: "/shoes2.png", description: "Soft Cloudfoam midsole with a breathable mesh upper for everyday runs." },
+  { id: 3, name: "Speedcat OG", brand: "Puma", price: 5999, originalPrice: 8499, rating: 4.6, reviews: 74, badge: "Hot", sizes: [7, 8, 9, 10, 11], image: "/shoes3.png", description: "Iconic racing-inspired silhouette with suede upper and gum sole." },
+  { id: 4, name: "Air Jordan 1 Mid", brand: "Jordan", price: 11999, originalPrice: 14999, rating: 4.8, reviews: 210, badge: "Top Rated", sizes: [6, 7, 8, 9, 10, 11], image: "/shoes4.png", description: "Classic high-top basketball shoe with premium leather and iconic Wings logo." },
+  { id: 5, name: "Jordan Street Style", brand: "Jordan", price: 9499, originalPrice: 12999, rating: 4.4, reviews: 88, badge: "Sale", sizes: [7, 8, 9, 10], image: "/shoes5.png", description: "Street-ready Jordan silhouette with cushioned sole and bold colorway." },
+  { id: 6, name: "Jordan 1 Mid Patent SE", brand: "Jordan", price: 13499, originalPrice: 17999, rating: 4.7, reviews: 156, badge: "Premium", sizes: [6, 7, 8, 9, 10, 11], image: "/shoes6.png", description: "Patent leather upper with metallic accents for a premium street look." },
+  { id: 7, name: "Seeker Speckle", brand: "Puma", price: 3999, originalPrice: 5999, rating: 4.2, reviews: 62, badge: "New", sizes: [6, 7, 8, 9, 10], image: "/shoes1.png", description: "Casual everyday sneaker with speckled midsole and soft textile upper." },
+  { id: 8, name: "Ultraboost 22", brand: "Adidas", price: 12999, originalPrice: 16999, rating: 4.9, reviews: 302, badge: "Bestseller", sizes: [6, 7, 8, 9, 10, 11], image: "/shoes2.png", description: "Responsive Boost midsole with Primeknit+ upper for elite running performance." },
+];
+
+export const womenProducts = [
+  { id: 1, name: "Air Force 1 Shadow", brand: "Nike", price: 8499, originalPrice: 11499, rating: 4.6, reviews: 184, badge: "Bestseller", sizes: [4, 5, 6, 7, 8], image: "/shoes3.png", description: "Layered design with double Swoosh and platform sole for bold street style." },
+  { id: 2, name: "Stan Smith Bonega", brand: "Adidas", price: 5999, originalPrice: 8499, rating: 4.4, reviews: 112, badge: "New", sizes: [4, 5, 6, 7, 8, 9], image: "/shoes4.png", description: "Elevated Stan Smith with chunky platform sole and clean leather upper." },
+  { id: 3, name: "Cali Dream", brand: "Puma", price: 4499, originalPrice: 6499, rating: 4.3, reviews: 78, badge: "Hot", sizes: [4, 5, 6, 7, 8], image: "/shoes5.png", description: "Retro-inspired chunky sneaker with soft suede and mesh upper." },
+  { id: 4, name: "Air Jordan 1 Low SE", brand: "Jordan", price: 9999, originalPrice: 13499, rating: 4.7, reviews: 196, badge: "Top Rated", sizes: [4, 5, 6, 7, 8, 9], image: "/shoes6.png", description: "Low-top Jordan with premium materials and feminine colorway." },
+  { id: 5, name: "Free Run 5.0", brand: "Nike", price: 6499, originalPrice: 8999, rating: 4.5, reviews: 143, badge: "Sale", sizes: [4, 5, 6, 7, 8], image: "/shoes1.png", description: "Flexible and lightweight with a natural foot-shaped design for free movement." },
+  { id: 6, name: "Mayze Stack", brand: "Puma", price: 5499, originalPrice: 7499, rating: 4.2, reviews: 67, badge: "Premium", sizes: [4, 5, 6, 7, 8, 9], image: "/shoes2.png", description: "Stacked platform sneaker with leather upper and bold chunky sole." },
+  { id: 7, name: "Superstar Bold", brand: "Adidas", price: 6999, originalPrice: 9499, rating: 4.5, reviews: 134, badge: "New", sizes: [4, 5, 6, 7, 8], image: "/shoes3.png", description: "Iconic shell toe with platform sole for an elevated classic look." },
+  { id: 8, name: "React Infinity Run", brand: "Nike", price: 10999, originalPrice: 14499, rating: 4.8, reviews: 221, badge: "Bestseller", sizes: [4, 5, 6, 7, 8, 9], image: "/shoes4.png", description: "Designed to reduce injury with React foam and wide base for stability." },
+];
+
+export const kidsProducts = [
+  { id: 1, name: "Air Max SC", brand: "Nike", price: 3499, originalPrice: 4999, rating: 4.5, reviews: 89, badge: "Bestseller", sizes: [1, 2, 3, 4, 5], image: "/shoes5.png", description: "Lightweight kids sneaker with Air cushioning and easy velcro strap." },
+  { id: 2, name: "Tensaur Run 2.0", brand: "Adidas", price: 2499, originalPrice: 3499, rating: 4.3, reviews: 64, badge: "New", sizes: [1, 2, 3, 4, 5], image: "/shoes6.png", description: "Breathable mesh upper with elastic laces for easy on and off." },
+  { id: 3, name: "Softride Enzo", brand: "Puma", price: 2999, originalPrice: 4299, rating: 4.4, reviews: 52, badge: "Hot", sizes: [1, 2, 3, 4, 5], image: "/shoes1.png", description: "Super soft SoftFoam+ sockliner for all-day comfort during play." },
+  { id: 4, name: "Jordan 11 Retro Little Flex", brand: "Jordan", price: 5999, originalPrice: 7999, rating: 4.7, reviews: 118, badge: "Top Rated", sizes: [1, 2, 3, 4, 5], image: "/shoes2.png", description: "Iconic Jordan 11 silhouette scaled for kids with flex grooves." },
+  { id: 5, name: "Fortarun 2.0", brand: "Adidas", price: 2799, originalPrice: 3999, rating: 4.2, reviews: 47, badge: "Sale", sizes: [1, 2, 3, 4, 5], image: "/shoes3.png", description: "Durable kids running shoe with Cloudfoam midsole for cushioned steps." },
+  { id: 6, name: "Viz Runner", brand: "Puma", price: 2299, originalPrice: 3299, rating: 4.1, reviews: 38, badge: "New", sizes: [1, 2, 3, 4, 5], image: "/shoes4.png", description: "Reflective details and lightweight build for active kids." },
+  { id: 7, name: "Air Zoom Pegasus", brand: "Nike", price: 4499, originalPrice: 5999, rating: 4.6, reviews: 93, badge: "Premium", sizes: [1, 2, 3, 4, 5], image: "/shoes5.png", description: "Trusted kids running shoe with Zoom Air unit for responsive cushioning." },
+  { id: 8, name: "Superstar CF", brand: "Adidas", price: 3999, originalPrice: 5499, rating: 4.5, reviews: 76, badge: "Bestseller", sizes: [1, 2, 3, 4, 5], image: "/shoes6.png", description: "Classic shell toe with velcro closure for easy wear." },
+];

@@ -62,7 +62,7 @@ const handleLogout = async () => {
             <FiPackage size={48} className="mx-auto mb-4 text-white/20" />
             <p className="text-white/50 mb-8">You haven't placed any orders yet.</p>
             <Link
-              to="/products"
+              to="/men"
               className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform"
             >
               Start Shopping

@@ -4,8 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Products from "./pages/Products";
-import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
@@ -18,7 +16,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Men from "./pages/Men";
 import Women from "./pages/Women";
 import Kids from "./pages/Kids";
-
+import LocalProductDetail from "./pages/LocalProductDetail";
 
 const App = () => {
   return (
@@ -28,10 +26,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/men" element={<Men />} />
+        <Route path="/men/:id" element={<LocalProductDetail />} />
         <Route path="/women" element={<Women />} />
+        <Route path="/women/:id" element={<LocalProductDetail />} />
         <Route path="/kids" element={<Kids />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/kids/:id" element={<LocalProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />

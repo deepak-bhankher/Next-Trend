@@ -54,16 +54,16 @@ const Home2 = () => {
 
           <div className="flex gap-3 justify-center md:justify-start">
             <Link
-              to="/products"
+              to="/kids"
               className="gradient-secondary text-[#080808] text-xs font-bold uppercase tracking-widest px-7 py-3.5 rounded-full hover:opacity-90 transition-opacity"
             >
               Explore Collection
             </Link>
             <Link
-              to="/sale"
+              to="/men"
               className="border border-[#83A4D4]/20 hover:border-[#B6FBFF]/40 text-white/60 hover:text-white text-xs font-bold uppercase tracking-widest px-7 py-3.5 rounded-full transition-colors duration-200"
             >
-              View Sale
+              View items
             </Link>
           </div>
         </motion.div>

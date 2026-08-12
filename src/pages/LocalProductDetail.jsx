@@ -1,0 +1,160 @@
+import { useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FiShoppingBag, FiCheck, FiArrowLeft } from "react-icons/fi";
+import { toast } from "react-toastify";
+import { useCart } from "../context/CartContext";
+import { menProducts, womenProducts, kidsProducts } from "../data/products";
+
+const dataMap = {
+  men: menProducts,
+  women: womenProducts,
+  kids: kidsProducts,
+};
+
+const LocalProductDetail = () => {
+  const { category, id } = useParams();
+  const { addToCart } = useCart();
+  const [selectedSize, setSelectedSize] = useState(null);
+
+  const list = dataMap[category] || [];
+  const product = list.find((p) => p.id === Number(id));
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      toast.error("Please select a size");
+      return;
+    }
+    addToCart({
+      product: `${category}-${product.id}`,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      size: selectedSize,
+      qty: 1,
+    });
+    toast.success("Added to cart!");
+  };
+
+  if (!product)
+    return (
+      <div className="bg-dark text-white min-h-screen flex items-center justify-center text-white/40">
+        Product not found.
+      </div>
+    );
+
+  return (
+    <div className="bg-dark text-white min-h-screen pt-32 pb-20">
+      <div className="max-w-6xl mx-auto px-6">
+        <Link
+          to={`/${category}`}
+          className="inline-flex items-center gap-2 text-white/40 hover:text-white text-sm mb-8 transition-colors"
+        >
+          <FiArrowLeft size={16} /> Back to {category}
+        </Link>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="aspect-square bg-white/5 border border-white/10 rounded-3xl overflow-hidden"
+          >
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <p className="text-white/40 uppercase tracking-widest text-xs mb-2 font-medium">
+              {product.brand}
+            </p>
+            <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
+            <div className="flex items-center gap-3 mb-6">
+              <p className="text-3xl font-black">
+                ₹{product.price.toLocaleString()}
+              </p>
+              <p className="text-white/30 text-lg line-through">
+                ₹{product.originalPrice.toLocaleString()}
+              </p>
+            </div>
+            <p className="text-white/50 leading-relaxed mb-8">
+              {product.description}
+            </p>
+
+            <div className="mb-8">
+              <h3 className="text-xs font-semibold uppercase tracking-widest mb-3 text-white/40">
+                Select Size
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {product.sizes.map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`w-12 h-12 rounded-full font-medium transition-all ${selectedSize === size ? "bg-white text-black font-bold" : "border border-white/20 text-white/60 hover:border-white/40"}`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 mb-8 text-sm">
+              <FiCheck className="text-green-400" />
+              <span className="text-white/50">In Stock</span>
+            </div>
+
+            <button
+              onClick={handleAddToCart}
+              className="w-full flex items-center justify-center gap-2 bg-white text-black py-4 rounded-full font-bold hover:scale-[1.02] transition-transform"
+            >
+              <FiShoppingBag /> Add to Cart
+            </button>
+          </motion.div>
+        </div>
+      </div>
+      {list.filter((p) => p.id !== product.id).length > 0 && (
+        <div className="mt-24">
+          <h2 className="text-2xl font-bold mb-8 text-white">
+            You Might Also Like
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {list
+              .filter((p) => p.id !== product.id)
+              .slice(0, 8)
+              .map((item) => (
+                <Link
+                  key={item.id}
+                  to={`/${category}/${item.id}`}
+                  className="group"
+                >
+                  <div className="aspect-square bg-white/5 border border-white/10 rounded-2xl overflow-hidden mb-3">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <p className="text-white/40 text-xs uppercase tracking-wide mb-1">
+                    {item.brand}
+                  </p>
+                  <h3 className="font-semibold text-sm text-white truncate">
+                    {item.name}
+                  </h3>
+                  <p className="font-bold text-white">
+                    ₹{item.price.toLocaleString()}
+                  </p>
+                </Link>
+              ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default LocalProductDetail;

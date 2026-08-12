@@ -125,7 +125,7 @@ const OrderDetail = () => {
 
         <div className="text-center mt-10">
           <Link
-            to="/products"
+            to="/men"
             className="inline-block bg-white text-black px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform"
           >
             Continue Shopping
