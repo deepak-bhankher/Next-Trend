@@ -75,7 +75,7 @@ const Register = () => {
             </button>
           </div>
           <button type="submit" disabled={loading}
-            className="w-full flex items-center justify-center gap-2 gradient-secondary text-[#080808] py-3 rounded-xl font-bold text-sm hover:scale-[1.02] transition-transform disabled:opacity-40 disabled:hover:scale-100">
+            className="w-full flex items-center justify-center cursor-pointer gap-2 gradient-secondary text-[#080808] py-3 rounded-xl font-bold text-sm hover:scale-[1.02] transition-transform disabled:opacity-40 disabled:hover:scale-100">
             {loading ? "Creating account..." : <> Create Account <FiArrowRight size={16} /> </>}
           </button>
         </form>

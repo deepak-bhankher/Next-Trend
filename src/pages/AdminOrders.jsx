@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiPackage, FiChevronDown } from "react-icons/fi";
 import { toast } from "react-toastify";
@@ -12,11 +12,18 @@ const statusColors = {
   Delivered: "bg-green-500/20 text-green-400 border-green-500/30",
 };
 
-const AdminOrders = () => { 
-  const { user, loading: authLoading } = useAuth();
+const AdminOrders = () => {
+  const { user, loading: authLoading, logout } = useAuth();
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleLogout = () => {
+    logout();
+    toast.success("Logged out successfully");
+    navigate("/login"); // apni login route ke hisaab se change kar lena
+  };
 
   const fetchOrders = async () => {
     try {
@@ -61,11 +68,26 @@ const AdminOrders = () => {
   return (
     <div className="bg-dark text-white min-h-screen pt-32 pb-20">
       <div className="max-w-6xl mx-auto px-6">
-        <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
-        <p className="text-white/40 mb-10">Manage and track all customer orders</p>
+        <div className="flex items-center justify-between mb-10">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
+            <p className="text-white/40">
+              Manage and track all customer orders
+            </p>
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
+          >
+            Log Out
+          </button>
+        </div>
 
         {loading ? (
-          <div className="text-center text-white/30 py-20">Loading orders...</div>
+          <div className="text-center text-white/30 py-20">
+            Loading orders...
+          </div>
         ) : orders.length === 0 ? (
           <div className="text-center py-20">
             <FiPackage size={48} className="mx-auto mb-4 text-white/20" />
@@ -74,7 +96,9 @@ const AdminOrders = () => {
         ) : (
           <div className="space-y-4">
             {orders.map((order, i) => {
-              const currentStatus = order.isDelivered ? "Delivered" : order.status || "Processing";
+              const currentStatus = order.isDelivered
+                ? "Delivered"
+                : order.status || "Processing";
               return (
                 <motion.div
                   key={order._id}
@@ -108,7 +132,9 @@ const AdminOrders = () => {
                       <div className="relative">
                         <button
                           onClick={() =>
-                            setOpenDropdown(openDropdown === order._id ? null : order._id)
+                            setOpenDropdown(
+                              openDropdown === order._id ? null : order._id,
+                            )
                           }
                           className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border ${statusColors[currentStatus]}`}
                         >
@@ -141,7 +167,8 @@ const AdminOrders = () => {
                   <div className="border-t border-white/10 pt-3 space-y-1">
                     {order.orderItems.map((item) => (
                       <p key={item._id} className="text-white/50 text-xs">
-                        {item.name} (Size {item.size}) × {item.qty} — ₹{item.price * item.qty}
+                        {item.name} (Size {item.size}) × {item.qty} — ₹
+                        {item.price * item.qty}
                       </p>
                     ))}
                   </div>
