@@ -12,7 +12,7 @@ const statusColors = {
   Delivered: "bg-green-500/20 text-green-400 border-green-500/30",
 };
 
-const AdminOrders = () => {
+const AdminOrders = () => { 
   const { user, loading: authLoading } = useAuth();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);

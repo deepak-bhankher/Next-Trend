@@ -88,69 +88,73 @@ const Navbar = () => {
 
           {/* Right Icons */}
           {/* Right Icons */}
+          {/* Right Icons */}
           <div className="flex items-center gap-4">
-            {/* Search */}
-            <form
-              onSubmit={handleSearch}
-              className={`hidden sm:flex items-center bg-[#83A4D4]/8 border border-[#83A4D4]/15 rounded-full overflow-hidden transition-all duration-300 ${
-                searchOpen ? "w-52 px-4 py-2" : "w-10 h-10 justify-center"
-              }`}
-            >
-              <button
-                type={searchOpen ? "submit" : "button"}
-                onClick={() => !searchOpen && setSearchOpen(true)}
-                className="text-white/50 hover:text-[#B6FBFF] transition-colors flex-shrink-0"
-              >
-                <FiSearch size={17} />
-              </button>
-              {searchOpen && (
-                <input
-                  autoFocus
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onBlur={() => !searchQuery && setSearchOpen(false)}
-                  placeholder="Search"
-                  className="bg-transparent outline-none text-sm text-white ml-2 w-full placeholder:text-white/30"
-                />
-              )}
-            </form>
-
-            {/* Admin (naya) */}
-            {user?.isAdmin && (
+            {user?.isAdmin ? (
+              // Admin ke liye — sirf Admin link dikhe
               <Link
                 to="/admin/orders"
-                className="text-yellow-400 hover:text-yellow-300 transition-colors duration-200 hidden sm:block text-xs font-bold uppercase tracking-wide"
+                className="text-yellow-400 hover:text-yellow-300 transition-colors duration-200 text-sm font-bold uppercase tracking-widest px-4 py-2 border border-yellow-400/30 rounded-full"
               >
                 Admin
               </Link>
+            ) : (
+              // Normal customer ke liye — sab kuch dikhe
+              <>
+                {/* Search */}
+                <form
+                  onSubmit={handleSearch}
+                  className={`hidden sm:flex items-center bg-[#83A4D4]/8 border border-[#83A4D4]/15 rounded-full overflow-hidden transition-all duration-300 ${
+                    searchOpen ? "w-52 px-4 py-2" : "w-10 h-10 justify-center"
+                  }`}
+                >
+                  <button
+                    type={searchOpen ? "submit" : "button"}
+                    onClick={() => !searchOpen && setSearchOpen(true)}
+                    className="text-white/50 hover:text-[#B6FBFF] transition-colors flex-shrink-0"
+                  >
+                    <FiSearch size={17} />
+                  </button>
+                  {searchOpen && (
+                    <input
+                      autoFocus
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onBlur={() => !searchQuery && setSearchOpen(false)}
+                      placeholder="Search"
+                      className="bg-transparent outline-none text-sm text-white ml-2 w-full placeholder:text-white/30"
+                    />
+                  )}
+                </form>
+
+                {/* User */}
+                <Link
+                  to={user ? "/orders" : "/login"}
+                  className="text-white/50 hover:text-[#A1FFCE] transition-colors duration-200 hidden sm:block"
+                >
+                  <FiUser size={20} />
+                </Link>
+
+                {/* Cart */}
+                <Link to="/cart" className="relative">
+                  <div className="gradient-primary text-[#080808] p-2 rounded-full hover:opacity-90 transition-opacity">
+                    <FiShoppingCart size={16} />
+                  </div>
+                  {cartCount > 0 && (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute -top-1 -right-1 bg-[#A1FFCE] text-[#080808] text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center"
+                    >
+                      {cartCount}
+                    </motion.span>
+                  )}
+                </Link>
+              </>
             )}
 
-            {/* User */}
-            <Link
-              to={user ? "/orders" : "/login"}
-              className="text-white/50 hover:text-[#A1FFCE] transition-colors duration-200 hidden sm:block"
-            >
-              <FiUser size={20} />
-            </Link>
-
-            {/* Cart */}
-            <Link to="/cart" className="relative">
-              <div className="gradient-primary text-[#080808] p-2 rounded-full hover:opacity-90 transition-opacity">
-                <FiShoppingCart size={16} />
-              </div>
-              {cartCount > 0 && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-1 -right-1 bg-[#A1FFCE] text-[#080808] text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center"
-                >
-                  {cartCount}
-                </motion.span>
-              )}
-            </Link>
-
-            {/* Hamburger */}
+            {/* Hamburger — dono ke liye rahega */}
             <button
               className="md:hidden text-white/70 hover:text-[#B6FBFF] transition-colors"
               onClick={() => setMenuOpen(true)}
