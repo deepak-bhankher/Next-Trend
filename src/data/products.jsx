@@ -7,6 +7,14 @@ export const menProducts = [
   { id: 6, name: "Jordan 1 Mid Patent SE", brand: "Jordan", price: 13499, originalPrice: 17999, rating: 4.7, reviews: 156, badge: "Premium", sizes: [6, 7, 8, 9, 10, 11], image: "/shoes6.png", description: "Patent leather upper with metallic accents for a premium street look." },
   { id: 7, name: "Seeker Speckle", brand: "Puma", price: 3999, originalPrice: 5999, rating: 4.2, reviews: 62, badge: "New", sizes: [6, 7, 8, 9, 10], image: "/shoes1.png", description: "Casual everyday sneaker with speckled midsole and soft textile upper." },
   { id: 8, name: "Ultraboost 22", brand: "Adidas", price: 12999, originalPrice: 16999, rating: 4.9, reviews: 302, badge: "Bestseller", sizes: [6, 7, 8, 9, 10, 11], image: "/shoes2.png", description: "Responsive Boost midsole with Primeknit+ upper for elite running performance." },
+  { id: 9, name: "React Vision", brand: "Nike", price: 8499, originalPrice: 10999, rating: 4.4, reviews: 71, badge: "New", sizes: [6, 7, 8, 9, 10], image: "/shoes3.png", description: "Bold layered design with React foam cushioning for everyday comfort." },
+  { id: 10, name: "Runfalcon 3.0", brand: "Adidas", price: 3499, originalPrice: 4999, rating: 4.1, reviews: 45, badge: "Sale", sizes: [7, 8, 9, 10, 11], image: "/shoes4.png", description: "Budget-friendly running shoe with durable rubber outsole." },
+  { id: 11, name: "Suede Classic XXI", brand: "Puma", price: 4999, originalPrice: 6999, rating: 4.5, reviews: 98, badge: "Hot", sizes: [6, 7, 8, 9, 10], image: "/shoes5.png", description: "Timeless suede sneaker with foam sockliner for extra comfort." },
+  { id: 12, name: "Jordan Delta 3", brand: "Jordan", price: 10499, originalPrice: 13999, rating: 4.6, reviews: 134, badge: "Premium", sizes: [7, 8, 9, 10, 11], image: "/shoes6.png", description: "Modern lifestyle sneaker with breathable knit upper and cushioned sole." },
+  { id: 13, name: "Air Zoom Pegasus 40", brand: "Nike", price: 11499, originalPrice: 14499, rating: 4.7, reviews: 189, badge: "Top Rated", sizes: [6, 7, 8, 9, 10, 11], image: "/shoes1.png", description: "Responsive daily trainer trusted by runners worldwide." },
+  { id: 14, name: "Grand Court 2.0", brand: "Adidas", price: 3999, originalPrice: 5499, rating: 4.0, reviews: 52, badge: "New", sizes: [7, 8, 9, 10], image: "/shoes2.png", description: "Clean tennis-inspired sneaker for everyday casual wear." },
+  { id: 15, name: "Cell Vive", brand: "Puma", price: 6499, originalPrice: 8999, rating: 4.3, reviews: 67, badge: "Sale", sizes: [6, 7, 8, 9, 10, 11], image: "/shoes3.png", description: "Chunky retro-tech silhouette with CELL cushioning technology." },
+  { id: 16, name: "Air Jordan 4 Retro", brand: "Jordan", price: 15999, originalPrice: 19999, rating: 4.9, reviews: 267, badge: "Bestseller", sizes: [7, 8, 9, 10, 11], image: "/shoes4.png", description: "Legendary silhouette with visible Air unit and mesh side panels." },
 ];
 
 export const womenProducts = [
@@ -18,6 +26,12 @@ export const womenProducts = [
   { id: 6, name: "Mayze Stack", brand: "Puma", price: 5499, originalPrice: 7499, rating: 4.2, reviews: 67, badge: "Premium", sizes: [4, 5, 6, 7, 8, 9], image: "/shoes2.png", description: "Stacked platform sneaker with leather upper and bold chunky sole." },
   { id: 7, name: "Superstar Bold", brand: "Adidas", price: 6999, originalPrice: 9499, rating: 4.5, reviews: 134, badge: "New", sizes: [4, 5, 6, 7, 8], image: "/shoes3.png", description: "Iconic shell toe with platform sole for an elevated classic look." },
   { id: 8, name: "React Infinity Run", brand: "Nike", price: 10999, originalPrice: 14499, rating: 4.8, reviews: 221, badge: "Bestseller", sizes: [4, 5, 6, 7, 8, 9], image: "/shoes4.png", description: "Designed to reduce injury with React foam and wide base for stability." },
+  { id: 9, name: "Cloudfoam Pure 2.0", brand: "Adidas", price: 3999, originalPrice: 5499, rating: 4.1, reviews: 59, badge: "Sale", sizes: [4, 5, 6, 7, 8], image: "/shoes5.png", description: "Sock-like fit with soft Cloudfoam cushioning for all-day wear." },
+  { id: 10, name: "Air Max Bella TR 5", brand: "Nike", price: 6999, originalPrice: 9499, rating: 4.4, reviews: 88, badge: "Hot", sizes: [4, 5, 6, 7, 8, 9], image: "/shoes6.png", description: "Versatile training shoe with Max Air cushioning for gym sessions." },
+  { id: 11, name: "Roma Basic", brand: "Puma", price: 4499, originalPrice: 6499, rating: 4.3, reviews: 76, badge: "New", sizes: [4, 5, 6, 7, 8], image: "/shoes1.png", description: "Classic court-style sneaker with a timeless minimalist look." },
+  { id: 12, name: "Jordan Delta 3 W", brand: "Jordan", price: 10999, originalPrice: 14499, rating: 4.6, reviews: 121, badge: "Premium", sizes: [4, 5, 6, 7, 8, 9], image: "/shoes2.png", description: "Sleek women's lifestyle sneaker with breathable knit construction." },
+  { id: 13, name: "Ultraboost Light W", brand: "Adidas", price: 12499, originalPrice: 15999, rating: 4.8, reviews: 156, badge: "Top Rated", sizes: [4, 5, 6, 7, 8], image: "/shoes3.png", description: "Our lightest Boost ever, tuned for a responsive women's fit." },
+  { id: 14, name: "Air Max 90 W", brand: "Nike", price: 8999, originalPrice: 11999, rating: 4.6, reviews: 178, badge: "Bestseller", sizes: [4, 5, 6, 7, 8, 9], image: "/shoes4.png", description: "Iconic Air Max silhouette in a fresh women's colorway." },
 ];
 
 export const kidsProducts = [
@@ -29,4 +43,8 @@ export const kidsProducts = [
   { id: 6, name: "Viz Runner", brand: "Puma", price: 2299, originalPrice: 3299, rating: 4.1, reviews: 38, badge: "New", sizes: [1, 2, 3, 4, 5], image: "/shoes4.png", description: "Reflective details and lightweight build for active kids." },
   { id: 7, name: "Air Zoom Pegasus", brand: "Nike", price: 4499, originalPrice: 5999, rating: 4.6, reviews: 93, badge: "Premium", sizes: [1, 2, 3, 4, 5], image: "/shoes5.png", description: "Trusted kids running shoe with Zoom Air unit for responsive cushioning." },
   { id: 8, name: "Superstar CF", brand: "Adidas", price: 3999, originalPrice: 5499, rating: 4.5, reviews: 76, badge: "Bestseller", sizes: [1, 2, 3, 4, 5], image: "/shoes6.png", description: "Classic shell toe with velcro closure for easy wear." },
+  { id: 9, name: "Revolution 6 Kids", brand: "Nike", price: 2699, originalPrice: 3799, rating: 4.2, reviews: 41, badge: "Sale", sizes: [1, 2, 3, 4, 5], image: "/shoes1.png", description: "Simple pull-on running shoe designed for growing feet." },
+  { id: 10, name: "Duramo SL Kids", brand: "Adidas", price: 2999, originalPrice: 4299, rating: 4.3, reviews: 55, badge: "New", sizes: [1, 2, 3, 4, 5], image: "/shoes2.png", description: "Everyday kids sneaker with soft cushioned midsole." },
+  { id: 11, name: "Courtflex v3", brand: "Puma", price: 2199, originalPrice: 3199, rating: 4.0, reviews: 33, badge: "Hot", sizes: [1, 2, 3, 4, 5], image: "/shoes3.png", description: "Court-inspired kids sneaker built for daily play." },
+  { id: 12, name: "Jordan Stay Loyal 3", brand: "Jordan", price: 4999, originalPrice: 6999, rating: 4.5, reviews: 87, badge: "Premium", sizes: [1, 2, 3, 4, 5], image: "/shoes4.png", description: "Basketball-inspired kids shoe with cushioned support." },
 ];

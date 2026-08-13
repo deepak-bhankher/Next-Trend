@@ -37,7 +37,7 @@ const Home1 = () => {
 
         {/* Background watermark */}
         <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] md:text-[14vw] font-black text-white/[0.03] whitespace-nowrap select-none pointer-events-none">
-          STRIDE
+          NEXT TREND
         </span>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 items-center gap-8">

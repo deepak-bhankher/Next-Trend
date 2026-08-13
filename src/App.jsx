@@ -17,6 +17,7 @@ import Men from "./pages/Men";
 import Women from "./pages/Women";
 import Kids from "./pages/Kids";
 import LocalProductDetail from "./pages/LocalProductDetail";
+import Browse from "./pages/Browse";
 
 const App = () => {
   return (
@@ -25,12 +26,19 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/men" element={<Men />} />
+        <Route path="/men/shop" element={<Browse category="men" />} />
         <Route path="/men/:id" element={<LocalProductDetail category="men" />} />
+
         <Route path="/women" element={<Women />} />
+        <Route path="/women/shop" element={<Browse category="women" />} />
         <Route path="/women/:id" element={<LocalProductDetail category="women" />} />
+
         <Route path="/kids" element={<Kids />} />
+        <Route path="/kids/shop" element={<Browse category="kids" />} />
         <Route path="/kids/:id" element={<LocalProductDetail category="kids" />} />
+
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
