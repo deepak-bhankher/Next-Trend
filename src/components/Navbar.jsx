@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiShoppingCart, FiMenu, FiX, FiUser, FiSearch } from "react-icons/fi";
+import { toast } from "react-toastify";
+import { FiShoppingCart, FiMenu, FiX, FiUser, FiSearch, FiLogOut } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 
@@ -12,14 +13,21 @@ const navLinks = [
   { name: "ABOUT US", path: "/about" },
 ];
 
-
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { cartCount } = useCart();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    toast.success("Logged out successfully");
+    setMenuOpen(false);
+    navigate("/");
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -105,7 +113,7 @@ const Navbar = () => {
               className="text-white/50 hover:text-[#A1FFCE] transition-colors duration-200 hidden sm:block"
             >
               <FiUser size={20} />
-            </Link> 
+            </Link>
 
             {/* Cart */}
             <Link to="/cart" className="relative">
@@ -142,7 +150,7 @@ const Navbar = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed inset-0 bg-[#080808] z-[60] flex flex-col"
+            className="fixed inset-0 bg-[#080808] z-[60] flex flex-col overflow-y-auto"
           >
             <div className="flex justify-between items-center p-6 border-b border-[#83A4D4]/10">
               <span className="text-xl font-black">
@@ -202,6 +210,35 @@ const Navbar = () => {
                   </NavLink>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Login / Orders / Logout */}
+            <div className="mt-10 pt-8 mx-6 border-t border-[#83A4D4]/10 flex flex-col items-center gap-6 pb-10">
+              {user ? (
+                <>
+                  <Link
+                    to="/orders"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-2 text-white/70 hover:text-white text-lg font-medium"
+                  >
+                    <FiUser size={20} /> My Orders
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-2 text-white/70 hover:text-red-400 text-lg font-medium"
+                  >
+                    <FiLogOut size={20} /> Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 text-white/70 hover:text-white text-lg font-medium"
+                >
+                  <FiUser size={20} /> Login
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
