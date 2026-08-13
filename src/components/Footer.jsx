@@ -4,8 +4,8 @@ import { FiInstagram, FiTwitter, FiFacebook, FiSend } from "react-icons/fi";
 const Footer = () => {
   return (
     <footer className="bg-[#080808] text-white border-t border-[#83A4D4]/8">
-      <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
-        <div>
+      <div className="max-w-7xl mx-auto px-6 py-12 sm:py-16 grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+        <div className="col-span-2 md:col-span-1">
           <h2 className="text-2xl font-black mb-3">
             <span className="gradient-text-primary">NEXT</span>
             <span className="text-white"> TREND</span>
@@ -41,16 +41,16 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div>
+        <div className="col-span-2 md:col-span-1">
           <h3 className="font-semibold mb-4 uppercase text-xs tracking-widest gradient-text-primary">Stay Updated</h3>
           <p className="text-white/40 text-sm mb-4">Subscribe for new drops & exclusive offers.</p>
           <div className="flex items-center glass-btn rounded-full overflow-hidden pr-1">
             <input
               type="email"
               placeholder="Your email"
-              className="bg-transparent px-4 py-2 text-sm outline-none flex-1 placeholder:text-white/25 text-white"
+              className="bg-transparent px-4 py-2 text-sm outline-none flex-1 placeholder:text-white/25 text-white min-w-0"
             />
-            <button className="gradient-primary cursor-pointer text-[#080808] p-2 rounded-full hover:opacity-90 transition-opacity">
+            <button className="gradient-primary cursor-pointer text-[#080808] p-2 rounded-full hover:opacity-90 transition-opacity flex-shrink-0">
               <FiSend size={14} />
             </button>
           </div>

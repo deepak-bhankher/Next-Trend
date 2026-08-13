@@ -120,11 +120,11 @@ const LocalProductDetail = ({category}) => {
         </div>
       </div>
       {list.filter((p) => p.id !== product.id).length > 0 && (
-        <div className="mt-24">
+        <div className="mt-24 max-w-6xl mx-auto px-6">
           <h2 className="text-2xl font-bold mb-8 text-white">
             You Might Also Like
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {list
               .filter((p) => p.id !== product.id)
               .slice(0, 8)

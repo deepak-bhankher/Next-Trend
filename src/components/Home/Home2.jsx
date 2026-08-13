@@ -8,7 +8,7 @@ const Home2 = () => {
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#A1FFCE]/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute left-0 top-1/4 w-[400px] h-[400px] bg-[#83A4D4]/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-12 md:gap-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-6">
 
         {/* Left — Text Content */}
         <motion.div
@@ -35,33 +35,33 @@ const Home2 = () => {
           </p>
 
           {/* Stats row */}
-          <div className="flex justify-center md:justify-start gap-8 py-4 border-t border-b border-[#83A4D4]/10">
+          <div className="flex justify-center md:justify-start gap-6 sm:gap-8 py-4 border-t border-b border-[#83A4D4]/10">
             <div>
-              <p className="text-2xl font-black gradient-text-primary">200+</p>
+              <p className="text-xl sm:text-2xl font-black gradient-text-primary">200+</p>
               <p className="text-white/40 text-xs uppercase tracking-wider mt-0.5">New Styles</p>
             </div>
             <div className="w-px bg-[#83A4D4]/15" />
             <div>
-              <p className="text-2xl font-black gradient-text-secondary">4.9★</p>
+              <p className="text-xl sm:text-2xl font-black gradient-text-secondary">4.9★</p>
               <p className="text-white/40 text-xs uppercase tracking-wider mt-0.5">Avg Rating</p>
             </div>
             <div className="w-px bg-[#83A4D4]/15" />
             <div>
-              <p className="text-2xl font-black gradient-text-primary">Free</p>
+              <p className="text-xl sm:text-2xl font-black gradient-text-primary">Free</p>
               <p className="text-white/40 text-xs uppercase tracking-wider mt-0.5">Shipping</p>
             </div>
           </div>
 
-          <div className="flex gap-3 justify-center md:justify-start">
+          <div className="flex gap-3 justify-center md:justify-start flex-wrap">
             <Link
               to="/kids"
-              className="gradient-secondary text-[#080808] text-xs font-bold uppercase tracking-widest px-7 py-3.5 rounded-full hover:opacity-90 transition-opacity"
+              className="gradient-secondary text-[#080808] text-xs font-bold uppercase tracking-widest px-6 sm:px-7 py-3 sm:py-3.5 rounded-full hover:opacity-90 transition-opacity"
             >
               Explore Collection
             </Link>
             <Link
               to="/men"
-              className="border border-[#83A4D4]/20 hover:border-[#B6FBFF]/40 text-white/60 hover:text-white text-xs font-bold uppercase tracking-widest px-7 py-3.5 rounded-full transition-colors duration-200"
+              className="border border-[#83A4D4]/20 hover:border-[#B6FBFF]/40 text-white/60 hover:text-white text-xs font-bold uppercase tracking-widest px-6 sm:px-7 py-3 sm:py-3.5 rounded-full transition-colors duration-200"
             >
               View items
             </Link>

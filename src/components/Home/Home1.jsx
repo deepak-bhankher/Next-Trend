@@ -40,7 +40,7 @@ const Home1 = () => {
           NEXT TREND
         </span>
 
-        <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 items-center gap-8">
+        <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 items-center gap-6 md:gap-8">
           {/* Left — Main Heading */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -73,7 +73,7 @@ const Home1 = () => {
           </motion.div>
 
           {/* Center — Shoe Image */}
-          <div className="relative w-full h-[420px] md:h-[560px] flex items-center justify-center">
+          <div className="relative w-full h-[320px] sm:h-[420px] md:h-[560px] flex items-center justify-center">
             <div className="absolute w-[300px] h-[300px] md:w-[420px] md:h-[420px] rounded-full bg-[#83A4D4]/10 blur-3xl" />
 
             <AnimatePresence mode="wait">
@@ -107,7 +107,7 @@ const Home1 = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="hidden md:flex flex-col gap-8 text-right"
+            className="hidden md:flex flex-col gap-6 text-right"
           >
             <div className="flex flex-col gap-1">
               <span className="gradient-text-primary text-xs font-bold uppercase tracking-widest">Premium Quality</span>
@@ -145,6 +145,19 @@ const Home1 = () => {
               </div>
             </div>
           </motion.div>
+
+          {/* Mobile stats row — shown only on small screens */}
+          <div className="flex md:hidden justify-center gap-8 pb-4">
+            <div className="text-center">
+              <p className="text-xl font-black gradient-text-primary">500+</p>
+              <p className="text-white/40 text-xs uppercase tracking-wider">Styles</p>
+            </div>
+            <div className="w-px bg-[#83A4D4]/15" />
+            <div className="text-center">
+              <p className="text-xl font-black gradient-text-secondary">50K+</p>
+              <p className="text-white/40 text-xs uppercase tracking-wider">Customers</p>
+            </div>
+          </div>
         </div>
       </section>
 

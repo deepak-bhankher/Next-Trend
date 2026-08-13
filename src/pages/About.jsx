@@ -91,7 +91,7 @@ const About = () => {
 
       {/* Stats */}
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20 py-10 mt-10 border-y border-[#83A4D4]/8">
+        className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-20 py-10 mt-10 border-y border-[#83A4D4]/8 px-6">
         {[
           { number: "2020", label: "Founded" },
           { number: "500+", label: "Products" },

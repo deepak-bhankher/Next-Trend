@@ -69,13 +69,13 @@ const ProductCard = ({ item, i }) => {
               {item.badge}
             </span>
           )}
-          <span className="absolute top-3 right-12 bg-green-500/20 text-green-400 border border-green-500/30 text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-sm">
+          <span className="absolute top-3 right-3 bg-green-500/20 text-green-400 border border-green-500/30 text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-sm">
             -{discount}%
           </span>
         </div>
       </Link>
 
-      <div className="p-4">
+      <div className="p-3 sm:p-4">
         <p className="gradient-text-primary text-[10px] uppercase tracking-widest mb-1 font-semibold">
           {item.brand}
         </p>
@@ -204,7 +204,7 @@ const Men = () => {
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
           {sorted.map((item, i) => (
             <ProductCard key={item.id} item={item} i={i} />
           ))}
