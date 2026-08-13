@@ -12,8 +12,8 @@ const dataMap = {
   kids: kidsProducts,
 };
 
-const LocalProductDetail = () => {
-  const { category, id } = useParams();
+const LocalProductDetail = ({category}) => {
+  const { id } = useParams();
   const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState(null);
 
