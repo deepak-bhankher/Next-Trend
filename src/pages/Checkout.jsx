@@ -24,6 +24,10 @@ const Checkout = () => {
       navigate("/login");
       return;
     }
+    if (user?.isAdmin) {
+      toast.error("Admins can't place orders");
+      return;
+    }
 
     setLoading(true);
     try {

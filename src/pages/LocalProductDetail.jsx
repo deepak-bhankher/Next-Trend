@@ -25,7 +25,7 @@ const LocalProductDetail = ({category}) => {
       toast.error("Please select a size");
       return;
     }
-    addToCart({
+    const success = addToCart({
       product: `${category}-${product.id}`,
       name: product.name,
       image: product.image,
@@ -33,7 +33,9 @@ const LocalProductDetail = ({category}) => {
       size: selectedSize,
       qty: 1,
     });
-    toast.success("Added to cart!");
+    if (success) {
+      toast.success("Added to cart!");
+    }
   };
 
   if (!product)

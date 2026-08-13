@@ -33,7 +33,7 @@ const ProductCard = ({ item, i }) => {
       toast.error("Please select a size");
       return;
     }
-    addToCart({
+    const success = addToCart({
       product: `kids-${item.id}`,
       name: item.name,
       image: item.image,
@@ -41,7 +41,9 @@ const ProductCard = ({ item, i }) => {
       size: selectedSize,
       qty: 1,
     });
-    toast.success("Added to cart!");
+    if (success) {
+      toast.success("Added to cart!");
+    }
   };
 
   return (

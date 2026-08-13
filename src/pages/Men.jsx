@@ -28,12 +28,12 @@ const ProductCard = ({ item, i }) => {
     ((item.originalPrice - item.price) / item.originalPrice) * 100,
   );
 
-  const handleAddToCart = () => {
+ const handleAddToCart = () => {
     if (!selectedSize) {
       toast.error("Please select a size");
       return;
     }
-    addToCart({
+    const success = addToCart({
       product: `men-${item.id}`,
       name: item.name,
       image: item.image,
@@ -41,7 +41,9 @@ const ProductCard = ({ item, i }) => {
       size: selectedSize,
       qty: 1,
     });
-    toast.success("Added to cart!");
+    if (success) {
+      toast.success("Added to cart!");
+    }
   };
 
   return (
