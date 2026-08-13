@@ -2,7 +2,14 @@ import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
-import { FiShoppingCart, FiMenu, FiX, FiUser, FiSearch, FiLogOut } from "react-icons/fi";
+import {
+  FiShoppingCart,
+  FiMenu,
+  FiX,
+  FiUser,
+  FiSearch,
+  FiLogOut,
+} from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 
@@ -42,7 +49,6 @@ const Navbar = () => {
     <>
       <nav className="fixed top-0 left-0 w-full z-50 bg-[#080808]/95 backdrop-blur-md border-b border-[#83A4D4]/10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
-
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0 group">
             <span className="text-xl font-black tracking-tight">
@@ -60,7 +66,9 @@ const Navbar = () => {
                 to={link.path}
                 className={({ isActive }) =>
                   `relative text-sm font-semibold tracking-widest uppercase transition-colors duration-200 group ${
-                    isActive ? "gradient-text-primary" : "text-white/60 hover:text-white"
+                    isActive
+                      ? "gradient-text-primary"
+                      : "text-white/60 hover:text-white"
                   }`
                 }
               >
@@ -78,6 +86,7 @@ const Navbar = () => {
             ))}
           </div>
 
+          {/* Right Icons */}
           {/* Right Icons */}
           <div className="flex items-center gap-4">
             {/* Search */}
@@ -106,6 +115,16 @@ const Navbar = () => {
                 />
               )}
             </form>
+
+            {/* Admin (naya) */}
+            {user?.isAdmin && (
+              <Link
+                to="/admin/orders"
+                className="text-yellow-400 hover:text-yellow-300 transition-colors duration-200 hidden sm:block text-xs font-bold uppercase tracking-wide"
+              >
+                Admin
+              </Link>
+            )}
 
             {/* User */}
             <Link
@@ -193,7 +212,9 @@ const Navbar = () => {
                     onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
                       `relative text-2xl font-bold uppercase tracking-widest group ${
-                        isActive ? "gradient-text-primary" : "text-white/80 hover:text-white"
+                        isActive
+                          ? "gradient-text-primary"
+                          : "text-white/80 hover:text-white"
                       }`
                     }
                   >
@@ -223,6 +244,15 @@ const Navbar = () => {
                   >
                     <FiUser size={20} /> My Orders
                   </Link>
+                  {user?.isAdmin && (
+                    <Link
+                      to="/admin/orders"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 text-lg font-medium"
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
                   <button
                     onClick={handleLogout}
                     className="flex items-center gap-2 text-white/70 hover:text-red-400 text-lg font-medium"
