@@ -9,9 +9,12 @@ import {
   FiUser,
   FiSearch,
   FiLogOut,
+  FiSun,
+  FiMoon,
 } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 const navLinks = [
   { name: "MEN", path: "/men" },
@@ -22,11 +25,10 @@ const navLinks = [
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { cartCount } = useCart();
   const { user, logout } = useAuth();
-
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -41,19 +43,19 @@ const Navbar = () => {
     if (searchQuery.trim()) {
       navigate(`/products?keyword=${encodeURIComponent(searchQuery.trim())}`);
       setSearchQuery("");
-      setSearchOpen(false);
+      setMenuOpen(false);
     }
   };
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 bg-[#080808]/95 backdrop-blur-md border-b border-[#83A4D4]/10">
+      <nav className="fixed top-0 left-0 w-full z-50 bg-[var(--nav-bg)] backdrop-blur-md border-b border-[var(--border)]">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0 group">
             <span className="text-xl font-black tracking-tight">
               <span className="gradient-text-primary">NEXT</span>
-              <span className="text-white"> TREND</span>
+              <span className="text-[var(--text)]"> TREND</span>
               <span className="gradient-text-secondary">.</span>
             </span>
           </Link>
@@ -68,7 +70,7 @@ const Navbar = () => {
                   `relative text-sm font-semibold tracking-widest uppercase transition-colors duration-200 group ${
                     isActive
                       ? "gradient-text-primary"
-                      : "text-white/60 hover:text-white"
+                      : "text-[var(--muted)] hover:text-[var(--text)]"
                   }`
                 }
               >
@@ -87,11 +89,8 @@ const Navbar = () => {
           </div>
 
           {/* Right Icons */}
-          {/* Right Icons */}
-          {/* Right Icons */}
           <div className="flex items-center gap-4">
             {user?.isAdmin ? (
-              // Admin ke liye — sirf Admin link dikhe
               <Link
                 to="/admin/orders"
                 className="text-yellow-400 hover:text-yellow-300 transition-colors duration-200 text-sm font-bold uppercase tracking-widest px-4 py-2 border border-yellow-400/30 rounded-full"
@@ -99,39 +98,20 @@ const Navbar = () => {
                 Admin
               </Link>
             ) : (
-              // Normal customer ke liye — sab kuch dikhe
               <>
-                {/* Search */}
-                <form
-                  onSubmit={handleSearch}
-                  className={`hidden sm:flex items-center bg-[#83A4D4]/8 border border-[#83A4D4]/15 rounded-full overflow-hidden transition-all duration-300 ${
-                    searchOpen ? "w-52 px-4 py-2" : "w-10 h-10 justify-center"
-                  }`}
+                {/* Theme Toggle */}
+                <button
+                  onClick={toggleTheme}
+                  className="text-[var(--muted)] hover:text-[#B6FBFF] transition-colors duration-200 hidden sm:block"
+                  aria-label="Toggle theme"
                 >
-                  <button
-                    type={searchOpen ? "submit" : "button"}
-                    onClick={() => !searchOpen && setSearchOpen(true)}
-                    className="text-white/50 hover:text-[#B6FBFF] transition-colors flex-shrink-0"
-                  >
-                    <FiSearch size={17} />
-                  </button>
-                  {searchOpen && (
-                    <input
-                      autoFocus
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onBlur={() => !searchQuery && setSearchOpen(false)}
-                      placeholder="Search"
-                      className="bg-transparent outline-none text-sm text-white ml-2 w-full placeholder:text-white/30"
-                    />
-                  )}
-                </form>
+                  {theme === "dark" ? <FiSun size={19} /> : <FiMoon size={19} />}
+                </button>
 
                 {/* User */}
                 <Link
                   to={user ? "/orders" : "/login"}
-                  className="text-white/50 hover:text-[#A1FFCE] transition-colors duration-200 hidden sm:block"
+                  className="text-[var(--muted)] hover:text-[#A1FFCE] transition-colors duration-200 hidden sm:block"
                 >
                   <FiUser size={20} />
                 </Link>
@@ -154,9 +134,9 @@ const Navbar = () => {
               </>
             )}
 
-            {/* Hamburger — dono ke liye rahega */}
+            {/* Hamburger */}
             <button
-              className="md:hidden text-white/70 hover:text-[#B6FBFF] transition-colors"
+              className="md:hidden text-[var(--muted)] hover:text-[#B6FBFF] transition-colors"
               onClick={() => setMenuOpen(true)}
             >
               <FiMenu size={22} />
@@ -173,17 +153,17 @@ const Navbar = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed inset-0 bg-[#080808] z-[60] flex flex-col overflow-y-auto"
+            className="fixed inset-0 bg-[var(--bg)] z-[60] flex flex-col overflow-y-auto"
           >
-            <div className="flex justify-between items-center p-6 border-b border-[#83A4D4]/10">
+            <div className="flex justify-between items-center p-6 border-b border-[var(--border)]">
               <span className="text-xl font-black">
                 <span className="gradient-text-primary">NEXT</span>
-                <span className="text-white"> TREND</span>
+                <span className="text-[var(--text)]"> TREND</span>
                 <span className="gradient-text-secondary">.</span>
               </span>
               <button
                 onClick={() => setMenuOpen(false)}
-                className="text-white/60 hover:text-[#B6FBFF] transition-colors"
+                className="text-[var(--muted)] hover:text-[#B6FBFF] transition-colors"
               >
                 <FiX size={24} />
               </button>
@@ -191,15 +171,15 @@ const Navbar = () => {
 
             <form
               onSubmit={handleSearch}
-              className="flex items-center bg-[#83A4D4]/6 border border-[#83A4D4]/12 rounded-full mx-6 mt-6 px-4 py-3"
+              className="flex items-center bg-[var(--card-bg)] border border-[var(--border)] rounded-full mx-6 mt-6 px-4 py-3"
             >
-              <FiSearch size={17} className="text-white/40" />
+              <FiSearch size={17} className="text-[var(--muted)]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search products"
-                className="bg-transparent outline-none text-sm text-white ml-3 w-full placeholder:text-white/30"
+                className="bg-transparent outline-none text-sm text-[var(--text)] ml-3 w-full placeholder:text-[var(--muted)]"
               />
             </form>
 
@@ -218,7 +198,7 @@ const Navbar = () => {
                       `relative text-2xl font-bold uppercase tracking-widest group ${
                         isActive
                           ? "gradient-text-primary"
-                          : "text-white/80 hover:text-white"
+                          : "text-[var(--muted)] hover:text-[var(--text)]"
                       }`
                     }
                   >
@@ -238,13 +218,21 @@ const Navbar = () => {
             </div>
 
             {/* Login / Orders / Logout */}
-            <div className="mt-10 pt-8 mx-6 border-t border-[#83A4D4]/10 flex flex-col items-center gap-6 pb-10">
+            <div className="mt-10 pt-8 mx-6 border-t border-[var(--border)] flex flex-col items-center gap-6 pb-10">
+              {/* Theme Toggle in Mobile Menu */}
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-2 text-[var(--muted)] hover:text-[#B6FBFF] text-lg font-medium transition-colors"
+              >
+                {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
+                {theme === "dark" ? "Light Mode" : "Dark Mode"}
+              </button>
               {user ? (
                 <>
                   <Link
                     to="/orders"
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2 text-white/70 hover:text-white text-lg font-medium"
+                    className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--text)] text-lg font-medium"
                   >
                     <FiUser size={20} /> My Orders
                   </Link>
@@ -259,7 +247,7 @@ const Navbar = () => {
                   )}
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-2 text-white/70 hover:text-red-400 text-lg font-medium"
+                    className="flex items-center gap-2 text-[var(--muted)] hover:text-red-400 text-lg font-medium"
                   >
                     <FiLogOut size={20} /> Logout
                   </button>
@@ -268,7 +256,7 @@ const Navbar = () => {
                 <Link
                   to="/login"
                   onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 text-white/70 hover:text-white text-lg font-medium"
+                  className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--text)] text-lg font-medium"
                 >
                   <FiUser size={20} /> Login
                 </Link>
