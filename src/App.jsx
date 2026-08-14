@@ -19,6 +19,8 @@ import Kids from "./pages/Kids";
 import LocalProductDetail from "./pages/LocalProductDetail";
 import Browse from "./pages/Browse";
 import AdminOrders from "./pages/AdminOrders";
+import AdminOrderDetail from "./pages/AdminOrderDetail";
+
 
 
 const App = () => {
@@ -50,6 +52,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
+        <Route path="/admin/orders/:id" element={<AdminOrderDetail />} />
       </Routes>
       <Footer />
       <ToastContainer theme="dark" position="bottom-right" />

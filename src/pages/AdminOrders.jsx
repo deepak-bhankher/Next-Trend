@@ -78,7 +78,7 @@ const AdminOrders = () => {
 
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
+            className="flex items-center cursor-pointer gap-2 text-sm font-semibold px-4 py-2 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
           >
             Log Out
           </button>
@@ -156,7 +156,7 @@ const AdminOrders = () => {
                       </div>
 
                       <Link
-                        to={`/orders/${order._id}`}
+                        to={`/admin/orders/${order._id}`}
                         className="text-white/40 hover:text-white text-xs underline"
                       >
                         View
