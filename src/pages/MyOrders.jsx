@@ -38,20 +38,20 @@ const handleLogout = async () => {
 
   if (loading) {
     return (
-      <div className="bg-dark text-white min-h-screen flex items-center justify-center">
+      <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen flex items-center justify-center">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="bg-dark text-white min-h-screen pt-32 pb-20">
+    <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen pt-32 pb-20">
       <div className="max-w-4xl mx-auto px-6">
        <div className="flex items-center justify-between mb-10">
   <h1 className="text-4xl font-bold">My Orders</h1>
   <button
     onClick={handleLogout}
-    className="flex items-center gap-2 bg-white/5 border border-white/10 hover:border-white/30 text-white/70 hover:text-white px-5 py-2.5 rounded-full text-sm font-medium transition-colors"
+    className="flex items-center gap-2 bg-[var(--card-bg)] border border-[var(--border)] hover:border-[var(--muted)] text-[var(--muted)] hover:text-[var(--text)] px-5 py-2.5 rounded-full text-sm font-medium transition-colors"
   >
     <FiLogOut size={16} /> Logout
   </button>
@@ -59,8 +59,8 @@ const handleLogout = async () => {
 
         {orders.length === 0 ? (
           <div className="text-center py-20">
-            <FiPackage size={48} className="mx-auto mb-4 text-white/20" />
-            <p className="text-white/50 mb-8">You haven't placed any orders yet.</p>
+            <FiPackage size={48} className="mx-auto mb-4 text-[var(--muted)]" />
+            <p className="text-[var(--muted)] mb-8">You haven't placed any orders yet.</p>
             <Link
               to="/men"
               className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform"
@@ -79,17 +79,17 @@ const handleLogout = async () => {
               >
                 <Link
                   to={`/orders/${order._id}`}
-                  className="flex items-center justify-between bg-white/5 border border-white/10 hover:border-white/30 rounded-2xl p-5 transition-colors"
+                  className="flex items-center justify-between bg-[var(--card-bg)] border border-[var(--border)] hover:border-[var(--muted)] rounded-2xl p-5 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
-                      <FiPackage className="text-white/60" />
+                    <div className="w-12 h-12 rounded-xl bg-[var(--card-bg)] flex items-center justify-center">
+                      <FiPackage className="text-[var(--muted)]" />
                     </div>
                     <div>
                       <p className="font-medium text-sm">
                         Order #{order._id.slice(-8)}
                       </p>
-                      <p className="text-white/40 text-xs mt-1">
+                      <p className="text-[var(--muted)] text-xs mt-1">
                         {new Date(order.createdAt).toLocaleDateString("en-IN", {
                           day: "numeric",
                           month: "short",
@@ -102,11 +102,11 @@ const handleLogout = async () => {
                   <div className="flex items-center gap-4">
                     <div className="text-right">
                       <p className="font-bold">₹{order.totalPrice}</p>
-                      <p className="text-white/40 text-xs">
+                      <p className="text-[var(--muted)] text-xs">
                         {order.isDelivered ? "Delivered" : "Processing"}
                       </p>
                     </div>
-                    <FiChevronRight className="text-white/40" />
+                    <FiChevronRight className="text-[var(--muted)]" />
                   </div>
                 </Link>
               </motion.div>
