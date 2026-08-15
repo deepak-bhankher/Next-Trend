@@ -222,7 +222,7 @@ const Navbar = () => {
               {/* Theme Toggle in Mobile Menu */}
               <button
                 onClick={toggleTheme}
-                className="flex items-center gap-2 text-[var(--muted)] hover:text-[#B6FBFF] text-lg font-medium transition-colors"
+                className="flex items-center  gap-2 text-[var(--muted)] hover:text-[#B6FBFF] text-lg font-medium transition-colors"
               >
                 {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
                 {theme === "dark" ? "Light Mode" : "Dark Mode"}

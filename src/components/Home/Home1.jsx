@@ -28,7 +28,7 @@ const Home1 = () => {
   }, []);
 
   return (
-    <div className="bg-dark text-white min-h-screen">
+    <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen">
       {/* Hero */}
       <section className="relative min-h-screen flex flex-col justify-center pt-24 pb-16 px-6 overflow-hidden">
         {/* Background gradient blobs */}
@@ -53,7 +53,7 @@ const Home1 = () => {
               <br />
               <span className="gradient-text-primary">FASTER.</span>
             </h1>
-            <p className="text-white/40 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
+            <p className="text-[var(--muted)] text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
               Step into the future of style. Premium footwear crafted for those who move with purpose.
             </p>
             <div className="flex gap-3 justify-center md:justify-start">
@@ -65,7 +65,7 @@ const Home1 = () => {
               </a>
               <a
                 href="/about"
-                className="border border-[#83A4D4]/25 hover:border-[#B6FBFF]/50 text-white/60 hover:text-white text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-colors duration-200"
+                className="border border-[#83A4D4]/25 hover:border-[#B6FBFF]/50 text-[var(--muted)] hover:text-[var(--text)] text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-colors duration-200"
               >
                 Our Story
               </a>
@@ -111,7 +111,7 @@ const Home1 = () => {
           >
             <div className="flex flex-col gap-1">
               <span className="gradient-text-primary text-xs font-bold uppercase tracking-widest">Premium Quality</span>
-              <p className="text-white/50 text-sm leading-relaxed">
+              <p className="text-[var(--muted)] text-sm leading-relaxed">
                 Handpicked materials sourced from the world's finest tanneries and textile mills.
               </p>
             </div>
@@ -120,7 +120,7 @@ const Home1 = () => {
 
             <div className="flex flex-col gap-1">
               <span className="gradient-text-secondary text-xs font-bold uppercase tracking-widest">New Arrivals</span>
-              <p className="text-white/50 text-sm leading-relaxed">
+              <p className="text-[var(--muted)] text-sm leading-relaxed">
                 Fresh drops every week. Stay ahead of the curve with our latest collections.
               </p>
             </div>
@@ -129,7 +129,7 @@ const Home1 = () => {
 
             <div className="flex flex-col gap-1">
               <span className="gradient-text-primary text-xs font-bold uppercase tracking-widest">Free Delivery</span>
-              <p className="text-white/50 text-sm leading-relaxed">
+              <p className="text-[var(--muted)] text-sm leading-relaxed">
                 Complimentary shipping on all orders above ₹999. Fast & secure delivery nationwide.
               </p>
             </div>
@@ -137,11 +137,11 @@ const Home1 = () => {
             <div className="flex justify-end gap-6 mt-2">
               <div className="text-right">
                 <p className="text-2xl font-black gradient-text-primary">500+</p>
-                <p className="text-white/40 text-xs uppercase tracking-wider">Styles</p>
+                <p className="text-[var(--muted)] text-xs uppercase tracking-wider">Styles</p>
               </div>
               <div className="text-right">
                 <p className="text-2xl font-black gradient-text-secondary">50K+</p>
-                <p className="text-white/40 text-xs uppercase tracking-wider">Customers</p>
+                <p className="text-[var(--muted)] text-xs uppercase tracking-wider">Customers</p>
               </div>
             </div>
           </motion.div>
@@ -150,12 +150,12 @@ const Home1 = () => {
           <div className="flex md:hidden justify-center gap-8 pb-4">
             <div className="text-center">
               <p className="text-xl font-black gradient-text-primary">500+</p>
-              <p className="text-white/40 text-xs uppercase tracking-wider">Styles</p>
+              <p className="text-[var(--muted)] text-xs uppercase tracking-wider">Styles</p>
             </div>
             <div className="w-px bg-[#83A4D4]/15" />
             <div className="text-center">
               <p className="text-xl font-black gradient-text-secondary">50K+</p>
-              <p className="text-white/40 text-xs uppercase tracking-wider">Customers</p>
+              <p className="text-[var(--muted)] text-xs uppercase tracking-wider">Customers</p>
             </div>
           </div>
         </div>
@@ -167,7 +167,7 @@ const Home1 = () => {
           {[...scrollShoes, ...scrollShoes].map((shoe, i) => (
             <div
               key={i}
-              className="w-56 md:w-64 flex-shrink-0 bg-white/5 border border-white/10 rounded-2xl overflow-hidden"
+              className="w-56 md:w-64 flex-shrink-0 bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl overflow-hidden"
             >
               <div className="aspect-square">
                 <img
@@ -177,10 +177,10 @@ const Home1 = () => {
                 />
               </div>
               <div className="p-4">
-                <p className="text-white/40 text-xs uppercase tracking-wide mb-1">
+                <p className="text-[var(--muted)] text-xs uppercase tracking-wide mb-1">
                   {shoe.brand}
                 </p>
-                <h3 className="font-semibold text-white text-sm">{shoe.name}</h3>
+                <h3 className="font-semibold text-[var(--text)] text-sm">{shoe.name}</h3>
               </div>
             </div>
           ))}
