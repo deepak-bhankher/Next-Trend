@@ -79,7 +79,7 @@ const ProductCard = ({ item, i }) => {
         <p className="gradient-text-secondary text-[10px] uppercase tracking-widest mb-1 font-semibold">
           {item.brand}
         </p>
-        <h3 className="font-semibold text-sm text-white mb-2 truncate">
+        <h3 className="font-semibold text-sm text-[var(--text)] mb-2 truncate">
           {item.name}
         </h3>
 
@@ -92,12 +92,12 @@ const ProductCard = ({ item, i }) => {
                 className={
                   idx < Math.floor(item.rating)
                     ? "fill-yellow-400 text-yellow-400"
-                    : "text-white/20"
+                    : "text-[var(--muted)]"
                 }
               />
             ))}
           </div>
-          <span className="text-white/40 text-[10px]">({item.reviews})</span>
+          <span className="text-[var(--muted)] text-[10px]">({item.reviews})</span>
         </div>
 
         <div className="flex items-center justify-between">
@@ -105,7 +105,7 @@ const ProductCard = ({ item, i }) => {
             <span className="font-bold gradient-text-primary text-base">
               ₹{item.price.toLocaleString()}
             </span>
-            <span className="text-white/30 text-xs line-through ml-2">
+            <span className="text-[var(--muted)] text-xs line-through ml-2">
               ₹{item.originalPrice.toLocaleString()}
             </span>
           </div>
@@ -127,27 +127,27 @@ const Women = () => {
   });
 
   return (
-    <div className="bg-dark text-white min-h-screen pt-32 pb-20">
+    <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen pt-32 pb-20">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-10"
         >
-          <p className="uppercase tracking-[0.3em] text-white/40 text-xs mb-2">
+          <p className="uppercase tracking-[0.3em] text-[var(--muted)] text-xs mb-2">
             Collection
           </p>
           <div className="flex items-end justify-between flex-wrap gap-4">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold">Women's Shoes</h1>
-              <p className="text-white/40 text-sm mt-2">
+              <p className="text-[var(--muted)] text-sm mt-2">
                 {womenProducts.length} products
               </p>
             </div>
             <div className="relative">
               <button
                 onClick={() => setShowSort(!showSort)}
-                className="glass-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm text-white/70 hover:text-white transition-colors"
+                className="glass-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm text-[var(--muted)] hover:text-[var(--text)] transition-colors"
               >
                 <FiFilter size={14} />
                 {sort}
@@ -171,7 +171,7 @@ const Women = () => {
                           setSort(s);
                           setShowSort(false);
                         }}
-                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-white/5 ${sort === s ? "gradient-text-secondary font-semibold" : "text-white/60"}`}
+                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-[var(--card-bg)] ${sort === s ? "gradient-text-secondary font-semibold" : "text-[var(--muted)]"}`}
                       >
                         {s}
                       </button>
@@ -187,13 +187,13 @@ const Women = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="glass-card rounded-2xl p-6 mb-10 flex items-center justify-between flex-wrap gap-4 border-[#A1FFCE]/15"
+          className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6 mb-10 flex items-center justify-between flex-wrap gap-4"
         >
           <div>
             <p className="gradient-text-secondary text-xs uppercase tracking-widest font-semibold mb-1">
               Exclusive
             </p>
-            <h2 className="text-xl font-bold">
+            <h2 className="text-xl font-bold text-[var(--text)]">
               New Arrivals — Women's Edition 2025
             </h2>
           </div>

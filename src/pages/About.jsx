@@ -9,12 +9,12 @@ const values = [
 
 const About = () => {
   return (
-    <div className="bg-dark text-white min-h-screen pt-32 pb-20">
+    <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen pt-32 pb-20">
       <div className="max-w-5xl mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
           <p className="uppercase tracking-[0.4em] gradient-text-primary text-xs mb-2 font-medium">Our Story</p>
           <h1 className="text-5xl font-bold mb-6">About Next Trend</h1>
-          <p className="text-white/50 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[var(--muted)] max-w-2xl mx-auto leading-relaxed">
             Next Trend was born from a simple idea — footwear should feel as good as it looks. We curate premium sneakers from the world's best brands, delivering comfort, quality, and style straight to your doorstep.
           </p>
         </motion.div>
@@ -26,8 +26,8 @@ const About = () => {
               <div className={`mb-4 w-11 h-11 rounded-xl flex items-center justify-center ${i % 2 === 0 ? "bg-[#83A4D4]/10 border border-[#83A4D4]/15 text-[#B6FBFF]" : "bg-[#A1FFCE]/10 border border-[#A1FFCE]/15 text-[#A1FFCE]"}`}>
                 {v.icon}
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-white">{v.title}</h3>
-              <p className="text-white/40 text-sm leading-relaxed">{v.desc}</p>
+              <h3 className="font-semibold text-lg mb-2 text-[var(--text)]">{v.title}</h3>
+              <p className="text-[var(--muted)] text-sm leading-relaxed">{v.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -36,7 +36,7 @@ const About = () => {
         <div className="mt-24">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
             <p className="uppercase tracking-[0.4em] gradient-text-secondary text-xs mb-2 font-medium">Our Journey</p>
-            <h2 className="text-4xl font-bold">How We Started</h2>
+            <h2 className="text-4xl font-bold text-[var(--text)]">How We Started</h2>
           </motion.div>
 
           <div className="space-y-8 max-w-2xl mx-auto">
@@ -54,8 +54,8 @@ const About = () => {
                 <div className={`flex-shrink-0 w-3 h-3 rounded-full mt-2 ${i % 2 === 0 ? "bg-[#83A4D4]" : "bg-[#A1FFCE]"}`}
                   style={{ boxShadow: i % 2 === 0 ? "0 0 12px rgba(131,164,212,0.5)" : "0 0 12px rgba(161,255,206,0.5)" }} />
                 <div className="flex-1 pb-2">
-                  <h3 className="font-semibold text-lg mb-1 text-white">{item.title}</h3>
-                  <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                  <h3 className="font-semibold text-lg mb-1 text-[var(--text)]">{item.title}</h3>
+                  <p className="text-[var(--muted)] text-sm leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -65,7 +65,7 @@ const About = () => {
           <div className="mt-24">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
               <p className="uppercase tracking-[0.4em] gradient-text-primary text-xs mb-2 font-medium">Meet The Team</p>
-              <h2 className="text-4xl font-bold">The People Behind Next Trend</h2>
+              <h2 className="text-4xl font-bold text-[var(--text)]">The People Behind Next Trend</h2>
             </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
@@ -80,8 +80,8 @@ const About = () => {
                   <div className={`w-24 h-24 rounded-full glass-card mx-auto mb-4 flex items-center justify-center text-2xl font-black ${i % 2 === 0 ? "border-[#83A4D4]/20 gradient-text-primary" : "border-[#A1FFCE]/20 gradient-text-secondary"}`}>
                     {member.name.split(" ").map((n) => n[0]).join("")}
                   </div>
-                  <h3 className="font-semibold mb-1 text-white">{member.name}</h3>
-                  <p className="text-white/30 text-sm">{member.role}</p>
+                  <h3 className="font-semibold mb-1 text-[var(--text)]">{member.name}</h3>
+                  <p className="text-[var(--muted)] text-sm">{member.role}</p>
                 </motion.div>
               ))}
             </div>
@@ -91,7 +91,7 @@ const About = () => {
 
       {/* Stats */}
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-20 py-10 mt-10 border-y border-[#83A4D4]/8 px-6">
+        className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-20 py-10 mt-10 border-y border-[var(--border)] px-6">
         {[
           { number: "2020", label: "Founded" },
           { number: "500+", label: "Products" },
@@ -102,7 +102,7 @@ const About = () => {
             <p className={`text-3xl md:text-4xl font-black mb-1 ${i % 2 === 0 ? "gradient-text-primary" : "gradient-text-secondary"}`}>
               {stat.number}
             </p>
-            <p className="text-white/30 text-xs uppercase tracking-widest">{stat.label}</p>
+            <p className="text-[var(--muted)] text-xs uppercase tracking-widest">{stat.label}</p>
           </div>
         ))}
       </motion.div>
@@ -114,19 +114,19 @@ const About = () => {
           <div className="w-12 h-12 glass-card rounded-2xl flex items-center justify-center mx-auto mb-4 border-[#83A4D4]/20">
             <FiMail size={20} className="gradient-text-primary" />
           </div>
-          <h2 className="text-3xl font-bold mb-2">Stay in the Loop</h2>
-          <p className="text-white/40 text-sm mb-6">Get exclusive drops, sale alerts, and style tips straight to your inbox.</p>
+          <h2 className="text-3xl font-bold mb-2 text-[var(--text)]">Stay in the Loop</h2>
+          <p className="text-[var(--muted)] text-sm mb-6">Get exclusive drops, sale alerts, and style tips straight to your inbox.</p>
           <div className="flex gap-3 max-w-md mx-auto">
-            <input type="email" placeholder="Enter your email" className="flex-1 glass-card rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 outline-none border-white/10 focus:border-[#83A4D4]/40 transition-colors" />
+            <input type="email" placeholder="Enter your email" className="flex-1 bg-[var(--card-bg)] border border-[var(--border)] rounded-xl px-4 py-3 text-sm text-[var(--text)] placeholder:text-[var(--muted)] outline-none focus:border-[#83A4D4]/40 transition-colors" />
             <button className="gradient-primary text-[#080808] font-bold px-6 py-3 rounded-xl hover:opacity-80 transition-opacity text-sm whitespace-nowrap">
               Subscribe
             </button>
           </div>
           <div className="flex items-center justify-center gap-4 mt-6">
-            <a href="#" className="w-9 h-9 glass-card rounded-xl flex items-center justify-center text-white/40 hover:text-[#B6FBFF] hover:border-[#83A4D4]/30 transition-all">
+            <a href="#" className="w-9 h-9 glass-card rounded-xl flex items-center justify-center text-[var(--muted)] hover:text-[#B6FBFF] hover:border-[#83A4D4]/30 transition-all">
               <FiInstagram size={16} />
             </a>
-            <a href="#" className="w-9 h-9 glass-card rounded-xl flex items-center justify-center text-white/40 hover:text-[#B6FBFF] hover:border-[#83A4D4]/30 transition-all">
+            <a href="#" className="w-9 h-9 glass-card rounded-xl flex items-center justify-center text-[var(--muted)] hover:text-[#B6FBFF] hover:border-[#83A4D4]/30 transition-all">
               <FiTwitter size={16} />
             </a>
           </div>
