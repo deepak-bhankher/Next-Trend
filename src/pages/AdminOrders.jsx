@@ -55,7 +55,7 @@ const AdminOrders = () => {
 
   if (authLoading) {
     return (
-      <div className="bg-dark text-white min-h-screen flex items-center justify-center">
+      <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen flex items-center justify-center">
         Loading...
       </div>
     );
@@ -66,12 +66,12 @@ const AdminOrders = () => {
   }
 
   return (
-    <div className="bg-dark text-white min-h-screen pt-32 pb-20">
+    <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen pt-32 pb-20">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between mb-10">
           <div>
             <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
-            <p className="text-white/40">
+            <p className="text-[var(--muted)]">
               Manage and track all customer orders
             </p>
           </div>
@@ -85,13 +85,13 @@ const AdminOrders = () => {
         </div>
 
         {loading ? (
-          <div className="text-center text-white/30 py-20">
+          <div className="text-center text-[var(--muted)] py-20">
             Loading orders...
           </div>
         ) : orders.length === 0 ? (
           <div className="text-center py-20">
-            <FiPackage size={48} className="mx-auto mb-4 text-white/20" />
-            <p className="text-white/50">No orders yet.</p>
+            <FiPackage size={48} className="mx-auto mb-4 text-[var(--muted)]" />
+            <p className="text-[var(--muted)]">No orders yet.</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -105,17 +105,17 @@ const AdminOrders = () => {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.03 }}
-                  className="bg-white/5 border border-white/10 rounded-2xl p-5"
+                  className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-5"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                     <div>
                       <p className="font-semibold text-sm">
                         Order #{order._id.slice(-8)}
                       </p>
-                      <p className="text-white/40 text-xs mt-1">
+                      <p className="text-[var(--muted)] text-xs mt-1">
                         {order.user?.name} ({order.user?.email})
                       </p>
-                      <p className="text-white/30 text-xs mt-1">
+                      <p className="text-[var(--muted)] text-xs mt-1">
                         {new Date(order.createdAt).toLocaleDateString("en-IN", {
                           day: "numeric",
                           month: "short",
@@ -141,12 +141,12 @@ const AdminOrders = () => {
                           {currentStatus} <FiChevronDown size={12} />
                         </button>
                         {openDropdown === order._id && (
-                          <div className="absolute right-0 top-9 bg-[#111] border border-white/10 rounded-xl overflow-hidden z-10 min-w-[140px] shadow-xl">
+                          <div className="absolute right-0 top-9 bg-[var(--bg)] border border-[var(--border)] rounded-xl overflow-hidden z-10 min-w-[140px] shadow-xl">
                             {["Processing", "Shipped", "Delivered"].map((s) => (
                               <button
                                 key={s}
                                 onClick={() => handleStatusChange(order._id, s)}
-                                className="w-full text-left px-4 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-white transition-colors"
+                                className="w-full text-left px-4 py-2.5 text-sm text-[var(--muted)] hover:bg-[var(--card-bg)] hover:text-[var(--text)] transition-colors"
                               >
                                 {s}
                               </button>
@@ -157,16 +157,16 @@ const AdminOrders = () => {
 
                       <Link
                         to={`/admin/orders/${order._id}`}
-                        className="text-white/40 hover:text-white text-xs underline"
+                        className="text-[var(--muted)] hover:text-[var(--text)] text-xs underline"
                       >
                         View
                       </Link>
                     </div>
                   </div>
 
-                  <div className="border-t border-white/10 pt-3 space-y-1">
+                  <div className="border-t border-[var(--border)] pt-3 space-y-1">
                     {order.orderItems.map((item) => (
-                      <p key={item._id} className="text-white/50 text-xs">
+                      <p key={item._id} className="text-[var(--muted)] text-xs">
                         {item.name} (Size {item.size}) × {item.qty} — ₹
                         {item.price * item.qty}
                       </p>

@@ -91,12 +91,21 @@ const Navbar = () => {
           {/* Right Icons */}
           <div className="flex items-center gap-4">
             {user?.isAdmin ? (
-              <Link
-                to="/admin/orders"
-                className="text-yellow-400 hover:text-yellow-300 transition-colors duration-200 text-sm font-bold uppercase tracking-widest px-4 py-2 border border-yellow-400/30 rounded-full"
-              >
-                Admin
-              </Link>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={toggleTheme}
+                  className="text-[var(--muted)] hover:text-[#B6FBFF] transition-colors duration-200"
+                  aria-label="Toggle theme"
+                >
+                  {theme === "dark" ? <FiSun size={19} /> : <FiMoon size={19} />}
+                </button>
+                <Link
+                  to="/admin/orders"
+                  className="text-yellow-400 hover:text-yellow-300 transition-colors duration-200 text-sm font-bold uppercase tracking-widest px-4 py-2 border border-yellow-400/30 rounded-full"
+                >
+                  Admin
+                </Link>
+              </div>
             ) : (
               <>
                 {/* Theme Toggle */}
