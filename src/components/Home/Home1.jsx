@@ -2,19 +2,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
 const heroImages = [
-  "/shoes1.png",
-  "/shoes2.png",
-  "/shoes3.png",
-  "/shoes4.png",
+  "/men1.png",
+  "/men2.png",
+  "/men3.png",
+  "/men4.png",
 ];
 
 const scrollShoes = [
-  { image: "shoes1.png", name: "Duramo SL 2.0", brand: "Adidas" },
-  { image: "shoes2.png", name: "Seeker Speckle", brand: "Puma" },
-  { image: "shoes3.png", name: "Speedcat OG", brand: "Puma" },
-  { image: "shoes4.png", name: "Air Jordan", brand: "Jordan" },
-  { image: "shoes5.png", name: "Jordan Street Style", brand: "Jordan" },
-  { image: "shoes6.png", name: "Jordan 1 Mid Patent SE", brand: "Jordan" },
+  { image: "men1.png", name: "Duramo SL 2.0", brand: "Adidas" },
+  { image: "men2.png", name: "Seeker Speckle", brand: "Puma" },
+  { image: "men3.png", name: "Speedcat OG", brand: "Puma" },
+  { image: "men4.png", name: "Air Jordan", brand: "Jordan" },
+  { image: "men5.png", name: "Jordan Street Style", brand: "Jordan" },
+  { image: "men6.png", name: "Jordan 1 Mid Patent SE", brand: "Jordan" },
 ];
 
 const Home1 = () => {

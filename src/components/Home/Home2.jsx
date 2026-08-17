@@ -74,7 +74,7 @@ const Home2 = () => {
           <div className="absolute w-[340px] h-[340px] md:w-[460px] md:h-[460px] rounded-full bg-[#A1FFCE]/6 blur-3xl" />
 
           <motion.img
-            src="/shoes2.png"
+            src="/men2.png"
             alt="Featured Shoe"
             animate={{ y: [0, -18, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
