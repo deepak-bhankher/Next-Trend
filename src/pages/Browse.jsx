@@ -10,6 +10,7 @@ const dataMap = {
   kids: kidsProducts,
 };
 
+
 const titleMap = {
   men: "Men's Shoes",
   women: "Women's Shoes",
