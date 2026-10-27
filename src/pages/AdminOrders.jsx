@@ -1,3 +1,4 @@
+import { getImageUrl } from "../utils/imageUrl";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -252,7 +253,7 @@ const AdminOrders = () => {
                       >
                         {item.image && (
                           <img
-                            src={item.image}
+                            src={getImageUrl(item.image)}
                             alt={item.name}
                             className="w-6 h-6 rounded-md object-cover"
                             onError={(e) => {

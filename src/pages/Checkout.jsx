@@ -1,3 +1,4 @@
+import { getImageUrl } from "../utils/imageUrl";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -71,7 +72,7 @@ const Checkout = () => {
             <div className="space-y-4 mb-6">
               {cartItems.map((item) => (
                 <div key={`${item.product}-${item.size}`} className="flex gap-3">
-                  <img src={item.image} alt={item.name} className="w-14 h-14 rounded-lg object-cover" />
+                  <img src={getImageUrl(item.image)} alt={item.name} className="w-14 h-14 rounded-lg object-cover" onError={(e) => { e.currentTarget.src = "/men1.png"; }} />
                   <div className="flex-1">
                     <p className="text-sm font-medium text-[var(--text)]">{item.name}</p>
                     <p className="text-[var(--muted)] text-xs">Size {item.size} × {item.qty}</p>

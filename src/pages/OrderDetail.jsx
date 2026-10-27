@@ -1,3 +1,4 @@
+import { getImageUrl } from "../utils/imageUrl";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -63,9 +64,12 @@ const OrderDetail = () => {
               {order.orderItems.map((item) => (
                 <div key={item._id} className="flex gap-3">
                   <img
-                    src={item.image}
+                    src={getImageUrl(item.image)}
                     alt={item.name}
-                    className="w-14 h-14 rounded-lg object-cover"
+                    className="w-16 h-16 rounded-xl object-cover bg-black/5 border border-[var(--border)] flex-shrink-0"
+                    onError={(e) => {
+                      e.currentTarget.src = "/men1.png";
+                    }}
                   />
                   <div className="flex-1">
                     <p className="text-sm font-medium">{item.name}</p>

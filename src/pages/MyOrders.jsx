@@ -1,3 +1,4 @@
+import { getImageUrl } from "../utils/imageUrl";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -82,12 +83,28 @@ const handleLogout = async () => {
                   className="flex items-center justify-between bg-[var(--card-bg)] border border-[var(--border)] hover:border-[var(--muted)] rounded-2xl p-5 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[var(--card-bg)] flex items-center justify-center">
-                      <FiPackage className="text-[var(--muted)]" />
+                    <div className="w-16 h-16 rounded-xl bg-black/5 border border-[var(--border)] overflow-hidden flex-shrink-0 flex items-center justify-center relative">
+                      {order.orderItems && order.orderItems[0]?.image ? (
+                        <img
+                          src={getImageUrl(order.orderItems[0].image)}
+                          alt={order.orderItems[0].name || "Sneaker"}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.src = "/men1.png";
+                          }}
+                        />
+                      ) : (
+                        <FiPackage className="text-[var(--muted)]" size={24} />
+                      )}
+                      {order.orderItems?.length > 1 && (
+                        <span className="absolute bottom-1 right-1 bg-black/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                          +{order.orderItems.length - 1}
+                        </span>
+                      )}
                     </div>
                     <div>
-                      <p className="font-medium text-sm">
-                        Order #{order._id.slice(-8)}
+                      <p className="font-bold text-sm text-[var(--text)] line-clamp-1">
+                        {order.orderItems && order.orderItems[0]?.name ? order.orderItems[0].name : `Order #${order._id.slice(-8)}`}
                       </p>
                       <p className="text-[var(--muted)] text-xs mt-1">
                         {new Date(order.createdAt).toLocaleDateString("en-IN", {
@@ -95,16 +112,22 @@ const handleLogout = async () => {
                           month: "short",
                           year: "numeric",
                         })}{" "}
-                        · {order.orderItems.length} item(s)
+                        · Size {order.orderItems && order.orderItems[0]?.size} · {order.orderItems?.length || 1} item(s)
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="text-right">
-                      <p className="font-bold">₹{order.totalPrice}</p>
-                      <p className="text-[var(--muted)] text-xs">
-                        {order.isDelivered ? "Delivered" : "Processing"}
-                      </p>
+                      <p className="font-black text-base text-[var(--text)]">₹{order.totalPrice?.toLocaleString()}</p>
+                      <span className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border inline-block mt-1 ${
+                        order.isDelivered || order.status === "Delivered"
+                          ? "bg-emerald-100 text-emerald-900 border-emerald-300 dark:bg-emerald-500/15 dark:text-emerald-300"
+                          : order.status === "Shipped"
+                          ? "bg-blue-100 text-blue-900 border-blue-300 dark:bg-blue-500/15 dark:text-blue-300"
+                          : "bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-500/15 dark:text-amber-300"
+                      }`}>
+                        {order.isDelivered || order.status === "Delivered" ? "Delivered" : order.status || "Processing"}
+                      </span>
                     </div>
                     <FiChevronRight className="text-[var(--muted)]" />
                   </div>

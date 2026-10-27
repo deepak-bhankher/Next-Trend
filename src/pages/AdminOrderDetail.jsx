@@ -1,3 +1,4 @@
+import { getImageUrl } from "../utils/imageUrl";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -221,7 +222,7 @@ const AdminOrderDetail = () => {
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-xl bg-[var(--bg)] border border-[var(--border)] overflow-hidden flex-shrink-0">
                   <img
-                    src={item.image}
+                    src={getImageUrl(item.image)}
                     alt={item.name}
                     className="w-full h-full object-cover"
                     onError={(e) => {

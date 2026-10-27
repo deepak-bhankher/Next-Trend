@@ -159,41 +159,55 @@ const Navbar = () => {
               {theme === "dark" ? <FiSun size={19} /> : <FiMoon size={19} />}
             </button>
 
-            {/* Admin Badge */}
+            {/* Admin Badge & Logout (ONLY for Admin) */}
             {user?.isAdmin && (
-              <Link
-                to="/admin"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 border border-amber-500/30 transition-all shadow-sm"
-              >
-                <FiGrid size={12} />
-                <span>Admin</span>
-              </Link>
+              <>
+                <Link
+                  to="/admin"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 border border-amber-500/30 transition-all shadow-sm"
+                >
+                  <FiGrid size={12} />
+                  <span>Admin</span>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-[var(--muted)] hover:text-red-400 transition-colors p-1.5 hidden sm:block"
+                  title="Logout"
+                >
+                  <FiLogOut size={18} />
+                </button>
+              </>
             )}
 
-            {/* User / Orders */}
-            <Link
-              to={user ? "/orders" : "/login"}
-              className="text-[var(--muted)] hover:text-[#A1FFCE] transition-colors duration-200 hidden sm:block p-1.5"
-              aria-label="Account"
-            >
-              <FiUser size={20} />
-            </Link>
-
-            {/* Cart */}
-            <Link to="/cart" className="relative p-1">
-              <div className="gradient-primary text-[#080808] p-2 rounded-full hover:scale-105 transition-transform shadow-md shadow-[#83A4D4]/20">
-                <FiShoppingCart size={16} />
-              </div>
-              {cartCount > 0 && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-0.5 -right-0.5 bg-[#A1FFCE] text-[#080808] text-[10px] font-black rounded-full w-4 h-4 flex items-center justify-center shadow"
+            {/* Customer Icons (Cart & Orders) - Hidden for Admin */}
+            {!user?.isAdmin && (
+              <>
+                {/* User / Orders */}
+                <Link
+                  to={user ? "/orders" : "/login"}
+                  className="text-[var(--muted)] hover:text-[#A1FFCE] transition-colors duration-200 hidden sm:block p-1.5"
+                  aria-label="Account"
                 >
-                  {cartCount}
-                </motion.span>
-              )}
-            </Link>
+                  <FiUser size={20} />
+                </Link>
+
+                {/* Cart */}
+                <Link to="/cart" className="relative p-1">
+                  <div className="gradient-primary text-[#080808] p-2 rounded-full hover:scale-105 transition-transform shadow-md shadow-[#83A4D4]/20">
+                    <FiShoppingCart size={16} />
+                  </div>
+                  {cartCount > 0 && (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute -top-0.5 -right-0.5 bg-[#A1FFCE] text-[#080808] text-[10px] font-black rounded-full w-4 h-4 flex items-center justify-center shadow"
+                    >
+                      {cartCount}
+                    </motion.span>
+                  )}
+                </Link>
+              </>
+            )}
 
             {/* Hamburger */}
             <button
@@ -303,14 +317,16 @@ const Navbar = () => {
               </button>
               {user ? (
                 <>
-                  <Link
-                    to="/orders"
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--text)] text-lg font-medium"
-                  >
-                    <FiUser size={20} /> My Orders
-                  </Link>
-                  {user?.isAdmin && (
+                  {!user.isAdmin && (
+                    <Link
+                      to="/orders"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--text)] text-lg font-medium"
+                    >
+                      <FiUser size={20} /> My Orders
+                    </Link>
+                  )}
+                  {user.isAdmin && (
                     <Link
                       to="/admin"
                       onClick={() => setMenuOpen(false)}
