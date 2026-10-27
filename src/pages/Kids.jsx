@@ -60,7 +60,7 @@ const ProductCard = ({ item, i }) => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             {discount > 0 && (
-              <span className="absolute top-3 right-3 bg-green-500/20 text-green-400 border border-green-500/30 text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-sm">
+              <span className="absolute top-3 right-3 bg-rose-600 text-white font-black text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full shadow-sm tracking-wide">
                 -{discount}%
               </span>
             )}
@@ -68,7 +68,7 @@ const ProductCard = ({ item, i }) => {
         </Link>
 
         <div className="p-3 sm:p-4">
-          <p className="text-yellow-400/80 text-[10px] uppercase tracking-widest mb-1 font-semibold">
+          <p className="text-amber-700 dark:text-amber-400 text-[11px] uppercase tracking-wider mb-1 font-bold">
             {item.brand}
           </p>
           <h3 className="font-semibold text-sm text-[var(--text)] mb-3 truncate">
@@ -77,18 +77,18 @@ const ProductCard = ({ item, i }) => {
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mt-2 pt-2 border-t border-[var(--border)]/40">
             <div className="flex items-baseline flex-wrap gap-1.5">
-              <span className="font-bold text-yellow-400 text-sm sm:text-base">
+              <span className="font-black text-amber-700 dark:text-amber-400 text-sm sm:text-base">
                 ₹{item.price?.toLocaleString()}
               </span>
               {item.originalPrice && item.originalPrice !== item.price && (
-                <span className="text-[var(--muted)] text-[11px] line-through">
+                <span className="text-[var(--muted)] text-[11px] line-through font-normal">
                   ₹{item.originalPrice?.toLocaleString()}
                 </span>
               )}
             </div>
             <Link
               to={`/kids/${item.id}`}
-              className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[var(--muted)] group-hover:text-[var(--text)] transition-colors inline-flex items-center gap-0.5"
+              className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[var(--text)]/80 group-hover:text-[var(--text)] transition-colors inline-flex items-center gap-0.5"
             >
               View →
             </Link>
@@ -182,7 +182,7 @@ const Kids = () => {
                           setSort(s);
                           setShowSort(false);
                         }}
-                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-[var(--card-bg)] ${sort === s ? "text-yellow-400 font-semibold" : "text-[var(--muted)]"}`}
+                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-[var(--card-bg)] ${sort === s ? "text-amber-700 dark:text-amber-400 font-bold" : "text-[var(--muted)]"}`}
                       >
                         {s}
                       </button>
@@ -196,12 +196,12 @@ const Kids = () => {
 
         {loading ? (
           <div className="py-24 flex justify-center items-center text-[var(--muted)]">
-            <div className="w-8 h-8 border-3 border-yellow-400 border-t-transparent rounded-full animate-spin mr-3" />
+            <div className="w-8 h-8 border-3 border-amber-500 border-t-transparent rounded-full animate-spin mr-3" />
             Loading Kids' Shoes...
           </div>
         ) : sorted.length === 0 ? (
           <div className="text-center py-20 px-6 border border-dashed border-[var(--border)] rounded-3xl bg-[var(--card-bg)] max-w-xl mx-auto my-8">
-            <FiPackage size={44} className="mx-auto mb-3 text-yellow-400 opacity-60" />
+            <FiPackage size={44} className="mx-auto mb-3 text-amber-600 dark:text-amber-400 opacity-60" />
             <h3 className="text-lg font-bold text-[var(--text)] mb-1">No Kids' Shoes Added Yet</h3>
             <p className="text-sm text-[var(--muted)]">
               Admin panel se naya joota add karein, wo turant yahan live show hoga.

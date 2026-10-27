@@ -241,7 +241,7 @@ const Products = () => {
                       />
 
                       {discount > 0 && (
-                        <span className="absolute top-2.5 right-2.5 text-[9px] font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                        <span className="absolute top-2.5 right-2.5 text-[9px] font-black px-2 py-0.5 rounded-full bg-rose-600 text-white shadow-sm tracking-wide">
                           -{discount}%
                         </span>
                       )}
@@ -249,7 +249,7 @@ const Products = () => {
 
                     {/* Shoe Info */}
                     <div className="p-3.5 sm:p-4">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)] mb-1">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-[#83A4D4] mb-1">
                         {item.brand}
                       </p>
                       <h3 className="font-bold text-xs sm:text-sm text-[var(--text)] truncate">

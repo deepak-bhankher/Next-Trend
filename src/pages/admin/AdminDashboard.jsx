@@ -16,9 +16,9 @@ import {
 import api from "../../utils/api";
 
 const statusColors = {
-  Processing: "bg-yellow-500/15 text-yellow-400 border-yellow-500/30",
-  Shipped: "bg-blue-500/15 text-blue-400 border-blue-500/30",
-  Delivered: "bg-green-500/15 text-green-400 border-green-500/30",
+  Processing: "bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30",
+  Shipped: "bg-blue-100 text-blue-900 border-blue-300 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30",
+  Delivered: "bg-emerald-100 text-emerald-900 border-emerald-300 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30",
 };
 
 const AdminDashboard = () => {
@@ -152,7 +152,7 @@ const AdminDashboard = () => {
             className="group p-5 rounded-2xl bg-[var(--card-bg)] border border-[var(--border)] hover:border-[#83A4D4]/40 transition-all"
           >
             <div className="flex items-center justify-between mb-3">
-              <div className="p-2.5 rounded-xl bg-[#83A4D4]/10 text-[#83A4D4]">
+              <div className="p-2.5 rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400">
                 <FiUser size={20} />
               </div>
               <FiArrowUpRight className="text-[var(--muted)] group-hover:text-[var(--text)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
@@ -168,7 +168,7 @@ const AdminDashboard = () => {
             className="group p-5 rounded-2xl bg-[var(--card-bg)] border border-[var(--border)] hover:border-[#83A4D4]/40 transition-all"
           >
             <div className="flex items-center justify-between mb-3">
-              <div className="p-2.5 rounded-xl bg-[#A1FFCE]/10 text-[#A1FFCE]">
+              <div className="p-2.5 rounded-xl bg-rose-500/15 text-rose-600 dark:text-rose-400">
                 <FiHeart size={20} />
               </div>
               <FiArrowUpRight className="text-[var(--muted)] group-hover:text-[var(--text)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
@@ -184,7 +184,7 @@ const AdminDashboard = () => {
             className="group p-5 rounded-2xl bg-[var(--card-bg)] border border-[var(--border)] hover:border-[#83A4D4]/40 transition-all"
           >
             <div className="flex items-center justify-between mb-3">
-              <div className="p-2.5 rounded-xl bg-amber-400/10 text-amber-400">
+              <div className="p-2.5 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-400">
                 <FiSmile size={20} />
               </div>
               <FiArrowUpRight className="text-[var(--muted)] group-hover:text-[var(--text)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />

@@ -11,6 +11,7 @@ import {
   FiLogOut,
   FiSun,
   FiMoon,
+  FiGrid,
 } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
@@ -162,9 +163,10 @@ const Navbar = () => {
             {user?.isAdmin && (
               <Link
                 to="/admin"
-                className="text-amber-400 bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 transition-all text-[10px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 border border-amber-500/30 transition-all shadow-sm"
               >
-                Admin
+                <FiGrid size={12} />
+                <span>Admin</span>
               </Link>
             )}
 
@@ -312,9 +314,9 @@ const Navbar = () => {
                     <Link
                       to="/admin"
                       onClick={() => setMenuOpen(false)}
-                      className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 text-lg font-medium"
+                      className="flex items-center gap-2 text-amber-700 dark:text-amber-400 text-lg font-semibold"
                     >
-                      Admin Dashboard
+                      <FiGrid size={18} /> Admin Dashboard
                     </Link>
                   )}
                   <button

@@ -12,9 +12,9 @@ import { toast } from "react-toastify";
 import api from "../utils/api";
 
 const statusColors = {
-  Processing: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-  Shipped: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  Delivered: "bg-green-500/20 text-green-400 border-green-500/30",
+  Processing: "bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/40",
+  Shipped: "bg-blue-100 text-blue-900 border-blue-300 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/40",
+  Delivered: "bg-emerald-100 text-emerald-900 border-emerald-300 dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/40",
 };
 
 const AdminOrders = () => {
@@ -204,7 +204,7 @@ const AdminOrders = () => {
                               openDropdown === order._id ? null : order._id,
                             )
                           }
-                          className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${statusColors[currentStatus]}`}
+                          className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border shadow-sm transition-all ${statusColors[currentStatus]}`}
                         >
                           {currentStatus} <FiChevronDown size={12} />
                         </button>

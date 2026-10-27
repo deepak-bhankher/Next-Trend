@@ -15,6 +15,7 @@ import {
   FiUser,
   FiHeart,
   FiSmile,
+  FiArrowLeft,
 } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
@@ -86,9 +87,6 @@ const AdminLayout = () => {
               <span className="text-xl font-black tracking-tight">
                 <span className="gradient-text-primary">NEXT</span>
                 <span className="text-[var(--text)]"> TREND</span>
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/30">
-                Admin
               </span>
             </Link>
             <button
@@ -183,13 +181,13 @@ const AdminLayout = () => {
         <div className="p-4 border-t border-[var(--border)] space-y-2 bg-[var(--nav-bg)]">
           <Link
             to="/"
-            target="_blank"
-            className="flex items-center justify-between px-4 py-2 rounded-xl text-xs font-semibold text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--card-bg)] transition-colors"
+            onClick={() => setSidebarOpen(false)}
+            className="flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-bold text-[var(--text)] bg-[var(--card-bg)] hover:bg-[var(--border)] border border-[var(--border)] transition-colors shadow-sm"
           >
             <span className="flex items-center gap-2">
-              <FiExternalLink size={15} /> View Live Store
+              <FiArrowLeft size={15} /> Back to Website
             </span>
-            <span className="text-[10px] opacity-60">↗</span>
+            <span className="text-xs opacity-60">←</span>
           </Link>
 
           <button
@@ -230,6 +228,15 @@ const AdminLayout = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            <Link
+              to="/"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[var(--border)] bg-[var(--card-bg)] hover:bg-[var(--border)] text-xs font-bold text-[var(--text)] transition-all shadow-sm"
+              title="View Live Website"
+            >
+              <FiArrowLeft size={14} />
+              <span>Back to Website</span>
+            </Link>
+
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}

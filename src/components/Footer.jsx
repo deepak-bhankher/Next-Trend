@@ -24,25 +24,25 @@ const trustBadges = [
     icon: FiShield,
     title: "100% Authentic Guaranteed",
     desc: "Every pair verified by sneaker specialists",
-    color: "text-[#00F0FF]",
+    boxClass: "bg-sky-500/10 border-sky-500/25 text-sky-600 dark:text-[#83A4D4]",
   },
   {
     icon: FiTruck,
     title: "Insured Express Dispatch",
     desc: "Fast pan-India delivery with real-time tracking",
-    color: "text-[#83A4D4]",
+    boxClass: "bg-blue-500/10 border-blue-500/25 text-blue-600 dark:text-blue-400",
   },
   {
     icon: FiRefreshCw,
     title: "7-Day Hassle-Free Returns",
     desc: "Instant size exchanges and simple returns",
-    color: "text-[#A1FFCE]",
+    boxClass: "bg-emerald-500/10 border-emerald-500/25 text-emerald-700 dark:text-emerald-400",
   },
   {
     icon: FiLock,
     title: "Secure Encrypted Checkout",
     desc: "UPI, Cards, Netbanking & Cash on Delivery",
-    color: "text-amber-400",
+    boxClass: "bg-amber-500/10 border-amber-500/25 text-amber-700 dark:text-amber-400",
   },
 ];
 
@@ -113,7 +113,7 @@ const Footer = () => {
                   className="flex items-start gap-3.5 p-3 rounded-2xl hover:bg-[var(--card-bg)] transition-colors"
                 >
                   <div
-                    className={`p-2.5 rounded-xl bg-white/[0.04] border border-[var(--border)] ${badge.color} flex-shrink-0`}
+                    className={`p-2.5 rounded-xl border flex-shrink-0 ${badge.boxClass}`}
                   >
                     <Icon size={20} />
                   </div>
@@ -205,7 +205,7 @@ const Footer = () => {
 
           {/* Dynamic Collections Column - Synced with Navbar Components (3 cols on md) */}
           <div className="md:col-span-3 space-y-4">
-            <h3 className="font-bold uppercase text-xs tracking-widest gradient-text-primary">
+            <h3 className="font-bold uppercase text-xs tracking-widest text-[var(--text)]">
               Collections
             </h3>
             <ul className="space-y-2.5 text-xs text-[var(--muted)]">
@@ -218,7 +218,7 @@ const Footer = () => {
                     <span>{link.name}</span>
                     <FiArrowUpRight
                       size={12}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[#83A4D4]"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-blue-600 dark:text-[#83A4D4]"
                     />
                   </Link>
                 </li>
@@ -229,7 +229,7 @@ const Footer = () => {
           {/* Right Side: Direct Message to Gmail Card (4 cols on md) */}
           <div className="md:col-span-4 space-y-4">
             <div className="p-6 rounded-2xl bg-[var(--card-bg)] border border-[var(--border)] space-y-3.5 shadow-sm">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#00F0FF]">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-[#83A4D4]">
                 <FiMail size={16} />
                 <span>Message Next Trend</span>
               </div>

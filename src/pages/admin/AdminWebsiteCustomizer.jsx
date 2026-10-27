@@ -375,7 +375,7 @@ const AdminWebsiteCustomizer = () => {
               onClick={() => triggerLaptopUpload(section, field)}
               className="inline-flex items-center gap-1.5 gradient-primary text-[#080808] text-xs font-bold px-4 py-2 rounded-xl hover:scale-105 transition-transform shadow-sm"
             >
-              <FiUploadCloud size={14} /> Upload from Laptop
+              <FiUploadCloud size={14} /> Replace
             </button>
             {currentValue && (
               <button
@@ -680,7 +680,7 @@ const AdminWebsiteCustomizer = () => {
                 {/* Primary & Secondary Buttons */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                   <div className="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[11px] font-bold text-[#83A4D4] uppercase tracking-wider">
+                    <p className="text-[11px] font-bold text-blue-600 dark:text-[#83A4D4] uppercase tracking-wider">
                       Button 1 (Primary)
                     </p>
                     <div>
@@ -706,7 +706,7 @@ const AdminWebsiteCustomizer = () => {
                   </div>
 
                   <div className="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[11px] font-bold text-[#A1FFCE] uppercase tracking-wider">
+                    <p className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
                       Button 2 (Secondary)
                     </p>
                     <div>
@@ -965,7 +965,7 @@ const AdminWebsiteCustomizer = () => {
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div className="p-3 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                      <p className="text-[10px] font-bold text-[#83A4D4] uppercase">Stat 1</p>
+                      <p className="text-[10px] font-bold text-blue-600 dark:text-[#83A4D4] uppercase">Stat 1</p>
                       <div>
                         {renderLabel("Value", "seasonDrop", "stat1Value")}
                         <input
@@ -989,7 +989,7 @@ const AdminWebsiteCustomizer = () => {
                     </div>
 
                     <div className="p-3 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                      <p className="text-[10px] font-bold text-[#A1FFCE] uppercase">Stat 2</p>
+                      <p className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">Stat 2</p>
                       <div>
                         {renderLabel("Value", "seasonDrop", "stat2Value")}
                         <input
@@ -1013,7 +1013,7 @@ const AdminWebsiteCustomizer = () => {
                     </div>
 
                     <div className="p-3 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                      <p className="text-[10px] font-bold text-[#00F0FF] uppercase">Stat 3</p>
+                      <p className="text-[10px] font-bold text-cyan-700 dark:text-cyan-400 uppercase">Stat 3</p>
                       <div>
                         {renderLabel("Value", "seasonDrop", "stat3Value")}
                         <input
@@ -1041,7 +1041,7 @@ const AdminWebsiteCustomizer = () => {
                 {/* Action Buttons */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                   <div className="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[11px] font-bold text-[#A1FFCE] uppercase tracking-wider">
+                    <p className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
                       Explore Button
                     </p>
                     <div>
@@ -1067,7 +1067,7 @@ const AdminWebsiteCustomizer = () => {
                   </div>
 
                   <div className="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[11px] font-bold text-[#83A4D4] uppercase tracking-wider">
+                    <p className="text-[11px] font-bold text-blue-600 dark:text-[#83A4D4] uppercase tracking-wider">
                       Secondary Button
                     </p>
                     <div>
@@ -1096,7 +1096,7 @@ const AdminWebsiteCustomizer = () => {
                 {/* Floating Tags Around Shoe */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                   <div className="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[11px] font-bold text-[#83A4D4] uppercase tracking-wider">
+                    <p className="text-[11px] font-bold text-blue-600 dark:text-[#83A4D4] uppercase tracking-wider">
                       Top-Right Floating Tag
                     </p>
                     <div>
@@ -1122,7 +1122,7 @@ const AdminWebsiteCustomizer = () => {
                   </div>
 
                   <div className="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[11px] font-bold text-[#A1FFCE] uppercase tracking-wider">
+                    <p className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
                       Bottom-Left Floating Tag
                     </p>
                     <div>
@@ -1183,7 +1183,7 @@ const AdminWebsiteCustomizer = () => {
               <div className="space-y-4 pt-2 border-t border-[var(--border)]">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-[var(--text)] uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#83A4D4]/20 text-[#83A4D4] flex items-center justify-center text-[10px]">1</span>
+                    <span className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-700 dark:text-[#83A4D4] flex items-center justify-center text-[10px] font-bold">1</span>
                     <span>Front Header (Top Story)</span>
                   </h3>
                 </div>
@@ -1227,14 +1227,14 @@ const AdminWebsiteCustomizer = () => {
               <div className="space-y-4 pt-4 border-t border-[var(--border)]">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-[var(--text)] uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#A1FFCE]/20 text-[#A1FFCE] flex items-center justify-center text-[10px]">2</span>
+                    <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-[#A1FFCE] flex items-center justify-center text-[10px] font-bold">2</span>
                     <span>Core Pillars & Mission (Niche Ka Data)</span>
                   </h3>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[10px] font-bold text-[#83A4D4] uppercase">Pillar 1</p>
+                    <p className="text-[10px] font-bold text-blue-600 dark:text-[#83A4D4] uppercase">Pillar 1</p>
                     <div>
                       {renderLabel("Title", "about", "pillar1Title")}
                       <input
@@ -1258,7 +1258,7 @@ const AdminWebsiteCustomizer = () => {
                   </div>
 
                   <div className="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[10px] font-bold text-[#A1FFCE] uppercase">Pillar 2</p>
+                    <p className="text-[10px] font-bold text-emerald-600 dark:text-[#A1FFCE] uppercase">Pillar 2</p>
                     <div>
                       {renderLabel("Title", "about", "pillar2Title")}
                       <input
@@ -1282,7 +1282,7 @@ const AdminWebsiteCustomizer = () => {
                   </div>
 
                   <div className="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[10px] font-bold text-[#00F0FF] uppercase">Pillar 3</p>
+                    <p className="text-[10px] font-bold text-cyan-700 dark:text-[#00F0FF] uppercase">Pillar 3</p>
                     <div>
                       {renderLabel("Title", "about", "pillar3Title")}
                       <input
@@ -1311,7 +1311,7 @@ const AdminWebsiteCustomizer = () => {
               <div className="space-y-4 pt-4 border-t border-[var(--border)]">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <h3 className="text-sm font-bold text-[var(--text)] uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#00F0FF]/20 text-[#00F0FF] flex items-center justify-center text-[10px]">3</span>
+                    <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-700 dark:text-cyan-400 flex items-center justify-center text-[10px] font-bold">3</span>
                     <span>Brand Journey & Timeline Milestones</span>
                   </h3>
                   <div className="flex items-center gap-2">
@@ -1416,14 +1416,14 @@ const AdminWebsiteCustomizer = () => {
               <div className="space-y-4 pt-4 border-t border-[var(--border)]">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-[var(--text)] uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-amber-400/20 text-amber-400 flex items-center justify-center text-[10px]">4</span>
+                    <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-400 flex items-center justify-center text-[10px] font-bold">4</span>
                     <span>About Page Key Stats Bar (Niche Vala)</span>
                   </h3>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div className="p-3 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[10px] font-bold text-[#83A4D4] uppercase">Stat 1</p>
+                    <p className="text-[10px] font-bold text-blue-600 dark:text-[#83A4D4] uppercase">Stat 1</p>
                     <input
                       type="text"
                       value={settings.about.stat1Value}
@@ -1441,7 +1441,7 @@ const AdminWebsiteCustomizer = () => {
                   </div>
 
                   <div className="p-3 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[10px] font-bold text-[#A1FFCE] uppercase">Stat 2</p>
+                    <p className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">Stat 2</p>
                     <input
                       type="text"
                       value={settings.about.stat2Value}
@@ -1459,7 +1459,7 @@ const AdminWebsiteCustomizer = () => {
                   </div>
 
                   <div className="p-3 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[10px] font-bold text-[#00F0FF] uppercase">Stat 3</p>
+                    <p className="text-[10px] font-bold text-cyan-700 dark:text-cyan-400 uppercase">Stat 3</p>
                     <input
                       type="text"
                       value={settings.about.stat3Value}
@@ -1477,7 +1477,7 @@ const AdminWebsiteCustomizer = () => {
                   </div>
 
                   <div className="p-3 rounded-xl border border-[var(--border)] bg-[var(--bg)]/50 space-y-2">
-                    <p className="text-[10px] font-bold text-amber-400 uppercase">Stat 4</p>
+                    <p className="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase">Stat 4</p>
                     <input
                       type="text"
                       value={settings.about.stat4Value}

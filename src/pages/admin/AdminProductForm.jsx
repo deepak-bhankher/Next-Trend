@@ -201,12 +201,12 @@ const AdminProductForm = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Basic Shoe Information */}
         <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
-          <h2 className="font-bold text-base text-[var(--text)]">Shoe Information</h2>
+          <h2 className="font-bold text-base text-[var(--text)]">Shoes Information</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="md:col-span-2 space-y-1">
               <label className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
-                Shoe Name *
+                Shoes Name *
               </label>
               <input
                 type="text"

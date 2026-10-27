@@ -60,7 +60,7 @@ const ProductCard = ({ item, i }) => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             {discount > 0 && (
-              <span className="absolute top-3 right-3 bg-green-500/20 text-green-400 border border-green-500/30 text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-sm">
+              <span className="absolute top-3 right-3 bg-rose-600 text-white font-black text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full shadow-sm tracking-wide">
                 -{discount}%
               </span>
             )}
@@ -68,7 +68,7 @@ const ProductCard = ({ item, i }) => {
         </Link>
 
         <div className="p-3 sm:p-4">
-          <p className="gradient-text-primary text-[10px] uppercase tracking-widest mb-1 font-semibold">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-blue-600 dark:text-[#83A4D4] mb-1">
             {item.brand}
           </p>
           <h3 className="font-semibold text-sm text-[var(--text)] mb-3 truncate">
@@ -77,18 +77,18 @@ const ProductCard = ({ item, i }) => {
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mt-2 pt-2 border-t border-[var(--border)]/40">
             <div className="flex items-baseline flex-wrap gap-1.5">
-              <span className="font-bold gradient-text-secondary text-sm sm:text-base">
+              <span className="font-black text-sm sm:text-base text-[var(--text)]">
                 ₹{item.price?.toLocaleString()}
               </span>
               {item.originalPrice && item.originalPrice !== item.price && (
-                <span className="text-[var(--muted)] text-[11px] line-through">
+                <span className="text-[var(--muted)] text-[11px] line-through font-normal">
                   ₹{item.originalPrice?.toLocaleString()}
                 </span>
               )}
             </div>
             <Link
               to={`/men/${item.id}`}
-              className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[var(--muted)] group-hover:text-[var(--text)] transition-colors inline-flex items-center gap-0.5"
+              className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[var(--text)]/80 group-hover:text-[var(--text)] transition-colors inline-flex items-center gap-0.5"
             >
               View →
             </Link>

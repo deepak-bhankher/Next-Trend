@@ -6,7 +6,7 @@ import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { login, googleLogin } = useAuth();
+  const { user, login, googleLogin } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -14,12 +14,31 @@ const Login = () => {
   const googleBtnRef = useRef(null);
 
   useEffect(() => {
+    if (user) {
+      if (user.isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
     if (window.google && googleBtnRef.current) {
       window.google.accounts.id.initialize({
         client_id: "585398841342-iqn8m6gu2hm42radqce7bbjn7u61hpov.apps.googleusercontent.com",
         callback: async (response) => {
-          try { await googleLogin(response.credential); toast.success("Welcome back!"); navigate("/"); }
-          catch { toast.error("Google login failed"); }
+          try {
+            const data = await googleLogin(response.credential);
+            toast.success(data?.isAdmin ? "Welcome to Admin Dashboard!" : "Welcome back!");
+            if (data?.isAdmin) {
+              navigate("/admin");
+            } else {
+              navigate("/");
+            }
+          } catch {
+            toast.error("Google login failed");
+          }
         },
       });
       window.google.accounts.id.renderButton(googleBtnRef.current, { theme: "outline", size: "large", width: 340, shape: "rectangular" });
@@ -31,9 +50,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try { await login(form.email, form.password); toast.success("Welcome back!"); navigate("/"); }
-    catch (error) { toast.error(error.response?.data?.message || "Login failed"); }
-    finally { setLoading(false); }
+    try {
+      const data = await login(form.email, form.password);
+      toast.success(data?.isAdmin ? "Welcome to Admin Dashboard!" : "Welcome back!");
+      if (data?.isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

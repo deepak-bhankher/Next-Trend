@@ -147,7 +147,7 @@ const LocalProductDetail = ({ category }) => {
                     ₹{product.originalPrice?.toLocaleString()}
                   </p>
                   {product.originalPrice > product.price && (
-                    <span className="bg-green-500/20 text-green-400 border border-green-500/30 text-xs font-bold px-2.5 py-0.5 rounded-full">
+                    <span className="bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30 text-xs font-bold px-2.5 py-0.5 rounded-full">
                       {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
                     </span>
                   )}
