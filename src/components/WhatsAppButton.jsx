@@ -3,16 +3,20 @@ import { FaWhatsapp } from "react-icons/fa6";
 import api from "../utils/api";
 
 const WhatsAppButton = () => {
-  const [phone, setPhone] = useState("919876543210");
+  const [phone, setPhone] = useState("919053377725");
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     const fetchPhone = async () => {
       try {
         const { data } = await api.get("/settings");
-        if (data && data.footer && data.footer.phone) {
-          const raw = data.footer.phone.replace(/[^0-9]/g, "");
-          if (raw) setPhone(raw);
+        if (data && data.footer) {
+          const num = data.footer.whatsapp || data.footer.phone;
+          if (num) {
+            let digits = num.replace(/[^0-9]/g, "");
+            if (digits.length === 10) digits = `91${digits}`;
+            if (digits) setPhone(digits);
+          }
         }
       } catch (err) {
         // fallback
@@ -21,8 +25,10 @@ const WhatsAppButton = () => {
     fetchPhone();
   }, []);
 
+  const cleanDigits = phone.replace(/[^0-9]/g, "");
+  const finalPhone = cleanDigits.length === 10 ? `91${cleanDigits}` : cleanDigits;
   const defaultMessage = "Hello Next Trend! I want to inquire about sneakers from your store.";
-  const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(defaultMessage)}`;
+  const waUrl = `https://wa.me/${finalPhone}?text=${encodeURIComponent(defaultMessage)}`;
 
   return (
     <aside

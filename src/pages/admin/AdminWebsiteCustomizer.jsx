@@ -121,7 +121,8 @@ const AdminWebsiteCustomizer = () => {
     footer: {
       description: "Your ultimate destination for curated sneakers, running icons, and everyday performance footwear.",
       email: "support@nexttrend.com",
-      phone: "+91 98765 43210",
+      phone: "+91 90533 77725",
+      whatsapp: "+91 90533 77725",
       address: "123 Sneaker Boulevard, Fashion District, New Delhi, India",
       copyright: "© 2026 Next Trend Inc. All rights reserved.",
       instagram: "https://instagram.com",
@@ -1529,7 +1530,7 @@ const AdminWebsiteCustomizer = () => {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     {renderLabel("Customer Support Email", "footer", "email")}
                     <input
@@ -1548,6 +1549,17 @@ const AdminWebsiteCustomizer = () => {
                       value={settings.footer.phone}
                       onChange={(e) => handleFieldChange("footer", "phone", e.target.value)}
                       required
+                      className={inputClass}
+                    />
+                  </div>
+
+                  <div>
+                    {renderLabel("WhatsApp Number (Floating Button)", "footer", "whatsapp")}
+                    <input
+                      type="text"
+                      value={settings.footer.whatsapp || settings.footer.phone || ""}
+                      onChange={(e) => handleFieldChange("footer", "whatsapp", e.target.value)}
+                      placeholder="+91 90533 77725"
                       className={inputClass}
                     />
                   </div>
