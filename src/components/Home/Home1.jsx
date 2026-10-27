@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import api from "../../utils/api";
 import { getImageUrl } from "../../utils/imageUrl";
 
@@ -101,18 +102,18 @@ const Home1 = () => {
               {heroContent.subtitle}
             </p>
             <div className="flex gap-3 justify-center md:justify-start">
-              <a
-                href={heroContent.btnPrimaryLink || "/men"}
+              <Link
+                to={heroContent.btnPrimaryLink || "/men"}
                 className="gradient-primary text-[#080808] text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
               >
                 {heroContent.btnPrimaryText || "Shop Now"}
-              </a>
-              <a
-                href={heroContent.btnSecondaryLink || "/about"}
+              </Link>
+              <Link
+                to={heroContent.btnSecondaryLink || "/about"}
                 className="border border-[#83A4D4]/25 hover:border-[#B6FBFF]/50 text-[var(--muted)] hover:text-[var(--text)] text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-colors duration-200"
               >
                 {heroContent.btnSecondaryText || "Our Story"}
-              </a>
+              </Link>
             </div>
           </motion.div>
 
