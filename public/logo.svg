@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ntCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0FF" />
+      <stop offset="60%" stop-color="#00D2FF" />
+      <stop offset="100%" stop-color="#83A4D4" />
+    </linearGradient>
+    <linearGradient id="ntWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0F9FF" />
+      <stop offset="100%" stop-color="#FFFFFF" />
+    </linearGradient>
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <g transform="translate(15, 15)">
+    <!-- 'N' Left Wing & Slanted Stem (Electric Cyan) -->
+    <path d="M 40 180 L 78 75 L 128 75 L 82 205 L 40 180 Z" fill="url(#ntCyan)" filter="url(#neonGlow)" />
+    <path d="M 75 75 L 138 75 L 202 235 L 152 235 Z" fill="url(#ntCyan)" />
+    <path d="M 125 75 L 150 75 L 218 220 L 198 220 Z" fill="#00F0FF" opacity="0.6" />
+
+    <!-- 'N' to 'T' Interlocking Bridge -->
+    <polygon points="128,75 162,75 224,215 198,215" fill="url(#ntCyan)" />
+
+    <!-- 'T' Horizontal Header Bar (Crisp Ice White) -->
+    <path d="M 152 75 L 340 75 L 320 115 L 265 115 L 210 235 L 165 235 L 215 115 L 175 115 Z" fill="url(#ntWhite)" />
+    
+    <!-- Aerodynamic Speed Chamfers -->
+    <polygon points="340,75 320,115 305,115 330,75" fill="#B6FBFF" />
+    <polygon points="40,180 78,75 62,110 32,175" fill="#00F0FF" opacity="0.4" />
+  </g>
+</svg>

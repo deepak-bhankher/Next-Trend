@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Navigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiArrowLeft, FiPackage, FiMapPin, FiUser, FiMail, FiPhone, FiCalendar } from "react-icons/fi";
+import {
+  FiArrowLeft,
+  FiPackage,
+  FiMapPin,
+  FiUser,
+  FiMail,
+  FiPhone,
+  FiCalendar,
+  FiPrinter,
+} from "react-icons/fi";
 import { toast } from "react-toastify";
 import api from "../utils/api";
-import { useAuth } from "../context/AuthContext";
 
 const statusColors = {
   Processing: "bg-yellow-500/15 text-yellow-400 border-yellow-500/30",
@@ -15,7 +23,6 @@ const statusColors = {
 const AdminOrderDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user, loading: authLoading } = useAuth();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
@@ -26,14 +33,15 @@ const AdminOrderDetail = () => {
       setOrder(data);
     } catch (error) {
       console.error("Error fetching order:", error);
+      toast.error("Failed to load order");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (user?.isAdmin) fetchOrder();
-  }, [id, user]);
+    fetchOrder();
+  }, [id]);
 
   const handleStatusChange = async (newStatus) => {
     setUpdating(true);
@@ -48,21 +56,22 @@ const AdminOrderDetail = () => {
     }
   };
 
-  if (authLoading || loading) {
+  const handlePrint = () => {
+    window.print();
+  };
+
+  if (loading) {
     return (
-      <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen flex items-center justify-center">
-        Loading...
+      <div className="py-20 flex justify-center items-center text-[var(--muted)]">
+        <div className="w-8 h-8 border-3 border-[#83A4D4] border-t-transparent rounded-full animate-spin mr-3" />
+        Loading order details...
       </div>
     );
   }
 
-  if (!user || !user.isAdmin) {
-    return <Navigate to="/" replace />;
-  }
-
   if (!order) {
     return (
-      <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen flex items-center justify-center text-[var(--muted)]">
+      <div className="text-center py-20 text-[var(--muted)]">
         Order not found.
       </div>
     );
@@ -71,160 +80,170 @@ const AdminOrderDetail = () => {
   const currentStatus = order.isDelivered ? "Delivered" : order.status || "Processing";
 
   return (
-    <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen pt-32 pb-20">
-      <div className="max-w-5xl mx-auto px-6">
+    <div className="space-y-6">
+      {/* Back button & Action buttons */}
+      <div className="flex items-center justify-between">
         <button
           onClick={() => navigate("/admin/orders")}
-          className="inline-flex items-center cursor-pointer gap-2 text-[var(--muted)] hover:text-[var(--text)] text-sm mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[var(--muted)] hover:text-[var(--text)] transition-colors"
         >
-          <FiArrowLeft size={16} /> Back to Dashboard
+          <FiArrowLeft size={16} /> Back to Orders
         </button>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-wrap items-start justify-between gap-4 mb-10"
+        <button
+          onClick={handlePrint}
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-[var(--border)] bg-[var(--card-bg)] text-xs font-semibold hover:border-[var(--muted)] transition-colors"
         >
-          <div>
-            <p className="text-[var(--muted)] text-xs uppercase tracking-widest mb-1">Order</p>
-            <h1 className="text-2xl font-bold">#{order._id.slice(-10)}</h1>
-            <p className="text-[var(--muted)] text-xs mt-2 flex items-center gap-1.5">
-              <FiCalendar size={12} />
-              {new Date(order.createdAt).toLocaleDateString("en-IN", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </p>
-          </div>
+          <FiPrinter size={15} /> Print Invoice
+        </button>
+      </div>
 
-          <div className="text-right">
-            <p className="text-[var(--muted)] text-xs uppercase tracking-widest mb-2">Status</p>
-            <div className="flex gap-2">
-              {["Processing", "Shipped", "Delivered"].map((s) => (
-                <button
-                  key={s}
-                  disabled={updating}
-                  onClick={() => handleStatusChange(s)}
-                  className={`text-xs font-semibold px-3.5 py-2 rounded-full border transition-all disabled:opacity-40 ${
-                    currentStatus === s
-                      ? statusColors[s]
-                      : "bg-[var(--card-bg)] text-[var(--muted)] border-[var(--border)] hover:text-[var(--text)]"
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Customer Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-            className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6"
-          >
-            <h2 className="font-semibold text-sm uppercase tracking-wide text-[var(--muted)] mb-5">
-              Customer
-            </h2>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-2">
-                <FiUser size={14} className="text-[var(--muted)]" />
-                <span>{order.user?.name}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FiMail size={14} className="text-[var(--muted)]" />
-                <span className="text-[var(--muted)]">{order.user?.email}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FiPhone size={14} className="text-[var(--muted)]" />
-                <span className="text-[var(--muted)]">{order.shippingAddress.phone}</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Shipping Address */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6"
-          >
-            <h2 className="font-semibold text-sm uppercase tracking-wide text-[var(--muted)] mb-5 flex items-center gap-2">
-              <FiMapPin size={14} /> Shipping Address
-            </h2>
-            <p className="text-sm text-[var(--muted)] leading-relaxed">
-              {order.shippingAddress.address}
-              <br />
-              {order.shippingAddress.city}, {order.shippingAddress.postalCode}
-              <br />
-              {order.shippingAddress.country}
-            </p>
-          </motion.div>
-
-          {/* Payment Summary */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6"
-          >
-            <h2 className="font-semibold text-sm uppercase tracking-wide text-[var(--muted)] mb-5">
-              Payment
-            </h2>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-[var(--muted)]">Method</span>
-                <span>{order.paymentMethod}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-[var(--muted)]">Status</span>
-                <span className={order.isPaid ? "text-green-400" : "text-yellow-400"}>
-                  {order.isPaid ? "Paid" : "Pending"}
-                </span>
-              </div>
-              <div className="border-t border-[var(--border)] pt-3 flex justify-between font-bold">
-                <span>Total</span>
-                <span>₹{order.totalPrice.toLocaleString()}</span>
-              </div>
-            </div>
-          </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-wrap items-start justify-between gap-4 bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6"
+      >
+        <div>
+          <p className="text-[var(--muted)] text-xs uppercase tracking-widest mb-1">
+            Customer Order Summary
+          </p>
+          <h1 className="text-2xl font-black">{order.user?.name || "Customer"}'s Order</h1>
+          <p className="text-[var(--muted)] text-xs mt-2 flex items-center gap-1.5">
+            <FiCalendar size={13} />
+            Placed on:{" "}
+            {new Date(order.createdAt).toLocaleDateString("en-IN", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </p>
         </div>
 
-        {/* Items */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6 mt-6"
-        >
-          <h2 className="font-semibold text-sm uppercase tracking-wide text-[var(--muted)] mb-5 flex items-center gap-2">
-            <FiPackage size={14} /> Items ({order.orderItems.length})
-          </h2>
-          <div className="space-y-4">
-            {order.orderItems.map((item) => (
-              <div key={item._id} className="flex items-center gap-4 pb-4 border-b border-[var(--border)] last:border-0 last:pb-0">
-                  <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-16 h-16 rounded-xl object-cover bg-[var(--card-bg)]"
-                />
-                <div className="flex-1">
-                  <p className="font-medium text-sm">{item.name}</p>
-                  <p className="text-[var(--muted)] text-xs mt-1">
-                    Size {item.size} · Qty {item.qty}
-                  </p>
-                </div>
-                <p className="font-semibold text-sm">₹{(item.price * item.qty).toLocaleString()}</p>
-              </div>
+        <div className="text-right">
+          <p className="text-[var(--muted)] text-xs uppercase tracking-widest mb-2">
+            Change Fulfillment Status
+          </p>
+          <div className="flex gap-2">
+            {["Processing", "Shipped", "Delivered"].map((s) => (
+              <button
+                key={s}
+                disabled={updating}
+                onClick={() => handleStatusChange(s)}
+                className={`text-xs font-bold px-3.5 py-2 rounded-xl border transition-all disabled:opacity-40 ${
+                  currentStatus === s
+                    ? statusColors[s] + " shadow-sm"
+                    : "bg-[var(--bg)] text-[var(--muted)] border-[var(--border)] hover:text-[var(--text)]"
+                }`}
+              >
+                {s}
+              </button>
             ))}
           </div>
-        </motion.div>
+        </div>
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Customer Info */}
+        <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+          <h2 className="font-bold text-xs uppercase tracking-wider text-[var(--muted)]">
+            Customer Contact
+          </h2>
+          <div className="space-y-3 text-sm">
+            <div className="flex items-center gap-2.5">
+              <FiUser size={15} className="text-[var(--muted)] flex-shrink-0" />
+              <span className="font-semibold">{order.user?.name || "Customer"}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <FiMail size={15} className="text-[var(--muted)] flex-shrink-0" />
+              <span className="text-[var(--muted)] text-xs break-all">{order.user?.email}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <FiPhone size={15} className="text-[var(--muted)] flex-shrink-0" />
+              <span className="text-[var(--muted)] text-xs">
+                {order.shippingAddress?.phone}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Shipping Address */}
+        <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+          <h2 className="font-bold text-xs uppercase tracking-wider text-[var(--muted)] flex items-center gap-2">
+            <FiMapPin size={14} /> Shipping Destination
+          </h2>
+          <p className="text-sm text-[var(--muted)] leading-relaxed">
+            <span className="text-[var(--text)] font-medium">{order.shippingAddress?.address}</span>
+            <br />
+            {order.shippingAddress?.city}, {order.shippingAddress?.postalCode}
+            <br />
+            {order.shippingAddress?.country}
+          </p>
+        </div>
+
+        {/* Payment Summary */}
+        <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+          <h2 className="font-bold text-xs uppercase tracking-wider text-[var(--muted)]">
+            Billing Summary
+          </h2>
+          <div className="space-y-2.5 text-xs">
+            <div className="flex justify-between">
+              <span className="text-[var(--muted)]">Payment Mode</span>
+              <span className="font-semibold text-[var(--text)]">{order.paymentMethod || "COD / Pending"}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-[var(--muted)]">Payment Status</span>
+              <span className={order.isPaid ? "text-emerald-400 font-bold" : "text-amber-400 font-bold"}>
+                {order.isPaid ? "Paid" : "Pending Payment"}
+              </span>
+            </div>
+            <div className="border-t border-[var(--border)] pt-3 flex justify-between text-sm font-black">
+              <span>Total Bill</span>
+              <span className="text-base">₹{order.totalPrice?.toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Ordered Items */}
+      <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6">
+        <h2 className="font-bold text-base mb-4 flex items-center gap-2">
+          <FiPackage /> Ordered Items ({order.orderItems?.length || 0})
+        </h2>
+
+        <div className="divide-y divide-[var(--border)]">
+          {order.orderItems?.map((item, idx) => (
+            <div
+              key={idx}
+              className="py-4 flex items-center justify-between gap-4 first:pt-0 last:pb-0"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-xl bg-[var(--bg)] border border-[var(--border)] overflow-hidden flex-shrink-0">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.src = "/men1.png";
+                    }}
+                  />
+                </div>
+                <div>
+                  <p className="font-bold text-sm text-[var(--text)]">{item.name}</p>
+                  <p className="text-xs text-[var(--muted)] mt-1">
+                    Size: <span className="text-[var(--text)] font-semibold">{item.size}</span> · Quantity: <span className="text-[var(--text)] font-semibold">×{item.qty}</span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-right">
+                <p className="font-bold text-sm">₹{(item.price * item.qty).toLocaleString()}</p>
+                <p className="text-[11px] text-[var(--muted)]">₹{item.price} each</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

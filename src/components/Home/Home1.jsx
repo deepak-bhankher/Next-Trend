@@ -1,7 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import api from "../../utils/api";
+import { getImageUrl } from "../../utils/imageUrl";
 
-const heroImages = [
+const defaultHeroImages = [
   "/men1.png",
   "/men2.png",
   "/men3.png",
@@ -9,23 +11,65 @@ const heroImages = [
 ];
 
 const scrollShoes = [
-  { image: "men1.png", name: "Duramo SL 2.0", brand: "Adidas" },
-  { image: "men2.png", name: "Seeker Speckle", brand: "Puma" },
-  { image: "men3.png", name: "Speedcat OG", brand: "Puma" },
-  { image: "men4.png", name: "Air Jordan", brand: "Jordan" },
-  { image: "men5.png", name: "Jordan Street Style", brand: "Jordan" },
-  { image: "men6.png", name: "Jordan 1 Mid Patent SE", brand: "Jordan" },
+  { image: "/men1.png", name: "Duramo SL 2.0", brand: "Adidas" },
+  { image: "/men2.png", name: "Seeker Speckle", brand: "Puma" },
+  { image: "/men3.png", name: "Speedcat OG", brand: "Puma" },
+  { image: "/men4.png", name: "Air Jordan", brand: "Jordan" },
+  { image: "/men5.png", name: "Jordan Street Style", brand: "Jordan" },
+  { image: "/men6.png", name: "Jordan 1 Mid Patent SE", brand: "Jordan" },
 ];
 
 const Home1 = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [heroImages, setHeroImages] = useState(defaultHeroImages);
+  const [heroContent, setHeroContent] = useState({
+    heading: "FOREVER",
+    highlightText: "FASTER.",
+    subtitle:
+      "Step into the future of style. Premium footwear crafted for those who move with purpose.",
+    badgeText: "Premium Quality",
+    btnPrimaryText: "Shop Now",
+    btnPrimaryLink: "/men",
+    btnSecondaryText: "Our Story",
+    btnSecondaryLink: "/about",
+    feature1Title: "Premium Quality",
+    feature1Desc: "Handpicked materials sourced from the world's finest tanneries and textile mills.",
+    feature2Title: "New Arrivals",
+    feature2Desc: "Fresh drops every week. Stay ahead of the curve with our latest collections.",
+    feature3Title: "Free Delivery",
+    feature3Desc: "Complimentary shipping on all orders above ₹999. Fast & secure delivery nationwide.",
+    stat1Value: "500+",
+    stat1Label: "Styles",
+    stat2Value: "50K+",
+    stat2Label: "Customers",
+  });
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const { data } = await api.get("/settings");
+        if (data && data.hero) {
+          setHeroContent((prev) => ({
+            ...prev,
+            ...data.hero,
+          }));
+          if (data.hero.heroImage) {
+            setHeroImages([data.hero.heroImage, ...defaultHeroImages.filter((img) => img !== data.hero.heroImage)]);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load hero settings", err);
+      }
+    };
+    fetchSettings();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % heroImages.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [heroImages]);
 
   return (
     <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen">
@@ -49,25 +93,25 @@ const Home1 = () => {
             className="text-center md:text-left flex flex-col gap-6"
           >
             <h1 className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tight">
-              FOREVER
+              {heroContent.heading}
               <br />
-              <span className="gradient-text-primary">FASTER.</span>
+              <span className="gradient-text-primary">{heroContent.highlightText}</span>
             </h1>
             <p className="text-[var(--muted)] text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
-              Step into the future of style. Premium footwear crafted for those who move with purpose.
+              {heroContent.subtitle}
             </p>
             <div className="flex gap-3 justify-center md:justify-start">
               <a
-                href="/men"
+                href={heroContent.btnPrimaryLink || "/men"}
                 className="gradient-primary text-[#080808] text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
               >
-                Shop Now
+                {heroContent.btnPrimaryText || "Shop Now"}
               </a>
               <a
-                href="/about"
+                href={heroContent.btnSecondaryLink || "/about"}
                 className="border border-[#83A4D4]/25 hover:border-[#B6FBFF]/50 text-[var(--muted)] hover:text-[var(--text)] text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-colors duration-200"
               >
-                Our Story
+                {heroContent.btnSecondaryText || "Our Story"}
               </a>
             </div>
           </motion.div>
@@ -76,30 +120,37 @@ const Home1 = () => {
           <div className="relative w-full h-[320px] sm:h-[420px] md:h-[560px] flex items-center justify-center">
             <div className="absolute w-[300px] h-[300px] md:w-[420px] md:h-[420px] rounded-full bg-[#83A4D4]/10 blur-3xl" />
 
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={heroImages[activeIndex]}
-                src={heroImages[activeIndex]}
-                alt="Hero Shoe"
-                initial={{ opacity: 0, scale: 0.92, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.92, y: -10 }}
-                transition={{ duration: 0.6 }}
-                className="relative z-10 max-w-full max-h-full w-auto h-auto object-contain drop-shadow-2xl"
-              />
-            </AnimatePresence>
-
-            <div className="absolute bottom-0 flex justify-center gap-2">
-              {heroImages.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveIndex(i)}
-                  className={`h-[3px] rounded-full transition-all duration-300 ${
-                    i === activeIndex ? "w-8 gradient-primary" : "w-3 bg-white/20"
-                  }`}
+            {heroImages.length > 0 && heroImages[activeIndex] ? (
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={heroImages[activeIndex]}
+                  src={getImageUrl(heroImages[activeIndex])}
+                  alt="Hero Shoe"
+                  initial={{ opacity: 0, scale: 0.92, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.92, y: -10 }}
+                  transition={{ duration: 0.6 }}
+                  className="relative z-10 max-w-full max-h-full w-auto h-auto object-contain drop-shadow-2xl"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
                 />
-              ))}
-            </div>
+              </AnimatePresence>
+            ) : null}
+
+            {heroImages.length > 1 && (
+              <div className="absolute bottom-0 flex justify-center gap-2">
+                {heroImages.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveIndex(i)}
+                    className={`h-[3px] rounded-full transition-all duration-300 ${
+                      i === activeIndex ? "w-8 gradient-primary" : "w-3 bg-white/20"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right — Info Text */}
@@ -109,39 +160,61 @@ const Home1 = () => {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="hidden md:flex flex-col gap-6 text-right"
           >
-            <div className="flex flex-col gap-1">
-              <span className="gradient-text-primary text-xs font-bold uppercase tracking-widest">Premium Quality</span>
-              <p className="text-[var(--muted)] text-sm leading-relaxed">
-                Handpicked materials sourced from the world's finest tanneries and textile mills.
-              </p>
-            </div>
+            {heroContent.feature1Title && (
+              <div className="flex flex-col gap-1">
+                <span className="gradient-text-primary text-xs font-bold uppercase tracking-widest">
+                  {heroContent.feature1Title}
+                </span>
+                <p className="text-[var(--muted)] text-sm leading-relaxed">
+                  {heroContent.feature1Desc}
+                </p>
+              </div>
+            )}
 
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-[#83A4D4]/20 to-transparent" />
+            {heroContent.feature2Title && (
+              <>
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-[#83A4D4]/20 to-transparent" />
+                <div className="flex flex-col gap-1">
+                  <span className="gradient-text-secondary text-xs font-bold uppercase tracking-widest">
+                    {heroContent.feature2Title}
+                  </span>
+                  <p className="text-[var(--muted)] text-sm leading-relaxed">
+                    {heroContent.feature2Desc}
+                  </p>
+                </div>
+              </>
+            )}
 
-            <div className="flex flex-col gap-1">
-              <span className="gradient-text-secondary text-xs font-bold uppercase tracking-widest">New Arrivals</span>
-              <p className="text-[var(--muted)] text-sm leading-relaxed">
-                Fresh drops every week. Stay ahead of the curve with our latest collections.
-              </p>
-            </div>
-
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-[#A1FFCE]/20 to-transparent" />
-
-            <div className="flex flex-col gap-1">
-              <span className="gradient-text-primary text-xs font-bold uppercase tracking-widest">Free Delivery</span>
-              <p className="text-[var(--muted)] text-sm leading-relaxed">
-                Complimentary shipping on all orders above ₹999. Fast & secure delivery nationwide.
-              </p>
-            </div>
+            {heroContent.feature3Title && (
+              <>
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-[#A1FFCE]/20 to-transparent" />
+                <div className="flex flex-col gap-1">
+                  <span className="gradient-text-primary text-xs font-bold uppercase tracking-widest">
+                    {heroContent.feature3Title}
+                  </span>
+                  <p className="text-[var(--muted)] text-sm leading-relaxed">
+                    {heroContent.feature3Desc}
+                  </p>
+                </div>
+              </>
+            )}
 
             <div className="flex justify-end gap-6 mt-2">
               <div className="text-right">
-                <p className="text-2xl font-black gradient-text-primary">500+</p>
-                <p className="text-[var(--muted)] text-xs uppercase tracking-wider">Styles</p>
+                <p className="text-2xl font-black gradient-text-primary">
+                  {heroContent.stat1Value || "500+"}
+                </p>
+                <p className="text-[var(--muted)] text-xs uppercase tracking-wider">
+                  {heroContent.stat1Label || "Styles"}
+                </p>
               </div>
               <div className="text-right">
-                <p className="text-2xl font-black gradient-text-secondary">50K+</p>
-                <p className="text-[var(--muted)] text-xs uppercase tracking-wider">Customers</p>
+                <p className="text-2xl font-black gradient-text-secondary">
+                  {heroContent.stat2Value || "50K+"}
+                </p>
+                <p className="text-[var(--muted)] text-xs uppercase tracking-wider">
+                  {heroContent.stat2Label || "Customers"}
+                </p>
               </div>
             </div>
           </motion.div>
@@ -149,13 +222,21 @@ const Home1 = () => {
           {/* Mobile stats row — shown only on small screens */}
           <div className="flex md:hidden justify-center gap-8 pb-4">
             <div className="text-center">
-              <p className="text-xl font-black gradient-text-primary">500+</p>
-              <p className="text-[var(--muted)] text-xs uppercase tracking-wider">Styles</p>
+              <p className="text-xl font-black gradient-text-primary">
+                {heroContent.stat1Value || "500+"}
+              </p>
+              <p className="text-[var(--muted)] text-xs uppercase tracking-wider">
+                {heroContent.stat1Label || "Styles"}
+              </p>
             </div>
             <div className="w-px bg-[#83A4D4]/15" />
             <div className="text-center">
-              <p className="text-xl font-black gradient-text-secondary">50K+</p>
-              <p className="text-[var(--muted)] text-xs uppercase tracking-wider">Customers</p>
+              <p className="text-xl font-black gradient-text-secondary">
+                {heroContent.stat2Value || "50K+"}
+              </p>
+              <p className="text-[var(--muted)] text-xs uppercase tracking-wider">
+                {heroContent.stat2Label || "Customers"}
+              </p>
             </div>
           </div>
         </div>

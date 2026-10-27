@@ -26,25 +26,38 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const { data } = await api.post("/users/login", { email, password });
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+    }
     setUser(data);
     return data;
   };
 
   const register = async (name, email, password) => {
     const { data } = await api.post("/users/register", { name, email, password });
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+    }
     setUser(data);
     return data;
   };
 
-
   const googleLogin = async (token) => {
-  const { data } = await api.post("/users/google-login", { token });
-  setUser(data);
-  return data;
-};
+    const { data } = await api.post("/users/google-login", { token });
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+    }
+    setUser(data);
+    return data;
+  };
 
   const logout = async () => {
-    await api.post("/users/logout");
+    try {
+      await api.post("/users/logout");
+    } catch (e) {
+      // ignore
+    }
+    localStorage.removeItem("token");
     setUser(null);
   };
 

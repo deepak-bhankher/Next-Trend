@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiTrash2, FiPlus, FiMinus, FiShoppingBag } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
+import { getImageUrl } from "../utils/imageUrl";
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQty } = useCart();
@@ -36,7 +37,7 @@ const Cart = () => {
                 exit={{ opacity: 0, x: -20 }}
                 className="flex items-center gap-3 sm:gap-5 glass-card rounded-2xl p-3 sm:p-4 shadow-lg shadow-black/30"
               >
-                <img src={item.image} alt={item.name} className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover flex-shrink-0" />
+                <img src={getImageUrl(item.image)} alt={item.name} className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-[var(--text)] text-sm sm:text-base truncate">{item.name}</h3>
                   <p className="text-[var(--muted)] text-xs sm:text-sm">Size: {item.size}</p>

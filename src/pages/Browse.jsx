@@ -1,15 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiSearch, FiArrowLeft } from "react-icons/fi";
-import { menProducts, womenProducts, kidsProducts } from "../data/products";
-
-const dataMap = {
-  men: menProducts,
-  women: womenProducts,
-  kids: kidsProducts,
-};
-
+import api from "../utils/api";
+import { getImageUrl } from "../utils/imageUrl";
 
 const titleMap = {
   men: "Men's Shoes",
@@ -19,10 +13,37 @@ const titleMap = {
 
 const Browse = ({ category }) => {
   const [query, setQuery] = useState("");
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const list = dataMap[category] || [];
 
-  const filtered = list.filter(
+  useEffect(() => {
+    const fetchItems = async () => {
+      setLoading(true);
+      try {
+        const catName = category.charAt(0).toUpperCase() + category.slice(1);
+        const { data } = await api.get(`/products?category=${catName}`);
+        if (data) {
+          setProducts(
+            data.map((d) => ({
+              id: d._id,
+              name: d.name,
+              brand: d.brand,
+              price: d.price,
+              image: d.images && d.images.length > 0 ? d.images[0] : "/men1.png",
+            }))
+          );
+        }
+      } catch (err) {
+        console.error("Browse API error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchItems();
+  }, [category]);
+
+  const filtered = products.filter(
     (item) =>
       item.name.toLowerCase().includes(query.toLowerCase()) ||
       item.brand.toLowerCase().includes(query.toLowerCase())
@@ -71,7 +92,7 @@ const Browse = ({ category }) => {
                 <Link to={`/${category}/${item.id}`} className="group block">
                   <div className="aspect-square bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl overflow-hidden mb-3">
                     <img
-                      src={item.image}
+                      src={getImageUrl(item.image)}
                       alt={item.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />

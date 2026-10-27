@@ -1,21 +1,89 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiTarget, FiHeart, FiAward, FiMail, FiInstagram, FiTwitter } from "react-icons/fi";
+import api from "../utils/api";
 
-const values = [
-  { icon: <FiTarget size={22} />, title: "Our Mission", desc: "To bring premium, comfortable footwear to every step you take, without compromising on style." },
-  { icon: <FiHeart size={22} />, title: "Crafted with Care", desc: "Every pair is carefully selected from trusted brands known for quality and durability." },
-  { icon: <FiAward size={22} />, title: "Trusted Quality", desc: "We partner only with authentic, verified brands so you always get what you pay for." },
+const defaultMilestones = [
+  { year: "2020", title: "The Beginning", desc: "Started as a small sneaker resale operation from a single storefront." },
+  { year: "2022", title: "Going Digital", desc: "Launched our online store, bringing premium sneakers to customers nationwide." },
+  { year: "2024", title: "Expanding Brands", desc: "Partnered with 8+ top global brands to offer an even wider curated collection." },
+  { year: "2026", title: "Today", desc: "Serving 50,000+ happy customers with fast delivery and secure checkout." },
 ];
 
 const About = () => {
+  const [aboutData, setAboutData] = useState({
+    title: "About Next Trend",
+    subtitle: "Our Story",
+    story:
+      "Next Trend was born from a simple idea — footwear should feel as good as it looks. We curate premium sneakers from the world's best brands, delivering comfort, quality, and style straight to your doorstep.",
+    pillar1Title: "Our Mission",
+    pillar1Desc: "To bring premium, comfortable footwear to every step you take, without compromising on style.",
+    pillar2Title: "Crafted with Care",
+    pillar2Desc: "Every pair is carefully selected from trusted brands known for quality and durability.",
+    pillar3Title: "Trusted Quality",
+    pillar3Desc: "We partner only with authentic, verified brands so you always get what you pay for.",
+    journeySubtitle: "Our Journey",
+    journeyTitle: "How We Started",
+    milestones: defaultMilestones,
+    stat1Value: "2020",
+    stat1Label: "Founded",
+    stat2Value: "500+",
+    stat2Label: "Products",
+    stat3Value: "50K+",
+    stat3Label: "Customers",
+    stat4Value: "8",
+    stat4Label: "Top Brands",
+  });
+
+  useEffect(() => {
+    const fetchAbout = async () => {
+      try {
+        const { data } = await api.get("/settings");
+        if (data && data.about) {
+          setAboutData((prev) => ({
+            ...prev,
+            ...data.about,
+            milestones:
+              data.about.milestones && data.about.milestones.length > 0
+                ? data.about.milestones
+                : defaultMilestones,
+          }));
+        }
+      } catch (err) {
+        // fallback
+      }
+    };
+    fetchAbout();
+  }, []);
+
+  const values = [
+    {
+      icon: <FiTarget size={22} />,
+      title: aboutData.pillar1Title || "Our Mission",
+      desc: aboutData.pillar1Desc || "To bring premium, comfortable footwear to every step you take.",
+    },
+    {
+      icon: <FiHeart size={22} />,
+      title: aboutData.pillar2Title || "Crafted with Care",
+      desc: aboutData.pillar2Desc || "Every pair is carefully selected from trusted brands.",
+    },
+    {
+      icon: <FiAward size={22} />,
+      title: aboutData.pillar3Title || "Trusted Quality",
+      desc: aboutData.pillar3Desc || "We partner only with authentic, verified brands.",
+    },
+  ];
+
   return (
     <div className="bg-[var(--bg)] text-[var(--text)] min-h-screen pt-32 pb-20">
       <div className="max-w-5xl mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
-          <p className="uppercase tracking-[0.4em] gradient-text-primary text-xs mb-2 font-medium">Our Story</p>
-          <h1 className="text-5xl font-bold mb-6">About Next Trend</h1>
+          <p className="uppercase tracking-[0.4em] gradient-text-primary text-xs mb-2 font-medium">
+            {aboutData.subtitle}
+          </p>
+          <h1 className="text-5xl font-bold mb-6">{aboutData.title}</h1>
           <p className="text-[var(--muted)] max-w-2xl mx-auto leading-relaxed">
-            Next Trend was born from a simple idea — footwear should feel as good as it looks. We curate premium sneakers from the world's best brands, delivering comfort, quality, and style straight to your doorstep.
+            {aboutData.story}
           </p>
         </motion.div>
 
@@ -35,18 +103,17 @@ const About = () => {
         {/* Journey Timeline */}
         <div className="mt-24">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
-            <p className="uppercase tracking-[0.4em] gradient-text-secondary text-xs mb-2 font-medium">Our Journey</p>
-            <h2 className="text-4xl font-bold text-[var(--text)]">How We Started</h2>
+            <p className="uppercase tracking-[0.4em] gradient-text-secondary text-xs mb-2 font-medium">
+              {aboutData.journeySubtitle || "Our Journey"}
+            </p>
+            <h2 className="text-4xl font-bold text-[var(--text)]">
+              {aboutData.journeyTitle || "How We Started"}
+            </h2>
           </motion.div>
 
           <div className="space-y-8 max-w-2xl mx-auto">
-            {[
-              { year: "2020", title: "The Beginning", desc: "Started as a small sneaker resale operation from a single storefront." },
-              { year: "2022", title: "Going Digital", desc: "Launched our online store, bringing premium sneakers to customers nationwide." },
-              { year: "2024", title: "Expanding Brands", desc: "Partnered with 8+ top global brands to offer an even wider curated collection." },
-              { year: "2026", title: "Today", desc: "Serving 50,000+ happy customers with fast delivery and secure checkout." },
-            ].map((item, i) => (
-              <motion.div key={item.year} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+            {(aboutData.milestones || defaultMilestones).map((item, i) => (
+              <motion.div key={item.year + i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 className="flex gap-6 items-start">
                 <div className="flex-shrink-0 w-20 text-right">
                   <span className={`text-xl font-black ${i % 2 === 0 ? "gradient-text-primary" : "gradient-text-secondary"} opacity-60`}>{item.year}</span>
@@ -93,10 +160,10 @@ const About = () => {
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
         className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-20 py-10 mt-10 border-y border-[var(--border)] px-6">
         {[
-          { number: "2020", label: "Founded" },
-          { number: "500+", label: "Products" },
-          { number: "50K+", label: "Customers" },
-          { number: "8", label: "Top Brands" },
+          { number: aboutData.stat1Value || "2020", label: aboutData.stat1Label || "Founded" },
+          { number: aboutData.stat2Value || "500+", label: aboutData.stat2Label || "Products" },
+          { number: aboutData.stat3Value || "50K+", label: aboutData.stat3Label || "Customers" },
+          { number: aboutData.stat4Value || "8", label: aboutData.stat4Label || "Top Brands" },
         ].map((stat, i) => (
           <div key={stat.label} className="text-center">
             <p className={`text-3xl md:text-4xl font-black mb-1 ${i % 2 === 0 ? "gradient-text-primary" : "gradient-text-secondary"}`}>

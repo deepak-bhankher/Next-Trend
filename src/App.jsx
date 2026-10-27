@@ -1,8 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import WhatsAppButton from "./components/WhatsAppButton";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -18,18 +19,30 @@ import Women from "./pages/Women";
 import Kids from "./pages/Kids";
 import LocalProductDetail from "./pages/LocalProductDetail";
 import Browse from "./pages/Browse";
+import Products from "./pages/Products";
+
+// Admin Imports
+import AdminLayout from "./layouts/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminCategoryShoes from "./pages/admin/AdminCategoryShoes";
+import AdminProductForm from "./pages/admin/AdminProductForm";
 import AdminOrders from "./pages/AdminOrders";
 import AdminOrderDetail from "./pages/AdminOrderDetail";
-
-
+import AdminWebsiteCustomizer from "./pages/admin/AdminWebsiteCustomizer";
 
 const App = () => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
   return (
     <div>
       <ScrollToTop />
-      <Navbar />
+      {!isAdminRoute && <Navbar />}
+
       <Routes>
+        {/* Public Storefront Routes */}
         <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
 
         <Route path="/men" element={<Men />} />
         <Route path="/men/shop" element={<Browse category="men" />} />
@@ -50,11 +63,27 @@ const App = () => {
         <Route path="/orders/:id" element={<OrderDetail />} />
         <Route path="/orders" element={<MyOrders />} />
         <Route path="/about" element={<About />} />
+
+        {/* Dedicated Admin Portal Routes */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="orders/:id" element={<AdminOrderDetail />} />
+
+          {/* Category-Specific Shoes Management */}
+          <Route path="category/:category" element={<AdminCategoryShoes />} />
+          <Route path="category/:category/new" element={<AdminProductForm />} />
+          <Route path="category/:category/edit/:id" element={<AdminProductForm />} />
+
+          {/* Website Sections & Customizer */}
+          <Route path="website" element={<AdminWebsiteCustomizer />} />
+        </Route>
+
         <Route path="*" element={<NotFound />} />
-        <Route path="/admin/orders" element={<AdminOrders />} />
-        <Route path="/admin/orders/:id" element={<AdminOrderDetail />} />
       </Routes>
-      <Footer />
+
+      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && <WhatsAppButton />}
       <ToastContainer theme="dark" position="bottom-right" />
     </div>
   );

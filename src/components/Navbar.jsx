@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
@@ -15,8 +15,10 @@ import {
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
+import api from "../utils/api";
+import { getImageUrl } from "../utils/imageUrl";
 
-const navLinks = [
+const defaultNavLinks = [
   { name: "MEN", path: "/men" },
   { name: "WOMEN", path: "/women" },
   { name: "KIDS", path: "/kids" },
@@ -26,10 +28,38 @@ const navLinks = [
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [navSettings, setNavSettings] = useState({
+    storeName: "",
+    logoUrl: "",
+    announcementText: "",
+    links: defaultNavLinks,
+  });
   const { cartCount } = useCart();
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const { data } = await api.get("/settings");
+        if (data && data.navbar) {
+          setNavSettings({
+            storeName: data.navbar.storeName !== undefined ? data.navbar.storeName : "",
+            logoUrl: data.navbar.logoUrl || "",
+            announcementText: data.navbar.announcementText || "",
+            links:
+              data.navbar.links && data.navbar.links.length > 0
+                ? data.navbar.links
+                : defaultNavLinks,
+          });
+        }
+      } catch (err) {
+        // Fallback default
+      }
+    };
+    fetchSettings();
+  }, []);
 
   const handleLogout = async () => {
     await logout();
@@ -47,22 +77,50 @@ const Navbar = () => {
     }
   };
 
+  const hasStoreName = Boolean(navSettings.storeName && navSettings.storeName.trim());
+  const nameParts = hasStoreName ? navSettings.storeName.trim().split(" ") : [];
+  const firstWord = nameParts[0] || "";
+  const restOfName = nameParts.slice(1).join(" ");
+
   return (
     <>
       <nav className="fixed top-0 left-0 w-full z-50 bg-[var(--nav-bg)] backdrop-blur-md border-b border-[var(--border)]">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 flex-shrink-0 group">
-            <span className="text-xl font-black tracking-tight">
-              <span className="gradient-text-primary">NEXT</span>
-              <span className="text-[var(--text)]"> TREND</span>
-              <span className="gradient-text-secondary">.</span>
-            </span>
+        {navSettings.announcementText && (
+          <div className="bg-gradient-to-r from-[#83a4d4]/10 via-[#a1ffce]/15 to-[#83a4d4]/10 border-b border-[var(--border)] py-1.5 px-4 text-center text-xs font-semibold tracking-wider text-[var(--text)] overflow-hidden">
+            <span>{navSettings.announcementText}</span>
+          </div>
+        )}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3 sm:gap-6">
+          {/* Logo / Brand */}
+          <Link to="/" className="flex items-center gap-3 flex-shrink-0 group">
+            {navSettings.logoUrl && (
+              <img
+                src={getImageUrl(navSettings.logoUrl)}
+                alt={navSettings.storeName || "Next Trend Logo"}
+                className="h-9 sm:h-10 max-h-11 w-auto max-w-[180px] object-contain rounded-lg transition-transform duration-300 group-hover:scale-105"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+            )}
+            {hasStoreName ? (
+              <span className="text-xl font-black tracking-tight">
+                <span className="gradient-text-primary">{firstWord}</span>
+                {restOfName && <span className="text-[var(--text)]"> {restOfName}</span>}
+                <span className="gradient-text-secondary">.</span>
+              </span>
+            ) : !navSettings.logoUrl ? (
+              <span className="text-xl font-black tracking-tight">
+                <span className="gradient-text-primary">Next</span>
+                <span className="text-[var(--text)]"> Trend</span>
+                <span className="gradient-text-secondary">.</span>
+              </span>
+            ) : null}
           </Link>
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link, i) => (
+            {(navSettings.links || defaultNavLinks).map((link, i) => (
               <NavLink
                 key={link.name + i}
                 to={link.path}
@@ -89,64 +147,57 @@ const Navbar = () => {
           </div>
 
           {/* Right Icons */}
-          <div className="flex items-center gap-4">
-            {user?.isAdmin ? (
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={toggleTheme}
-                  className="text-[var(--muted)] hover:text-[#B6FBFF] transition-colors duration-200"
-                  aria-label="Toggle theme"
-                >
-                  {theme === "dark" ? <FiSun size={19} /> : <FiMoon size={19} />}
-                </button>
-                <Link
-                  to="/admin/orders"
-                  className="text-yellow-400 hover:text-yellow-300 transition-colors duration-200 text-sm font-bold uppercase tracking-widest px-4 py-2 border border-yellow-400/30 rounded-full"
-                >
-                  Admin
-                </Link>
-              </div>
-            ) : (
-              <>
-                {/* Theme Toggle */}
-                <button
-                  onClick={toggleTheme}
-                  className="text-[var(--muted)] hover:text-[#B6FBFF] transition-colors duration-200 hidden sm:block"
-                  aria-label="Toggle theme"
-                >
-                  {theme === "dark" ? <FiSun size={19} /> : <FiMoon size={19} />}
-                </button>
+          {/* Right Icons */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="text-[var(--muted)] hover:text-[#B6FBFF] transition-colors duration-200 hidden sm:block p-1.5"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <FiSun size={19} /> : <FiMoon size={19} />}
+            </button>
 
-                {/* User */}
-                <Link
-                  to={user ? "/orders" : "/login"}
-                  className="text-[var(--muted)] hover:text-[#A1FFCE] transition-colors duration-200 hidden sm:block"
-                >
-                  <FiUser size={20} />
-                </Link>
-
-                {/* Cart */}
-                <Link to="/cart" className="relative">
-                  <div className="gradient-primary text-[#080808] p-2 rounded-full hover:opacity-90 transition-opacity">
-                    <FiShoppingCart size={16} />
-                  </div>
-                  {cartCount > 0 && (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 bg-[#A1FFCE] text-[#080808] text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center"
-                    >
-                      {cartCount}
-                    </motion.span>
-                  )}
-                </Link>
-              </>
+            {/* Admin Badge */}
+            {user?.isAdmin && (
+              <Link
+                to="/admin"
+                className="text-amber-400 bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 transition-all text-[10px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full"
+              >
+                Admin
+              </Link>
             )}
+
+            {/* User / Orders */}
+            <Link
+              to={user ? "/orders" : "/login"}
+              className="text-[var(--muted)] hover:text-[#A1FFCE] transition-colors duration-200 hidden sm:block p-1.5"
+              aria-label="Account"
+            >
+              <FiUser size={20} />
+            </Link>
+
+            {/* Cart */}
+            <Link to="/cart" className="relative p-1">
+              <div className="gradient-primary text-[#080808] p-2 rounded-full hover:scale-105 transition-transform shadow-md shadow-[#83A4D4]/20">
+                <FiShoppingCart size={16} />
+              </div>
+              {cartCount > 0 && (
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -top-0.5 -right-0.5 bg-[#A1FFCE] text-[#080808] text-[10px] font-black rounded-full w-4 h-4 flex items-center justify-center shadow"
+                >
+                  {cartCount}
+                </motion.span>
+              )}
+            </Link>
 
             {/* Hamburger */}
             <button
-              className="md:hidden text-[var(--muted)] hover:text-[#B6FBFF] transition-colors"
+              className="md:hidden text-[var(--muted)] hover:text-[#B6FBFF] transition-colors p-1"
               onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
             >
               <FiMenu size={22} />
             </button>
@@ -165,11 +216,23 @@ const Navbar = () => {
             className="fixed inset-0 bg-[var(--bg)] z-[60] flex flex-col overflow-y-auto"
           >
             <div className="flex justify-between items-center p-6 border-b border-[var(--border)]">
-              <span className="text-xl font-black">
-                <span className="gradient-text-primary">NEXT</span>
-                <span className="text-[var(--text)]"> TREND</span>
-                <span className="gradient-text-secondary">.</span>
-              </span>
+              <div className="flex items-center gap-2">
+                {navSettings.logoUrl && (
+                  <img
+                    src={getImageUrl(navSettings.logoUrl)}
+                    alt={navSettings.storeName}
+                    className="h-7 max-w-[100px] object-contain rounded"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                )}
+                <span className="text-xl font-black">
+                  <span className="gradient-text-primary">{firstWord}</span>
+                  {restOfName && <span className="text-[var(--text)]"> {restOfName}</span>}
+                  <span className="gradient-text-secondary">.</span>
+                </span>
+              </div>
               <button
                 onClick={() => setMenuOpen(false)}
                 className="text-[var(--muted)] hover:text-[#B6FBFF] transition-colors"
@@ -193,7 +256,7 @@ const Navbar = () => {
             </form>
 
             <div className="flex flex-col items-center gap-8 mt-14">
-              {navLinks.map((link, i) => (
+              {(navSettings.links || defaultNavLinks).map((link, i) => (
                 <motion.div
                   key={link.name + i}
                   initial={{ opacity: 0, y: 20 }}
@@ -247,7 +310,7 @@ const Navbar = () => {
                   </Link>
                   {user?.isAdmin && (
                     <Link
-                      to="/admin/orders"
+                      to="/admin"
                       onClick={() => setMenuOpen(false)}
                       className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 text-lg font-medium"
                     >
