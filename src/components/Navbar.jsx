@@ -26,6 +26,7 @@ const defaultNavLinks = [
   { name: "ABOUT US", path: "/about" },
 ];
 
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -148,17 +149,7 @@ const Navbar = () => {
           </div>
 
           {/* Right Icons */}
-          {/* Right Icons */}
-          <div className="flex items-center gap-3 sm:gap-4">
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="text-[var(--muted)] hover:text-[#B6FBFF] transition-colors duration-200 hidden sm:block p-1.5"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <FiSun size={19} /> : <FiMoon size={19} />}
-            </button>
-
+          <div className="flex items-center gap-2.5 sm:gap-4">
             {/* Admin Badge & Logout (ONLY for Admin) */}
             {user?.isAdmin && (
               <>
@@ -208,6 +199,16 @@ const Navbar = () => {
                 </Link>
               </>
             )}
+
+            {/* Theme Toggle (Right after Cart icon, visible on both Mobile & Desktop) */}
+            <button
+              onClick={toggleTheme}
+              className="text-[var(--muted)] hover:text-[#B6FBFF] transition-colors duration-200 p-1.5 flex items-center justify-center"
+              aria-label="Toggle theme"
+              title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {theme === "dark" ? <FiSun size={19} /> : <FiMoon size={19} />}
+            </button>
 
             {/* Hamburger */}
             <button
@@ -307,14 +308,7 @@ const Navbar = () => {
 
             {/* Login / Orders / Logout */}
             <div className="mt-10 pt-8 mx-6 border-t border-[var(--border)] flex flex-col items-center gap-6 pb-10">
-              {/* Theme Toggle in Mobile Menu */}
-              <button
-                onClick={toggleTheme}
-                className="flex items-center  gap-2 text-[var(--muted)] hover:text-[#B6FBFF] text-lg font-medium transition-colors"
-              >
-                {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
-                {theme === "dark" ? "Light Mode" : "Dark Mode"}
-              </button>
+              
               {user ? (
                 <>
                   {!user.isAdmin && (
@@ -337,7 +331,7 @@ const Navbar = () => {
                   )}
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-2 text-[var(--muted)] hover:text-red-400 text-lg font-medium"
+                    className="flex items-center  gap-2 text-[var(--muted)] hover:text-red-400 text-lg font-medium"
                   >
                     <FiLogOut size={20} /> Logout
                   </button>
